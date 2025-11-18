@@ -5,7 +5,17 @@
 	<groupId>com.jdc.basic</groupId>
 	<artifactId>ls01-hello-maven</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>6.0.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -17,5 +27,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>	
+	</build>
 </project>
