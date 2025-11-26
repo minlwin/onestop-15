@@ -7,9 +7,7 @@ public class TaskCreation extends TodoOperation{
 	}
 	
 	@Override
-	public void doBusiness() {
-		showTItle();
-		
+	public void doOperate() {
 		String task = IO.readln("Task Name : ");
 		taskManager.addNew(task);
 	}

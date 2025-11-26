@@ -7,9 +7,7 @@ public class ShowAllTask extends TodoOperation {
 	}
 	
 	@Override
-	public void doBusiness() {
-		showTItle();
-		
+	public void doOperate() {
 		var tasks = taskManager.getAllTask();
 		
 		for(var i = 0; i < tasks.size(); i ++) {

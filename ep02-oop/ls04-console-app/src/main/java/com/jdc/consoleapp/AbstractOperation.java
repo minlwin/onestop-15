@@ -21,7 +21,15 @@ public abstract class AbstractOperation implements Operation {
 		return this.name;
 	}
 	
-	protected void showTItle() {
+	@Override
+	public void doBusiness() {
+		showTitle();
+		doOperate();
+	}
+	
+	public abstract void doOperate();
+	
+	protected void showTitle() {
 		System.out.println("""
 				
 				%s
