@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { CourseItem } from "@/lib/dto/anonymous";
+import { CourseItem } from "@/lib/model/dto/anonymous";
 import { div } from "framer-motion/client";
 import { BookTextIcon } from "lucide-react";
 import Link from "next/link";

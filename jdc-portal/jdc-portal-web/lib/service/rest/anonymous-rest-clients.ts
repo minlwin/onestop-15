@@ -1,5 +1,5 @@
 import 'server-only'
-import { CourseItem } from '../dto/anonymous'
+import { CourseItem } from '../../model/dto/anonymous'
 
 export function getCourses(): Promise<CourseItem[]> {
     return new Promise((resolve, reject) => {

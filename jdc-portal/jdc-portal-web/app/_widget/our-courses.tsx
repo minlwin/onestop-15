@@ -1,4 +1,4 @@
-import { getCourses } from "@/lib/rest/anonymous-rest-clients";
+import { getCourses } from "@/lib/service/rest/anonymous-rest-clients";
 import CourseItemWidget from "./course-item-widget";
 
 export default async function OurCourses() {

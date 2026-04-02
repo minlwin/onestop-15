@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
 
         <div className="text-center text-gray-500 text-sm mt-6">
-          © {new Date().getFullYear()} School Management System
+          © {new Date().getFullYear()} Java Developer Class
         </div>
       </footer>
     )

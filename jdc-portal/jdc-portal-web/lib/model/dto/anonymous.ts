@@ -5,3 +5,7 @@ export type CourseItem = {
     image?: string
     hours?: number
 }
+
+export type MessageResult = {
+    message: string
+}
