@@ -3,13 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Coffee, Menu, X } from "lucide-react";
+import { CourseItem } from "@/lib/model/dto/anonymous";
 
-type Course = {
-  id: number;
-  name: string;
-};
-
-export default function AnonymousMenu({ courses }: { courses: Course[] }) {
+export default function AnonymousMenu({ courses }: { courses: CourseItem[] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
