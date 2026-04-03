@@ -11,12 +11,10 @@ import { ClassDetails } from "@/lib/model/dto/anonymous"
 import { RegistrationForm, registrationSchema } from "@/lib/model/schema/anonymous"
 import { applyRegistrationAction, findClassAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { div } from "framer-motion/client"
-import { Car, Upload, UserPlus } from "lucide-react"
+import { Upload, UserPlus } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-import { RefObject, use, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
-import { Ca } from "zod/v4/locales"
 
 export default function RegistrationPage() {
 
