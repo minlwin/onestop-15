@@ -1,5 +1,7 @@
 'use client'
 
+import HighlightInfo from "@/components/app/highlight-info"
+import Loading from "@/components/app/loading"
 import { Button } from "@/components/ui/button"
 import { ClassInfo, Course, CourseContent } from "@/lib/model/dto/anonymous"
 import { findCourseAction } from "@/lib/service/action/anonymous-action"
@@ -22,7 +24,7 @@ export default function CourseDetailsPage() {
     }, [id])
 
     if (!course) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return (
@@ -127,14 +129,8 @@ function CourseHeader({ course }: { course: Course }) {
             <p className="text-gray-600">{course.description}</p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                <div className="bg-gray-100 p-4 rounded-xl">
-                    <p className="text-sm text-gray-500">Level</p>
-                    <p className="font-semibold">{course.level}</p>
-                </div>
-                <div className="bg-gray-100 p-4 rounded-xl">
-                    <p className="text-sm text-gray-500">Hours</p>
-                    <p className="font-semibold">{course.hours} hrs</p>
-                </div>
+                <HighlightInfo label="Level" value={course.level || ''} />
+                <HighlightInfo label="Hours" value={`${course.hours} hrs`} />
             </div>
         </section>
     )

@@ -1,3 +1,6 @@
+export type MessageResult = {
+    message: string
+}
 export type CourseItem = {
     id: number
     name: string
@@ -35,6 +38,6 @@ export type ClassInfo = {
     monthlyFee: number
 }
 
-export type MessageResult = {
-    message: string
+export type ClassDetails = ClassInfo & {
+    course: CourseItem
 }

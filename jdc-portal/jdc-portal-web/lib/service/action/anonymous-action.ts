@@ -1,7 +1,7 @@
 'use server'
 
-import { Course, MessageResult } from "@/lib/model/dto/anonymous"
-import { ActivationForm, CheckRegistrationForm, SignInForm } from "@/lib/model/schema/anonymous"
+import { ClassDetails, Course, MessageResult } from "@/lib/model/dto/anonymous"
+import { ActivationForm, CheckRegistrationForm, RegistrationForm, SignInForm } from "@/lib/model/schema/anonymous"
 
 export async function activateAction(data: ActivationForm): Promise<MessageResult> {
     return {
@@ -87,5 +87,29 @@ export async function findCourseAction(id: any):Promise<Course> {
             monthlyFee: 120000,
             },            
         ]
+    }
+}
+
+export async function findClassAction(id: any):Promise<ClassDetails> {
+    return {
+        id: 1,
+        type : "Online",
+        startDate : "2026-04-15",
+        days: "Mon, Wed, Fri",
+        time: "7:00 PM - 9:00 PM",
+        months: 3,
+        registrationFee: 50000,
+        monthlyFee: 100000,
+        course: {
+            id: 1,
+            name: "Java Foundation",
+            description: "Basics of Java programming language",
+        }
+    }
+}
+
+export async function applyRegistrationAction(form: RegistrationForm): Promise<MessageResult> {
+    return {
+        message: "Your registration is still reviewing. We will send you an email. Please wait."
     }
 }
