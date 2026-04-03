@@ -7,6 +7,7 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 import { ProfileInfo } from "@/lib/model/dto/students"
 import { loadProfileAction } from "@/lib/service/action/students-action"
 import { Pencil } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 
@@ -31,8 +32,10 @@ export default function PersonalInfoComponent() {
             <CardHeader>
                 <CardTitle className="text-xl">Personal Information</CardTitle> 
                 <CardAction>
-                    <Button variant={'ghost'}>
-                        <Pencil />
+                    <Button variant={'ghost'} asChild>
+                        <Link href={'/student/profile'}>
+                            <Pencil />
+                        </Link>
                     </Button>
                 </CardAction>
             </CardHeader>

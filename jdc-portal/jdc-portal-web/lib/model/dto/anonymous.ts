@@ -1,6 +1,10 @@
 export type MessageResult = {
     message: string
 }
+
+export type DataModificationResult<T> = {
+    id: T
+}
 export type CourseItem = {
     id: number
     name: string

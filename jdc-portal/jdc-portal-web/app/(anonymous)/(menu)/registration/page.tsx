@@ -1,5 +1,6 @@
 'use client'
 
+import ClassForRegistration from "@/components/app/class-for-registration"
 import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
 import PageTitle from "@/components/app/page-title"
@@ -21,17 +22,7 @@ export default function RegistrationPage() {
     const params = useSearchParams()
     const classId = params.get('classId')
 
-    const [classInfo, setClassInfo] = useState<ClassDetails>()
-
-    useEffect(() => {
-        const fetchClass = async () => {
-            const response = await findClassAction(classId)
-            setClassInfo(response)
-        }
-        fetchClass()
-    }, [classId])
-
-    if (!classInfo || !classId) {
+    if(!classId) {
         return <Loading />
     }
 
@@ -39,52 +30,13 @@ export default function RegistrationPage() {
         <main className="space-y-4">
             <PageTitle title="Student Registration" />
             <section className="flex gap-8 flex-col md:flex-row">
-                <ClassInfoComponent info={classInfo}  className="flex-1"/>
+                <ClassForRegistration classId={classId}  className="flex-1"/>
                 <RegistrationFormComponent classId={classId} className="flex-1" />
             </section>
         </main>
     )
 }
 
-function ClassInfoComponent({info, className} : {info: ClassDetails, className?: string}) {
-    
-    // Date (YYYY-MM-DD) to Momth with MMM (Like July)
-    const startMonth  = new Date(info.startDate).toLocaleString('default', { month: 'long' })
-    
-    return (
-        <div className={className}>
-            <Card className={className}>
-                <CardHeader>
-                    <CardTitle>{info.course.name} - {startMonth} Intake</CardTitle>
-                    <CardDescription>{info.course.description}</CardDescription>
-                    <CardAction>
-                        <Badge>{info.type}</Badge>
-                    </CardAction>
-                </CardHeader>
-
-                <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <HighlightInfo label="Start Date" value={info.startDate || ''} />
-                        <HighlightInfo label="Days" value={info.days || ''} />
-                        <HighlightInfo label="Time" value={info.time || ''} />
-                    </div>
-
-                    <CardTitle className="mt-4 mb-2">Fees Information</CardTitle>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <HighlightInfo label="Registration Fee" value={`${info.registrationFee} MMK`} />
-                        <HighlightInfo label="Monthly Fee" value={`${info.monthlyFee} MMK`} />
-                    </div>
-
-                    <CardTitle className="mt-4 mb-2">Duration</CardTitle>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <HighlightInfo label="Months" value={`${info.months}`} />
-                    </div>
-                </CardContent>
-            </Card>
-
-        </div>
-    )
-}
 
 function RegistrationFormComponent({classId, className} : {classId: string, className?: string}) {
 

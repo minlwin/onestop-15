@@ -1,3 +1,4 @@
+import { IMAGES } from '@/lib/utils'
 import z from 'zod'
 
 export const signInSchema = z.object({
@@ -24,7 +25,6 @@ export const activationSchema = z.object({
 
 export type ActivationForm = z.infer<typeof activationSchema>
 
-const IMAGES = ["image/png", "image/jpeg", "image/jpg"]
 
 export const registrationSchema = z.object({
     classId: z.string().nonempty("Please select a class"),

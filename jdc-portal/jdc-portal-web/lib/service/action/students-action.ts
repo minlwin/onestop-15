@@ -1,4 +1,6 @@
+import { DataModificationResult, MessageResult } from "@/lib/model/dto/anonymous"
 import { ClassItem, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
+import { JoinClassForm } from "@/lib/model/schema/students"
 
 export async function loadProfileAction(): Promise<ProfileInfo> {
     return {
@@ -77,4 +79,10 @@ export async function loadPaymentHistoryAction(): Promise<PaymentItem[]> {
             particular: "Monthly Fee"
         }
     ]
+}
+
+export async function joinClassAction(form: JoinClassForm) : Promise<DataModificationResult<string>> {
+    return {
+        id: "C002-1234"
+    }
 }

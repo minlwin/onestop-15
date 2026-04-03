@@ -82,20 +82,22 @@ function PaymentItemWidget({ item }: { item: PaymentItem }) {
                 <CardTitle className="text-xl font-semibold">{item.className}</CardTitle>
                 <CardDescription>{item.particular}</CardDescription>
                 <CardAction>
-                    <Badge>{item.status}</Badge>
+                    <Badge variant={'outline'}>{item.status}</Badge>
                 </CardAction>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
                 <p>{item.amount.toLocaleString()} MMK</p>
+
+                <div className="flex justify-end">
+                    <Button asChild>
+                        <Link href={'/'}>
+                            <ArrowRight/>
+                            Show Details
+                        </Link>
+                    </Button>
+                </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
-                <Button asChild>
-                    <Link href={'/'}>
-                        <ArrowRight/>
-                        Show Details
-                    </Link>
-                </Button>
-            </CardFooter>
+
         </Card>
     )
 }
