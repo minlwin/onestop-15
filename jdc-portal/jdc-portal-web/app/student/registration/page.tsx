@@ -27,8 +27,12 @@ export default function RegistrationPage() {
             <PageTitle title="Enroll Class" />
 
             <div className="flex gap-8 flex-col md:flex-row">
-                <ClassForRegistration classId={classId} className="flex-1" />
-                <RegistrationFormComponent classId={classId} className="flex-1" />
+                <div className="flex-1">
+                    <ClassForRegistration classId={classId} />
+                </div>
+                <div className="flex-1">
+                    <RegistrationFormComponent classId={classId} />
+                </div>
             </div>
         </section>
     )
