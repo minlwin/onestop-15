@@ -1,20 +1,17 @@
 'use client'
 
 import ClassForRegistration from "@/components/app/class-for-registration"
-import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
 import PageTitle from "@/components/app/page-title"
 import FormsInput from "@/components/forms/forms-input"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ClassDetails } from "@/lib/model/dto/anonymous"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { RegistrationForm, registrationSchema } from "@/lib/model/schema/anonymous"
-import { applyRegistrationAction, findClassAction } from "@/lib/service/action/anonymous-action"
+import { applyRegistrationAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Upload, UserPlus } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 
 export default function RegistrationPage() {
@@ -30,8 +27,12 @@ export default function RegistrationPage() {
         <main className="space-y-4">
             <PageTitle title="Student Registration" />
             <section className="flex gap-8 flex-col md:flex-row">
-                <ClassForRegistration classId={classId}  className="flex-1"/>
-                <RegistrationFormComponent classId={classId} className="flex-1" />
+                <div className="flex-1">
+                    <ClassForRegistration classId={classId} />
+                </div>
+                <div className="flex-1">
+                    <RegistrationFormComponent classId={classId} />
+                </div>
             </section>
         </main>
     )

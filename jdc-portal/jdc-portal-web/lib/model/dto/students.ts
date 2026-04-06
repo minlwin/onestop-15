@@ -23,3 +23,21 @@ export type PaymentItem = {
     status: 'Un Paid' | 'Pending' | 'Completed'
     particular: 'Registration Fee' | 'Monthly Fee'
 }
+
+export type AttendClassSummary = {
+    attended : number
+    late : number
+    earlyOut: number
+    leave: number
+    absent: number
+    needToPaid : boolean
+    certified : boolean
+}
+
+export type AttendanceItem = {
+    date: string
+    checkIn: string
+    checkOut: string
+    status: 'Present' | 'Absent' | 'Late' | 'Early Out' | 'Leave'
+    remarks?: string
+}

@@ -1,5 +1,5 @@
 import { DataModificationResult, MessageResult } from "@/lib/model/dto/anonymous"
-import { ClassItem, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
+import { AttendanceItem, AttendClassSummary, ClassItem, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
 import { JoinClassForm } from "@/lib/model/schema/students"
 
 export async function loadProfileAction(): Promise<ProfileInfo> {
@@ -85,4 +85,64 @@ export async function joinClassAction(form: JoinClassForm) : Promise<DataModific
     return {
         id: "C002-1234"
     }
+}
+
+export async function fetchAttendClassSummary(classId: any): Promise<AttendClassSummary> {
+    return {
+        attended: 10,
+        late: 2,
+        earlyOut: 1,
+        leave: 3,
+        absent: 0,
+        needToPaid: true,
+        certified: false
+    }
+}
+
+export async function fetchPaymentsForClass(classId: any): Promise<PaymentItem[]> {
+    return [
+        {
+            id: "1",
+            classId: 1,
+            className: "Java Basic (2026-04-15)",
+            paymentDate: "2026-04-15",
+            amount: 50000,
+            paymentType: "In Hand",
+            status: "Completed",
+            particular: "Registration Fee"
+        },
+        {
+            id: "2",
+            classId: 1,
+            className: "Java Basic (2026-04-15)",
+            paymentDate: "2026-04-15",
+            amount: 100000,
+            paymentType: "In Hand",
+            status: "Completed",
+            particular: "Monthly Fee"
+        }
+    ]
+}
+
+export async function featchAttendanceForClass(classId: any) : Promise<AttendanceItem[]> {
+    return [
+        {
+            date: "2026-04-15",
+            checkIn: "10:00",
+            checkOut: "12:00",
+            status: "Present"
+        },
+        {
+            date: "2026-04-16",
+            checkIn: "10:00",
+            checkOut: "12:00",
+            status: "Present"
+        },
+        {
+            date: "2026-04-17",
+            checkIn: "10:00",
+            checkOut: "12:00",
+            status: "Present"
+        }
+    ]
 }

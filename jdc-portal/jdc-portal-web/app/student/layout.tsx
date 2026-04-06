@@ -6,10 +6,12 @@ export default function StudentLayout({children} : {children : React.ReactNode})
     return (
         <div className="h-screen">
             <StudentMenu />
-            <main className="px-4 py-4 md:px-32">
+            <main className="px-4 py-4 md:px-32 h-full">
                 {children}
             </main>
-            <Footer />
+            <div className="hidden md:block">
+                <Footer />
+            </div>
         </div>
     )
 }
