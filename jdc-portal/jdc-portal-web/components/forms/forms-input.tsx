@@ -21,12 +21,26 @@ export default function FormsInput<T extends FieldValues>({
     type
 } : FormsInputProps<T>) {
     return (
-        <Controller control={control} name={name} render={({field, fieldState}) => 
-          <Field className={className}>
-            <FieldLabel>{label}</FieldLabel>
-            <Input {...field} placeholder={placeholder || `Enter ${label}.`} type={type} />
-            {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
-          </Field>
-        } />
+        <Controller control={control} name={name} render={({field, fieldState}) => {
+
+            const {onChange, ... restField} = field
+
+            return (
+                <Field className={className}>
+                    <FieldLabel>{label}</FieldLabel>
+                    <Input {...restField} placeholder={placeholder || `Enter ${label}.`} type={type} onChange={(e) => {
+                        if(type == 'number') {
+                            const value = Number(e.target.value)
+                            if (!isNaN(value)) {
+                                onChange(value)
+                            }
+                        } else {
+                            onChange(e.target.value)
+                        }
+                    }}/>
+                    {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
+                </Field>
+            )
+        }} />
     )
 }

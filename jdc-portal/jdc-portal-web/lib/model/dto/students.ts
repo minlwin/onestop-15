@@ -20,8 +20,12 @@ export type PaymentItem = {
     paymentDate: string
     amount: number
     paymentType: 'In Hand' | 'KPay' | 'Wave Pay' | 'AYA Pay'
-    status: 'Un Paid' | 'Pending' | 'Completed'
+    status: 'Un Paid' | 'Pending' | 'Paid'
     particular: 'Registration Fee' | 'Monthly Fee'
+}
+
+export type PaymentDetails = PaymentItem & {
+    slip: string
 }
 
 export type AttendClassSummary = {

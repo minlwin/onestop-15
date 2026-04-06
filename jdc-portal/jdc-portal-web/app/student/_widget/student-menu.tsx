@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Home, LogOut } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export function StudentMenu() {
@@ -15,10 +16,10 @@ export function StudentMenu() {
     return (
         <div className="bg-white shadow">
             <nav className="px-4 md:px-32 py-4 flex justify-between">
-                <h1 className="flex items-center gap-2">
+                <Link href="/student" className="flex items-center gap-2">
                     <Home />
                     <span className="text-2xl">JDC Student Portal</span> 
-                </h1>
+                </Link>
 
                 <Button type="button" onClick={onLogout}>
                     <LogOut /> Logout

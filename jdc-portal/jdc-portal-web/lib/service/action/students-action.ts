@@ -1,148 +1,44 @@
 import { DataModificationResult, MessageResult } from "@/lib/model/dto/anonymous"
-import { AttendanceItem, AttendClassSummary, ClassItem, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
-import { JoinClassForm } from "@/lib/model/schema/students"
+import { AttendanceItem, AttendClassSummary, ClassItem, PaymentDetails, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
+import { PaymentForm } from "@/lib/model/schema/students"
+
+import * as profileApi from "../rest/student/profile-rest-client"
+import * as attendanceApi from "../rest/student/attendance-rest-client"
+import * as classApi from "../rest/student/class-rest-client"
+import * as paymentApi from '../rest/student/pament-rest-client'
 
 export async function loadProfileAction(): Promise<ProfileInfo> {
-    return {
-        id: 1,
-        name: "John Doe",
-        email: "0qVhM@example.com",
-        phone: "0123456789"
-    }
+    return await profileApi.getProfile()
 }
 
 export async function loadClassesAction(): Promise<ClassItem[]> {
-    return [
-        {
-            id: 1,
-            type: "Online",
-            course: "Java Basic",
-            startDate: "2026-04-15",
-            discription: "Foundation course of Java Programming Language."
-        },
-        {
-            id: 2,
-            type: "Offline",
-            course: "Full Stack Spring",
-            startDate: "2026-04-15",
-            discription: "Spring framework and React framework"
-        }
-    ]
+    return await classApi.findMyClasses()
 }
 
 export async function loadAvailableClassesAction(): Promise<ClassItem[]> {
-    return [
-        {
-            id: 1,
-            type: "Online",
-            course: "Java Basic",
-            startDate: "2026-04-15",
-            discription: "Foundation course of Java Programming Language."
-        },
-        {
-            id: 2,
-            type: "On Campus",
-            course: "Full Stack Spring",
-            startDate: "2026-04-15",
-            discription: "Spring framework and React framework"
-        },
-        {
-            id: 3,
-            type: "Online",
-            course: "Python Basic",
-            startDate: "2026-04-15",
-            discription: "Foundation course of Python Programming Language."
-        }
-    ]
-}
-
-export async function loadPaymentHistoryAction(): Promise<PaymentItem[]> {
-    return [
-        {
-            id: "1",
-            classId: 1,
-            className: "Java Basic (2026-04-15)",
-            paymentDate: "2026-04-15",
-            amount: 50000,
-            paymentType: "In Hand",
-            status: "Completed",
-            particular: "Registration Fee"
-        },
-        {
-            id: "2",
-            classId: 1,
-            className: "Java Basic (2026-04-15)",
-            paymentDate: "2026-04-15",
-            amount: 100000,
-            paymentType: "In Hand",
-            status: "Completed",
-            particular: "Monthly Fee"
-        }
-    ]
-}
-
-export async function joinClassAction(form: JoinClassForm) : Promise<DataModificationResult<string>> {
-    return {
-        id: "C002-1234"
-    }
+    return await classApi.findAvailableClasses()
 }
 
 export async function fetchAttendClassSummary(classId: any): Promise<AttendClassSummary> {
-    return {
-        attended: 10,
-        late: 2,
-        earlyOut: 1,
-        leave: 3,
-        absent: 0,
-        needToPaid: true,
-        certified: false
-    }
-}
-
-export async function fetchPaymentsForClass(classId: any): Promise<PaymentItem[]> {
-    return [
-        {
-            id: "1",
-            classId: 1,
-            className: "Java Basic (2026-04-15)",
-            paymentDate: "2026-04-15",
-            amount: 50000,
-            paymentType: "In Hand",
-            status: "Completed",
-            particular: "Registration Fee"
-        },
-        {
-            id: "2",
-            classId: 1,
-            className: "Java Basic (2026-04-15)",
-            paymentDate: "2026-04-15",
-            amount: 100000,
-            paymentType: "In Hand",
-            status: "Completed",
-            particular: "Monthly Fee"
-        }
-    ]
+    return await classApi.findSummary(classId)
 }
 
 export async function featchAttendanceForClass(classId: any) : Promise<AttendanceItem[]> {
-    return [
-        {
-            date: "2026-04-15",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        },
-        {
-            date: "2026-04-16",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        },
-        {
-            date: "2026-04-17",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        }
-    ]
+    return await attendanceApi.search(classId)
+}
+
+export async function loadPaymentHistoryAction(): Promise<PaymentItem[]> {
+    return await paymentApi.search({})
+}
+
+export async function fetchPaymentsForClass(classId: any): Promise<PaymentItem[]> {
+    return await paymentApi.search({classId: classId})
+}
+
+export async function paidAction(form: PaymentForm) : Promise<DataModificationResult<string>> {
+    return await paymentApi.paid(form)
+}
+
+export async function getPaymentDetails(id : string) : Promise<PaymentDetails> {
+    return await paymentApi.findById(id)
 }

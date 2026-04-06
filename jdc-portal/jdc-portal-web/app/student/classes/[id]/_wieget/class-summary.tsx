@@ -9,7 +9,8 @@ import { ClassDetails } from "@/lib/model/dto/anonymous"
 import { AttendClassSummary } from "@/lib/model/dto/students"
 import { findClassAction } from "@/lib/service/action/anonymous-action"
 import { fetchAttendClassSummary } from "@/lib/service/action/students-action"
-import { BadgeCheck } from "lucide-react"
+import { BadgeCheck, Calendar } from "lucide-react"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 
 export default function StudentClassSummary({classId} : {classId: string | string []}) {
@@ -39,9 +40,22 @@ export default function StudentClassSummary({classId} : {classId: string | strin
                     <PageTitle title={`${classInfo.course.name} (${classInfo.type})`} />
                     <span className="font-medium text-gray-700">{classInfo.startDate} Intake</span>
                 </div>
-                <Button>
-                    <BadgeCheck /> Download Certificate
-                </Button>
+
+                <div>
+                    {summary.needToPaid && (
+                        <Button asChild>
+                            <Link href={`/student/payments/create?classId=${classId}`}>
+                                <Calendar /> Paid Monthly Fee
+                            </Link>
+                        </Button>
+                    )}
+
+                    {summary.certified && (
+                        <Button>
+                            <BadgeCheck /> Download Certificate
+                        </Button>
+                    )}
+                </div>
             </header>
 
             <div className="block md:hidden">

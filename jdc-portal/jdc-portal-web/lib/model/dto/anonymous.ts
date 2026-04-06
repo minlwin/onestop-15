@@ -5,6 +5,15 @@ export type MessageResult = {
 export type DataModificationResult<T> = {
     id: T
 }
+
+export type AuthResult = {
+    email: string
+    name : string
+    role : 'Student' | 'Office' | 'Admin'
+    accessToken: string
+    refreshToken: string
+}
+
 export type CourseItem = {
     id: number
     name: string
@@ -14,7 +23,7 @@ export type CourseItem = {
     hours?: number
 }
 
-export type Course = {
+export type CourseDetails = {
     id: number
     name: string
     level?: string
@@ -44,4 +53,11 @@ export type ClassInfo = {
 
 export type ClassDetails = ClassInfo & {
     course: CourseItem
+}
+
+export type PaymentInfo = {
+    code : string
+    name : string
+    accountNumber : string
+    accountName : string
 }

@@ -1,8 +1,11 @@
 import { IMAGES } from "@/lib/utils";
 import z from "zod";
 
-export const joinClassSchema = z.object({
+export const paymentSchema = z.object({
     classId: z.string().nonempty("Please select a class"),
+    feeType: z.string().nonempty("Please select a fee type"),
+    amount: z.number(),
+    payment: z.string().nonempty("Please select a payment type"),
     paymentSlip: z.any()
         .refine(files => files?.length > 0, {
             message: "Please upload your payment slip",
@@ -14,4 +17,4 @@ export const joinClassSchema = z.object({
         })    
 })
 
-export type JoinClassForm = z.infer<typeof joinClassSchema>
+export type PaymentForm = z.infer<typeof paymentSchema>

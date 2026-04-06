@@ -4,7 +4,7 @@ import { StudentMenu } from "./_widget/student-menu";
 
 export default function StudentLayout({children} : {children : React.ReactNode}) {
     return (
-        <div className="h-screen">
+        <div>
             <StudentMenu />
             <main className="px-4 py-4 md:px-32 h-full">
                 {children}

@@ -1,17 +1,20 @@
 'use client'
 
-import ClassForRegistration from "@/components/app/class-for-registration"
+import ClassInformationComponent from "@/components/app/class-information"
 import Loading from "@/components/app/loading"
 import PageTitle from "@/components/app/page-title"
+import PaySlip from "@/components/app/pay-slip"
 import FormsInput from "@/components/forms/forms-input"
+import FormsSelect from "@/components/forms/forms-select"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { PaymentInfo } from "@/lib/model/dto/anonymous"
 import { RegistrationForm, registrationSchema } from "@/lib/model/schema/anonymous"
-import { applyRegistrationAction } from "@/lib/service/action/anonymous-action"
+import { applyRegistrationAction, fetchPaymentInfoAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Upload, UserPlus } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 
 export default function RegistrationPage() {
@@ -28,7 +31,7 @@ export default function RegistrationPage() {
             <PageTitle title="Student Registration" />
             <section className="flex gap-8 flex-col md:flex-row">
                 <div className="flex-1">
-                    <ClassForRegistration classId={classId} />
+                    <ClassInformationComponent classId={classId} />
                 </div>
                 <div className="flex-1">
                     <RegistrationFormComponent classId={classId} />
@@ -42,6 +45,17 @@ export default function RegistrationPage() {
 function RegistrationFormComponent({classId, className} : {classId: string, className?: string}) {
 
     const [result, setResult] = useState<string>()
+    const [paymentInfos, setPaymentInfos] = useState<PaymentInfo[]>([])
+    const paymentOption = paymentInfos.map(a => ({label : `${a.name} : ${a.accountNumber} - ${a.accountName}`, value : a.code}))
+    paymentOption.unshift({label : 'Select Payment', value : ''})
+
+    useEffect(() => {
+        const loadData = async () => {
+            const result = await fetchPaymentInfoAction()
+            setPaymentInfos(result)
+        }
+        loadData()
+    }, [])
 
     const form = useForm<RegistrationForm>({
         resolver: zodResolver(registrationSchema),
@@ -50,6 +64,7 @@ function RegistrationFormComponent({classId, className} : {classId: string, clas
             name: '',
             email: '',
             phone: '',
+            payment: '',
             paymentSlip: undefined
         }
     })
@@ -100,11 +115,10 @@ function RegistrationFormComponent({classId, className} : {classId: string, clas
                     <FormsInput control={form.control} name="name" type="text" label="Name" />
                     <FormsInput control={form.control} name="phone" type="text" label="Phone Number" />
                     <FormsInput control={form.control} name="email" type="email" label="Email Address" />
+                    <FormsSelect control={form.control} name="payment" label="Payment Account" options={paymentOption} />
                     
                     {files && files[0] && 
-                        <div className="sm:w-full md:w-1/2">
-                            <img src={URL.createObjectURL(files[0])} alt="payment-slip" />
-                        </div>
+                        <PaySlip file={files[0]} />
                     }
 
                     <div>
@@ -112,9 +126,11 @@ function RegistrationFormComponent({classId, className} : {classId: string, clas
                             <Upload /> Upload Payment Slip
                         </Button>
 
-                        <Button type="submit" disabled={!form.formState.isValid}>
-                            <UserPlus /> Register
-                        </Button>
+                        {form.formState.isValid &&
+                            <Button type="submit">
+                                <UserPlus /> Register
+                            </Button>
+                        }
                     </div>
                 </form>
             </CardContent>

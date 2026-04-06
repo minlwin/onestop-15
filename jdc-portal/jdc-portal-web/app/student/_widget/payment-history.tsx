@@ -51,7 +51,7 @@ export default function PaymentHistoryComponent() {
                                 <TableCell className="text-end">{item.amount.toLocaleString()}</TableCell>
                                 <TableCell className="text-center">
                                     <Button asChild variant={'ghost'}>
-                                        <Link href={'/'}>
+                                        <Link href={`/student/payments/${item.id}/details`}>
                                             <ArrowRight/>
                                         </Link>
                                     </Button>
