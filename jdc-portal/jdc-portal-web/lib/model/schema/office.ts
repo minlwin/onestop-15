@@ -21,3 +21,20 @@ export type ClassSearch = {
     startTo? : string
     keyword? : string
 } & PageSearch
+
+export type RegistrationSearch = {
+    classType? : string
+    dateFrom? : string
+    dateTo? : string
+    keyword? : string
+} & PageSearch
+
+export type PaymentSearch = {
+    classType? : string
+    feeType? : string
+    paymentType? : string
+    status? : string
+    dateFrom? : string
+    dateTo? : string
+    keyword? : string
+} & PageSearch

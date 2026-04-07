@@ -1,6 +1,8 @@
 package com.jdc.portal.dto.consts;
 
-public enum AttendanceStatus {
+import com.jdc.portal.OptionWrapper;
+
+public enum AttendanceStatus implements OptionWrapper{
 	Attend, Absent, Leave, Late, EarlyOut {
 		@Override
 		public String getDisplayName() {
@@ -9,6 +11,16 @@ public enum AttendanceStatus {
 	};
 	
 	public String getDisplayName() {
+		return name();
+	}
+
+	@Override
+	public String getLabel() {
+		return getDisplayName();
+	}
+
+	@Override
+	public String getValue() {
 		return name();
 	}
 }

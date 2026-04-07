@@ -2,8 +2,8 @@ package com.jdc.portal.dto.consts;
 
 import com.jdc.portal.OptionWrapper;
 
-public enum PaymentStatus implements OptionWrapper{
-	Pendind, Paid, Retry;
+public enum Position implements OptionWrapper{
+	Staff, Teacher;
 
 	@Override
 	public String getLabel() {
@@ -14,4 +14,5 @@ public enum PaymentStatus implements OptionWrapper{
 	public String getValue() {
 		return name();
 	}
+
 }

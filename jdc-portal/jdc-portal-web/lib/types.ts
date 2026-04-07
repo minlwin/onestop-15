@@ -32,3 +32,4 @@ export type DataModificationResult<T> = {
     id: T
 }
 
+export type SelectOption = { value: string; label: string }

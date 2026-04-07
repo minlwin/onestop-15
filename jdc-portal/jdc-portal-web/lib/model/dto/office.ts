@@ -1,12 +1,7 @@
-export type PositionItem = {
-    code : string
-    name : string
-}
-
 export type EmployeeItem = {
     id: number
     name: string
-    position: PositionItem 
+    position: string 
     phone: string
     email: string
     entryAt: string
@@ -28,4 +23,30 @@ export type ClassItem = {
     courseLevel: string
     startDate: string
     months: number
+}
+
+export type RegistrationItem = {
+    id: number
+    course: string
+    startDate: string
+    classType: string
+    studentName: string
+    email: string
+    phone: string
+    status: 'Applied' | 'Approved' | 'Canceled'
+    registerAt: string
+}
+
+export type PaymentItem = {
+    id: number
+    course: string
+    startDate: string
+    classType: string
+    studentName: string
+    email: string
+    phone: string
+    paymentDate: string
+    paymentType: 'Office' | 'KBZ Pay' | 'Wave Pay' | 'AYA Pay'
+    status: 'Pending' | 'Paid' | 'Retry'
+    particular: 'Registration Fee' | 'Monthly Fee'
 }

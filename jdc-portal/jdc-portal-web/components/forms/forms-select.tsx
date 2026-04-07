@@ -1,13 +1,16 @@
+'use client';
+
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { Field, FieldLabel, FieldError } from "../ui/field";
 import { NativeSelect } from "../ui/native-select";
+import { SelectOption } from "@/lib/types";
 
 type FormsSelectProps<T extends FieldValues> = {
     control: Control<T>;
     name: Path<T>;
     label: string;
     className?: string;
-    options: { value: string; label: string }[];
+    options: SelectOption[];
 }
 
 export default function FormsSelect<T extends FieldValues>({
@@ -22,8 +25,8 @@ export default function FormsSelect<T extends FieldValues>({
           <Field className={className}>
             <FieldLabel>{label}</FieldLabel>
             <NativeSelect {...field} >
-                {options.map((option) => (
-                    <option key={option.value} value={option.value}>
+                {options.map((option, index) => (
+                    <option key={index} value={option.value}>
                         {option.label}
                     </option>
                 ))}

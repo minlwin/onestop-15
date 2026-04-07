@@ -1,23 +1,16 @@
 'use server'
 
-import { ClassInfo, CourseItem } from "@/lib/model/dto/anonymous";
-import { ClassItem, EmployeeItem, PositionItem, StudentItem } from "@/lib/model/dto/office";
-import { ClassSearch, CourseSearch, EmployeeSearch, StudentSearch } from "@/lib/model/schema/office";
+import {  CourseItem } from "@/lib/model/dto/anonymous";
+import { ClassItem, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
+import { ClassSearch, CourseSearch, EmployeeSearch, PaymentSearch, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
 import { PAGEINFO, PageResult } from "@/lib/types";
-
-export async function loadPositions():Promise<PositionItem[]> {
-    return [
-        {code : "Office", name : "Office"},
-        {code : "Teacher", name : "Teacher"},
-    ]
-}
 
 export async function searchEmployee(form: EmployeeSearch):Promise<EmployeeItem[]> {
     return [
         {
             id: 1,
             name: "John Doe",
-            position: {code : "Office", name : "Office"},
+            position: "Office",
             phone: "0123456789",
             email: "0qVhM@example.com",
             entryAt: "2023-01-01",
@@ -25,7 +18,7 @@ export async function searchEmployee(form: EmployeeSearch):Promise<EmployeeItem[
         {
             id: 2,
             name: "Jane Smith",
-            position: {code : "Teacher", name : "Teacher"},
+            position: "Teacher",
             phone: "0987654321",
             email: "rGv0k@example.com",
             entryAt: "2023-01-01",            
@@ -33,7 +26,7 @@ export async function searchEmployee(form: EmployeeSearch):Promise<EmployeeItem[
         {
             id: 3,
             name: "Bob Johnson",
-            position: {code : "Office", name : "Office"},
+            position: "Office",
             phone: "0123456789",
             email: "bob@example.com",
             entryAt: "2023-01-01",
@@ -140,6 +133,94 @@ export async function searchClasses(form:ClassSearch) : Promise<PageResult<Class
                 courseLevel: "A",
                 startDate: "2023-01-01",
                 months: 3
+            }
+        ]
+    }
+}
+
+export async function searchPayments(form:PaymentSearch) : Promise<PageResult<PaymentItem>> {
+    return {
+        ...PAGEINFO,
+        list: [
+            {
+                id: 1,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                paymentDate: "2023-01-01",
+                paymentType: "Office",
+                status: "Paid",
+                particular: "Registration Fee"
+            },
+            {
+                id: 2,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                paymentDate: "2023-01-01",
+                paymentType: "Office",
+                status: "Paid",
+                particular: "Monthly Fee"
+            },
+            {
+                id: 3,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                paymentDate: "2023-01-01",
+                paymentType: "Office",
+                status: "Paid",
+                particular: "Registration Fee"
+            }
+        ]
+    }
+}
+
+export async function searchRegistration(form:RegistrationSearch) : Promise<PageResult<RegistrationItem>> {
+    return {
+        ...PAGEINFO,
+        list: [
+            {
+                id: 1,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                status: "Approved",
+                registerAt: "2023-01-01"
+            },
+            {
+                id: 2,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                status: "Approved",
+                registerAt: "2023-01-01"
+            },
+            {
+                id: 3,
+                course: "Math",
+                startDate: "2023-01-01",
+                classType: "Online",
+                studentName: "John Doe",
+                email: "john@example",
+                phone: "0123456789",
+                status: "Approved",
+                registerAt: "2023-01-01"
             }
         ]
     }

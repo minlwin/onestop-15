@@ -10,20 +10,20 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { EmployeeItem, PositionItem } from "@/lib/model/dto/office";
-import { loadPositions, searchEmployee } from "@/lib/service/action/office-action";
+import { EmployeeItem } from "@/lib/model/dto/office";
+import { searchEmployee } from "@/lib/service/action/office-action";
+import { SelectOption } from "@/lib/types";
+import { getPositions } from "@/lib/service/action/constants-action";
 
 export default function StaffManagementPage() {
 
-    const [positions, setPositions] = useState<PositionItem[]>([])
+    const [positions, setPositions] = useState<SelectOption[]>([])
     const [employees, setEmployees] = useState<EmployeeItem[]>([])
-
-    const positionOptions = positions.map(a => ({label : a.name, value : a.code}))
-    positionOptions.unshift({label : "All Position", value : ""})
 
     useEffect(() => {
         const loadData = async () => {
-            const positions = await loadPositions()
+            const positions = await getPositions()
+            positions.unshift({label : "Search All", value : ""})
             setPositions(positions)
 
             const employees = await searchEmployee({})
@@ -47,7 +47,7 @@ export default function StaffManagementPage() {
             {/* Search Form */}
             <form onSubmit={form.handleSubmit(onSearch)} className="flex gap-4 items-end">
                 <div className="w-1/5">
-                    <FormsSelect label="Position" control={form.control} name="position" options={positionOptions} />
+                    <FormsSelect label="Position" control={form.control} name="position" options={positions} />
                 </div>
                 <div className="w-1/4">
                     <FormsInput label="Keyword" control={form.control} name="keyword" />
@@ -84,7 +84,7 @@ export default function StaffManagementPage() {
                     {employees.map(employee => (
                         <TableRow key={employee.id}>
                             <TableCell>{employee.name}</TableCell>
-                            <TableCell>{employee.position.name}</TableCell>
+                            <TableCell>{employee.position}</TableCell>
                             <TableCell>{employee.phone}</TableCell>
                             <TableCell>{employee.email}</TableCell>
                             <TableCell>{employee.entryAt}</TableCell>

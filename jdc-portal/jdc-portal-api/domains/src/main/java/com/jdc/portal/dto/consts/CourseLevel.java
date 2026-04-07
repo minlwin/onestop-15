@@ -1,5 +1,17 @@
 package com.jdc.portal.dto.consts;
 
-public enum CourseLevel {
-	Beginner, Intermediate, Advance, All
+import com.jdc.portal.OptionWrapper;
+
+public enum CourseLevel implements OptionWrapper{
+	Beginner, Intermediate, Advance, All;
+
+	@Override
+	public String getLabel() {
+		return name();
+	}
+
+	@Override
+	public String getValue() {
+		return name();
+	}
 }

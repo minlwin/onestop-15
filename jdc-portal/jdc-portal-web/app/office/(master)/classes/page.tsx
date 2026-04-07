@@ -4,25 +4,24 @@ import OfficePageDecorator from "../../_widgets/office-page-decorate";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ClassSearch } from "@/lib/model/schema/office";
-import { Pager } from "@/lib/types";
+import { Pager, SelectOption } from "@/lib/types";
 import { searchClasses } from "@/lib/service/action/office-action";
 import PaginationComponent from "@/components/app/pagination";
 import FormsSelect from "@/components/forms/forms-select";
-import { option } from "@/lib/utils";
 import FormsInput from "@/components/forms/forms-input";
 import { Button } from "@/components/ui/button";
 import { Search, Plus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getClassTypes } from "@/lib/service/action/constants-action";
 
 export default function ClassManagementPage() {
 
-    const [types, setTypes] = useState<string[]>([])
+    const [types, setTypes] = useState<SelectOption[]>([])
     const [classes, setClasses] = useState<ClassItem[]>([])
     const [pageInfo, setPageInfo] = useState<Pager>()
-
-    const typeOptions = option(types)
-    typeOptions.unshift({value: "", label: "Search All"})
+    
+    types.unshift({value: "", label: "Search All"})
 
     const form = useForm<ClassSearch>({defaultValues : {
         keyword: "",
@@ -33,6 +32,8 @@ export default function ClassManagementPage() {
 
     useEffect(() => {
         const loadData = async () => {
+            const types = await getClassTypes()
+            setTypes(types)
             const {list, ...pageInfo} = await searchClasses({})
             setClasses(list)
             setPageInfo(pageInfo)
@@ -57,7 +58,7 @@ export default function ClassManagementPage() {
         <OfficePageDecorator name="Class Management">
             <form onSubmit={form.handleSubmit(onSearch)} className="flex gap-4 items-end">
                 <div className="w-1/6">
-                    <FormsSelect control={form.control} name="type" label="Class Type" options={typeOptions} />
+                    <FormsSelect control={form.control} name="type" label="Class Type" options={types} />
                 </div>
                 <div className="">
                     <FormsInput control={form.control} name="startFrom" label="Start From" type="date" />

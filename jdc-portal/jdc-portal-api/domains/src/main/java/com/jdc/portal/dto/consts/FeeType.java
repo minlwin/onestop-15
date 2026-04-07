@@ -1,5 +1,17 @@
 package com.jdc.portal.dto.consts;
 
-public enum FeeType {
-	Registration, Monthly, Total
+import com.jdc.portal.OptionWrapper;
+
+public enum FeeType implements OptionWrapper{
+	Registration, Monthly, Total;
+
+	@Override
+	public String getLabel() {
+		return name();
+	}
+
+	@Override
+	public String getValue() {
+		return name();
+	}
 }

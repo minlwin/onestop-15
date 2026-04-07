@@ -1,5 +1,17 @@
 package com.jdc.portal.dto.consts;
 
-public enum Role {
-	Student, Office, Admin
+import com.jdc.portal.OptionWrapper;
+
+public enum Role implements OptionWrapper{
+	Student, Office, Admin;
+
+	@Override
+	public String getLabel() {
+		return name();
+	}
+
+	@Override
+	public String getValue() {
+		return name();
+	}
 }
