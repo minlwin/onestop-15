@@ -1,4 +1,4 @@
-package com.jdc.portal.anonymous.output;
+package com.jdc.portal.dto;
 
 import com.jdc.portal.dto.consts.CourseLevel;
 

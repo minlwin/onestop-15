@@ -2,6 +2,8 @@ package com.jdc.portal.anonymous.output;
 
 import java.util.List;
 
+import com.jdc.portal.dto.ClassInfo;
+import com.jdc.portal.dto.CourseContent;
 import com.jdc.portal.dto.consts.CourseLevel;
 
 public record CourseDetails(		

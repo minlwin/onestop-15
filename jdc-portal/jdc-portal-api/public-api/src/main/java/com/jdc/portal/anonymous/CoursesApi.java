@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.anonymous.output.CourseDetails;
-import com.jdc.portal.anonymous.output.CourseItem;
+import com.jdc.portal.dto.CourseItem;
 
 @RestController
 @RequestMapping("/anonymous/courses")

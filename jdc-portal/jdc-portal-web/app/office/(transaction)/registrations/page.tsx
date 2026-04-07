@@ -1,5 +1,9 @@
+import OfficePageDecorator from "../../_widgets/office-page-decorate";
+
 export default function RegistrationManagementPage() {
     return (
-        <>Registration Management Page</>
+        <OfficePageDecorator name="Registration Management">
+            <></>
+        </OfficePageDecorator>
     )
 }

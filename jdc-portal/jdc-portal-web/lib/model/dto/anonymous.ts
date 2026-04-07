@@ -1,11 +1,3 @@
-export type MessageResult = {
-    message: string
-}
-
-export type DataModificationResult<T> = {
-    id: T
-}
-
 export type AuthResult = {
     email: string
     name : string

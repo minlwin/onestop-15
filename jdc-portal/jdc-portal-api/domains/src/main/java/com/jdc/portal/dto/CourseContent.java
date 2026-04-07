@@ -1,4 +1,4 @@
-package com.jdc.portal.anonymous.output;
+package com.jdc.portal.dto;
 
 public record CourseContent(
 		int id,

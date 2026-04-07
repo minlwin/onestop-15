@@ -1,5 +1,9 @@
+import OfficePageDecorator from "../../_widgets/office-page-decorate";
+
 export default function ClassManagementPage() {
     return (
-        <>Class Management Page</>
+        <OfficePageDecorator name="Class Management">
+            <></>
+        </OfficePageDecorator>
     )
 }

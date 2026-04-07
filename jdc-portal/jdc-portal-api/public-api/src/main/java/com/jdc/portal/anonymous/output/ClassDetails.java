@@ -2,6 +2,7 @@ package com.jdc.portal.anonymous.output;
 
 import java.time.LocalDate;
 
+import com.jdc.portal.dto.CourseItem;
 import com.jdc.portal.dto.consts.ClassType;
 
 public record ClassDetails(
