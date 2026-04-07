@@ -1,12 +1,13 @@
 'use server'
 
-import { ClassDetails, CourseDetails, MessageResult, PaymentInfo } from "@/lib/model/dto/anonymous"
+import { ClassDetails, CourseDetails, PaymentInfo } from "@/lib/model/dto/anonymous"
 import { ActivationForm, CheckRegistrationForm, RegistrationForm, SignInForm } from "@/lib/model/schema/anonymous"
 import * as paymentInfoApi from "../rest/anonymous/payment-info-rest-client"
 import * as courseApi from "../rest/anonymous/courses-rest-client"
 import * as authApi from "../rest/anonymous/auth-rest-client"
 import * as registrationApi from "../rest/anonymous/registration-rest-client"
 import * as classApi from "../rest/anonymous/class-rest-client"
+import { MessageResult } from "@/lib/types"
 
 export async function activateAction(data: ActivationForm): Promise<MessageResult> {
     return await authApi.activate(data)

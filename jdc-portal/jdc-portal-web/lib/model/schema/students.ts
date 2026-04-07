@@ -4,7 +4,7 @@ import z from "zod";
 export const paymentSchema = z.object({
     classId: z.string().nonempty("Please select a class"),
     feeType: z.string().nonempty("Please select a fee type"),
-    amount: z.number(),
+    amount: z.number().nonnegative("Please enter a valid amount"),
     payment: z.string().nonempty("Please select a payment type"),
     paymentSlip: z.any()
         .refine(files => files?.length > 0, {

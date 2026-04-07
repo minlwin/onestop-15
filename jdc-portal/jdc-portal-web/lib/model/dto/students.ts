@@ -20,7 +20,7 @@ export type PaymentItem = {
     paymentDate: string
     amount: number
     paymentType: 'In Hand' | 'KPay' | 'Wave Pay' | 'AYA Pay'
-    status: 'Un Paid' | 'Pending' | 'Paid'
+    status: 'Pending' | 'Paid' | 'Retry'
     particular: 'Registration Fee' | 'Monthly Fee'
 }
 

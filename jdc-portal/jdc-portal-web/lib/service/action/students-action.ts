@@ -1,6 +1,5 @@
 'use server'
 
-import { DataModificationResult } from "@/lib/model/dto/anonymous"
 import { AttendanceItem, AttendClassSummary, ClassItem, PaymentDetails, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
 import { PaymentForm } from "@/lib/model/schema/students"
 
@@ -8,6 +7,7 @@ import * as profileApi from "../rest/student/profile-rest-client"
 import * as attendanceApi from "../rest/student/attendance-rest-client"
 import * as classApi from "../rest/student/class-rest-client"
 import * as paymentApi from '../rest/student/pament-rest-client'
+import { DataModificationResult } from "@/lib/types"
 
 export async function loadProfileAction(): Promise<ProfileInfo> {
     return await profileApi.getProfile()
