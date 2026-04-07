@@ -1,7 +1,7 @@
 import 'server-only'
 
-import { MessageResult } from "@/lib/model/dto/anonymous";
 import { CheckRegistrationForm, RegistrationForm } from "@/lib/model/schema/anonymous";
+import { MessageResult } from '@/lib/types';
 
 export async function apply(form: RegistrationForm): Promise<MessageResult> {
     return {
