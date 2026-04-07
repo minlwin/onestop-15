@@ -23,13 +23,7 @@ export type CourseItem = {
     hours?: number
 }
 
-export type CourseDetails = {
-    id: number
-    name: string
-    level?: string
-    description?: string
-    image?: string
-    hours?: number
+export type CourseDetails = CourseItem & {
     contents: CourseContent[]
     classes: ClassInfo[]
 }
