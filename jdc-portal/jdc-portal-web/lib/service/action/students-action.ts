@@ -1,4 +1,6 @@
-import { DataModificationResult, MessageResult } from "@/lib/model/dto/anonymous"
+'use server'
+
+import { DataModificationResult } from "@/lib/model/dto/anonymous"
 import { AttendanceItem, AttendClassSummary, ClassItem, PaymentDetails, PaymentItem, ProfileInfo } from "@/lib/model/dto/students"
 import { PaymentForm } from "@/lib/model/schema/students"
 

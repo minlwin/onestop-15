@@ -1,8 +1,7 @@
 'use client'
 
-import ClassInformationComponent from "@/components/app/class-information"
+import ClassDecorateLayout from "@/components/app/class-decorate"
 import Loading from "@/components/app/loading"
-import PageTitle from "@/components/app/page-title"
 import PaySlip from "@/components/app/pay-slip"
 import FormsInput from "@/components/forms/forms-input"
 import FormsSelect from "@/components/forms/forms-select"
@@ -22,32 +21,24 @@ export default function RegistrationPage() {
     const params = useSearchParams()
     const classId = params.get('classId')
 
-    if(!classId) {
+    if (!classId) {
         return <Loading />
     }
 
     return (
-        <main className="space-y-4">
-            <PageTitle title="Student Registration" />
-            <section className="flex gap-8 flex-col md:flex-row">
-                <div className="flex-1">
-                    <ClassInformationComponent classId={classId} />
-                </div>
-                <div className="flex-1">
-                    <RegistrationFormComponent classId={classId} />
-                </div>
-            </section>
-        </main>
+        <ClassDecorateLayout classId={classId} title="Student Registration">
+            <RegistrationFormComponent classId={classId} />
+        </ClassDecorateLayout>
     )
 }
 
 
-function RegistrationFormComponent({classId, className} : {classId: string, className?: string}) {
+function RegistrationFormComponent({ classId }: { classId: string }) {
 
     const [result, setResult] = useState<string>()
     const [paymentInfos, setPaymentInfos] = useState<PaymentInfo[]>([])
-    const paymentOption = paymentInfos.map(a => ({label : `${a.name} : ${a.accountNumber} - ${a.accountName}`, value : a.code}))
-    paymentOption.unshift({label : 'Select Payment', value : ''})
+    const paymentOption = paymentInfos.map(a => ({ label: `${a.name} : ${a.accountNumber} - ${a.accountName}`, value: a.code }))
+    paymentOption.unshift({ label: 'Select Payment', value: '' })
 
     useEffect(() => {
         const loadData = async () => {
@@ -78,28 +69,26 @@ function RegistrationFormComponent({classId, className} : {classId: string, clas
     const fileInput = useRef<HTMLInputElement>(null)
 
     const selectFile = () => {
-       fileInput.current?.click()
+        fileInput.current?.click()
     }
 
     const files = form.watch('paymentSlip')
 
-    if(result) {
+    if (result) {
         return (
-            <div className={className}>
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Registration Result</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-gray-800">{result}</p>
-                    </CardContent>
-                </Card>
-            </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Registration Result</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-gray-800">{result}</p>
+                </CardContent>
+            </Card>
         )
     }
 
     return (
-        <Card className={className}>
+        <Card>
             <CardHeader>
                 <CardTitle>Registration Form</CardTitle>
                 <CardDescription>Please pay the registration fee and upload the payment slip. Fill in your information correctly.</CardDescription>
@@ -116,8 +105,8 @@ function RegistrationFormComponent({classId, className} : {classId: string, clas
                     <FormsInput control={form.control} name="phone" type="text" label="Phone Number" />
                     <FormsInput control={form.control} name="email" type="email" label="Email Address" />
                     <FormsSelect control={form.control} name="payment" label="Payment Account" options={paymentOption} />
-                    
-                    {files && files[0] && 
+
+                    {files && files[0] &&
                         <PaySlip file={files[0]} />
                     }
 

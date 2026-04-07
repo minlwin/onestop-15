@@ -15,7 +15,7 @@ export type ClassItem = {
 
 export type PaymentItem = {
     id: string
-    classId: number
+    classId: string
     className: string
     paymentDate: string
     amount: number
