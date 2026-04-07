@@ -20,4 +20,4 @@ export type ClassSearch = {
     startFrom? : string
     startTo? : string
     keyword? : string
-}
+} & PageSearch

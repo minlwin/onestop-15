@@ -20,3 +20,12 @@ export type StudentItem = {
     phone: string
     entryAt: string
 }
+
+export type ClassItem = {
+    id: number
+    type: string
+    course: string
+    courseLevel: string
+    startDate: string
+    months: number
+}

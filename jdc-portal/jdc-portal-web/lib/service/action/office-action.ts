@@ -1,8 +1,8 @@
 'use server'
 
-import { CourseItem } from "@/lib/model/dto/anonymous";
-import { EmployeeItem, PositionItem, StudentItem } from "@/lib/model/dto/office";
-import { CourseSearch, EmployeeSearch, StudentSearch } from "@/lib/model/schema/office";
+import { ClassInfo, CourseItem } from "@/lib/model/dto/anonymous";
+import { ClassItem, EmployeeItem, PositionItem, StudentItem } from "@/lib/model/dto/office";
+import { ClassSearch, CourseSearch, EmployeeSearch, StudentSearch } from "@/lib/model/schema/office";
 import { PAGEINFO, PageResult } from "@/lib/types";
 
 export async function loadPositions():Promise<PositionItem[]> {
@@ -113,3 +113,34 @@ export async function searchCourse(form: CourseSearch): Promise<CourseItem[]> {
     ]
 }
 
+export async function searchClasses(form:ClassSearch) : Promise<PageResult<ClassItem>> {
+    return {
+        ...PAGEINFO,
+        list: [
+            {
+                id: 1,
+                type: "Online",
+                course: "Math",
+                courseLevel: "A",
+                startDate: "2023-01-01",
+                months: 3
+            },
+            {
+                id: 2,
+                type: "Offline",
+                course: "English",
+                courseLevel: "A",
+                startDate: "2023-01-01",
+                months: 3
+            },
+            {
+                id: 3,
+                type: "Online",
+                course: "Science",
+                courseLevel: "A",
+                startDate: "2023-01-01",
+                months: 3
+            }
+        ]
+    }
+}

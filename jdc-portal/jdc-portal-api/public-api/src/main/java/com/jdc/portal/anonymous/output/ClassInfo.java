@@ -1,4 +1,4 @@
-package com.jdc.portal.dto;
+package com.jdc.portal.anonymous.output;
 
 import java.time.LocalDate;
 
