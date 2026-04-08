@@ -32,6 +32,8 @@ export type StudentItem = {
     entryAt: string
 }
 
+export type StudentDetails = StudentItem & AuditInfo
+
 export type CourseDetails = {
     id: number
     name: string

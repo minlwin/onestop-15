@@ -12,3 +12,18 @@ export const CLASS_SEGMENTS = [{
     name : "Class Management", 
     path : '/office/classes'
 }]
+
+export const PAYMENT_SEGMENTS = [{
+    name : "Payment Management", 
+    path : '/office/payments'
+}]
+
+export const REGISTRATION_SEGMENTS = [{
+    name : "Registration Management", 
+    path : '/office/registrations'
+}]
+
+export const STUDENT_SEGMENTS = [{
+    name : "Student Management", 
+    path : '/office/students'
+}]

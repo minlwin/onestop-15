@@ -92,35 +92,31 @@ export default function PaymentManagementPage() {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Course</TableHead>
-                        <TableHead>Start Date</TableHead>
-                        <TableHead>Class Type</TableHead>
+                        <TableHead>Class</TableHead>
                         <TableHead>Student Name</TableHead>
                         <TableHead>Email</TableHead>
                         <TableHead>Phone</TableHead>
                         <TableHead>Payment Date</TableHead>
+                        <TableHead>Particular</TableHead>
                         <TableHead>Payment Type</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead>Particular</TableHead>
+                        <TableHead className="text-end">Amount</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {payments.map((payment) => (
                         <TableRow key={payment.id}>
-                            <TableCell>{payment.id}</TableCell>
-                            <TableCell>{payment.course}</TableCell>
-                            <TableCell>{payment.startDate}</TableCell>
-                            <TableCell>{payment.classType}</TableCell>
+                            <TableCell>{`${payment.course} - ${payment.classType} (${payment.startDate})`}</TableCell>
                             <TableCell>{payment.studentName}</TableCell>
                             <TableCell>{payment.email}</TableCell>
                             <TableCell>{payment.phone}</TableCell>
                             <TableCell>{payment.paymentDate}</TableCell>
+                            <TableCell>{payment.particular}</TableCell>
                             <TableCell>{payment.paymentType}</TableCell>
                             <TableCell>{payment.status}</TableCell>
-                            <TableCell>{payment.particular}</TableCell>
-                            <TableCell>
+                            <TableCell className="text-end">{payment.amount.toLocaleString()} MMK</TableCell>
+                            <TableCell className="flex justify-center">
                                 <Link href={`/office/payments/${payment.id}`}>
                                     <ArrowRight className="size-4"/>
                                 </Link>
