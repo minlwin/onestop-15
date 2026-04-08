@@ -1,5 +1,5 @@
 import 'server-only'
-import { EmployeeItem } from "@/lib/model/dto/office";
+import { EmployeeDetails, EmployeeItem } from "@/lib/model/dto/office";
 import { EmployeeForm, EmployeeSearch } from "@/lib/model/schema/office";
 import { DataModificationResult } from '@/lib/types';
 
@@ -35,5 +35,26 @@ export async function search(form: EmployeeSearch):Promise<EmployeeItem[]> {
 export async function create(form: EmployeeForm): Promise<DataModificationResult<string>> {
     return {
         id: "1234"
+    }
+}
+
+export async function update(id: string, form: EmployeeForm): Promise<DataModificationResult<string>> {
+    return {
+        id: id
+    }
+}
+
+export async function findById(id: any) : Promise<EmployeeDetails> {
+    return {
+        id: 1,
+        name: "John Doe",
+        position: "Office",
+        phone: "0123456789",
+        email: "0qVhM@example.com",
+        entryAt: "2023-01-01",
+        createdAt: "2023-01-01",
+        modifiedAt: "2023-01-01",
+        createdBy: "John Doe",
+        modifiedBy: "John Doe"
     }
 }

@@ -1,7 +1,7 @@
 'use server'
 
 import {  CourseItem } from "@/lib/model/dto/anonymous";
-import { ClassItem, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
+import { ClassItem, EmployeeDetails, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
 import { ClassForm, ClassSearch, CourseForm, CourseSearch, EmployeeForm, EmployeeSearch, PaymentSearch, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
 import { DataModificationResult, PageResult } from "@/lib/types";
 import * as employeeApi from "../rest/office/employee-rest-client"
@@ -17,6 +17,14 @@ export async function searchEmployee(form: EmployeeSearch):Promise<EmployeeItem[
 
 export async function createEmployee(form: EmployeeForm): Promise<DataModificationResult<string>> {
     return employeeApi.create(form)
+}
+
+export async function updateEmployee(id: string, form: EmployeeForm): Promise<DataModificationResult<string>> {
+    return employeeApi.update(id, form)
+}
+
+export async function findEmployeeById(id: string): Promise<EmployeeDetails> {
+    return employeeApi.findById(id)
 }
 
 export async function searchStudent(form: StudentSearch) : Promise<PageResult<StudentItem>> {

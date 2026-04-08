@@ -3,7 +3,7 @@
 import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
 import { Button } from "@/components/ui/button"
-import { ClassInfo, Course, CourseContent } from "@/lib/model/dto/anonymous"
+import { ClassInfo, CourseContent, CourseDetails } from "@/lib/model/dto/anonymous"
 import { findCourseAction } from "@/lib/service/action/anonymous-action"
 import { Edit, Pen, Pencil } from "lucide-react"
 import Link from "next/link"
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react"
 export default function CourseDetailsPage() {
 
     const { id } = useParams()
-    const [course, setCourse] = useState<Course>()
+    const [course, setCourse] = useState<CourseDetails>()
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -122,7 +122,7 @@ function ContentInfoItem({ content }: { content: CourseContent }) {
     )
 }
 
-function CourseHeader({ course }: { course: Course }) {
+function CourseHeader({ course }: { course: CourseDetails }) {
     return (
         <section className="bg-white shadow rounded-2xl p-6 space-y-4">
             <h1 className="text-3xl font-bold">{course.name}</h1>

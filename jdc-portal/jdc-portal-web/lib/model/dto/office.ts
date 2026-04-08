@@ -8,6 +8,13 @@ export type EmployeeItem = {
     resignAt?: string
 }
 
+export type EmployeeDetails = EmployeeItem & {
+    createdAt: string
+    createdBy: string
+    modifiedAt: string
+    modifiedBy: string
+}
+
 export type StudentItem = {
     id: number
     name: string

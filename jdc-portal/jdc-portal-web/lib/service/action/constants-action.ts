@@ -49,7 +49,7 @@ export async function getPaymentTypes(): Promise<SelectOption[]> {
 
 export async function getPositions(): Promise<SelectOption[]> {
     return [
-        {value: "Teacher", label: "Teacher"},
+        {value: "Office", label: "Office"},
         {value: "Student", label: "Student"}
     ]
 }

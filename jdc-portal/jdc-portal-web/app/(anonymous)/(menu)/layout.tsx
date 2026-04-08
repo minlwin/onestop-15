@@ -1,7 +1,7 @@
 import Footer from "@/components/app/footer";
-import { getCourses } from "@/lib/service/rest/anonymous-rest-clients";
 import React from "react";
 import AnonymousMenu from "./_widget/anonymous-menu";
+import { getCourses } from "@/lib/service/rest/anonymous/courses-rest-client";
 
 export default async function WithoutMenuLayout({children} : {children : React.ReactNode}) {
     
