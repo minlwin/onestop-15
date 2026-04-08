@@ -7,14 +7,12 @@ import { EmployeeDetails } from "@/lib/model/dto/office"
 import { findEmployeeById } from "@/lib/service/action/office-action"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import { EMPLOYEE_SEGMENTS } from "../../_widgets/commons"
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import SubTitle from "@/components/app/sub-title"
 import HighlightInfo from "@/components/app/highlight-info"
 import { Pencil } from "lucide-react"
 import NameInfo from "@/components/app/name-info"
+import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
 
 export default function StaffDetailsPage() {
 

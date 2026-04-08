@@ -1,3 +1,17 @@
+import { CourseContent } from "./anonymous"
+
+export type AuditInfo = {
+    createdAt: string
+    createdBy: string
+    modifiedAt: string
+    modifiedBy: string
+}
+
+export type CountInformation = {
+    name: string
+    count: number
+}
+
 export type EmployeeItem = {
     id: number
     name: string
@@ -8,12 +22,7 @@ export type EmployeeItem = {
     resignAt?: string
 }
 
-export type EmployeeDetails = EmployeeItem & {
-    createdAt: string
-    createdBy: string
-    modifiedAt: string
-    modifiedBy: string
-}
+export type EmployeeDetails = EmployeeItem & AuditInfo
 
 export type StudentItem = {
     id: number
@@ -22,6 +31,15 @@ export type StudentItem = {
     phone: string
     entryAt: string
 }
+
+export type CourseDetails = {
+    id: number
+    name: string
+    level: string
+    hours: number
+    description: string,
+    contents: CourseContent[]
+} & AuditInfo
 
 export type ClassItem = {
     id: number

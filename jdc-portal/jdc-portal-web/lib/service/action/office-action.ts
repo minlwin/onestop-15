@@ -1,7 +1,7 @@
 'use server'
 
 import {  CourseItem } from "@/lib/model/dto/anonymous";
-import { ClassItem, EmployeeDetails, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
+import { ClassItem, CourseDetails, EmployeeDetails, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
 import { ClassForm, ClassSearch, CourseForm, CourseSearch, EmployeeForm, EmployeeSearch, PaymentSearch, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
 import { DataModificationResult, PageResult } from "@/lib/types";
 import * as employeeApi from "../rest/office/employee-rest-client"
@@ -39,6 +39,18 @@ export async function createCourse(form: CourseForm): Promise<DataModificationRe
     return await courseApi.create(form)
 }
 
+export async function updateCourse(id: string, form: CourseForm): Promise<DataModificationResult<string>> {
+    return await courseApi.update(id, form)
+}
+
+export async function findCourseForEdit(id: string): Promise<CourseForm> {
+    return await courseApi.findForm(id)
+}
+
+export async function findCourseDetails(id: string): Promise<CourseDetails> {
+    return await courseApi.findDetails(id)
+}
+
 export async function searchClasses(form:ClassSearch) : Promise<PageResult<ClassItem>> {
     return await classApi.search(form)
 }
@@ -46,6 +58,8 @@ export async function searchClasses(form:ClassSearch) : Promise<PageResult<Class
 export async function createClass(form: ClassForm) : Promise<DataModificationResult<string>> {
     return await classApi.create(form)
 }
+
+
 
 export async function searchPayments(form:PaymentSearch) : Promise<PageResult<PaymentItem>> {
     return await paymentApi.search(form)

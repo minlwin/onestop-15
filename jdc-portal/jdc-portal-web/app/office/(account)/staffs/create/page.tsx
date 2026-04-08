@@ -5,7 +5,7 @@ import { EmployeeForm } from "@/lib/model/schema/office"
 import { createEmployee } from "@/lib/service/action/office-action"
 import { useRouter } from "next/navigation"
 import StaffEditForm from "../_widgets/staff-edit-form"
-import { EMPLOYEE_SEGMENTS } from "../_widgets/commons"
+import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
 
 export default function StaffCreatePage() {
 

@@ -34,12 +34,13 @@ export const courseSchema = z.object({
     contents: z.array(z.object({
         name: z.string().nonempty("Please enter a content name"),
         description: z.string().nonempty("Please enter a content description")
-    }))
+    })).nonempty("Please enter at least one content")
 })
 
 export type CourseForm = z.infer<typeof courseSchema>
 
 export type ClassSearch = {
+    course? : string
     type? : string
     startFrom? : string
     startTo? : string

@@ -2,6 +2,7 @@ import 'server-only'
 import { CourseItem } from "@/lib/model/dto/anonymous";
 import { CourseForm, CourseSearch } from "@/lib/model/schema/office";
 import { DataModificationResult } from '@/lib/types';
+import { CourseDetails } from '@/lib/model/dto/office';
 
 export async function search(form: CourseSearch): Promise<CourseItem[]> {
     return [
@@ -36,4 +37,64 @@ export async function create(form: CourseForm): Promise<DataModificationResult<s
     return {
         id: "1234"
     }
+}
+
+export async function update(id: string, form: CourseForm): Promise<DataModificationResult<string>> {
+    return {
+        id: "1234"
+    }
+}
+
+export async function findDetails(id: string) : Promise<CourseDetails> {
+    return {
+        id: 1,
+        name: "Math",
+        level: "Beginner",
+        hours: 100,
+        description: "Math description",
+        contents: [
+            {
+                id: 1,
+                name: "Math Foundation",
+                description: "Basics of Math",
+            },
+            {
+                id: 2,
+                name: "OOP",
+                description: "Object-Oriented Programming concepts",
+            },
+            {
+                id: 3,
+                name: "Spring Boot",
+                description: "Build RESTful APIs with Spring Boot",
+            }
+        ],
+        createdAt: "2023-01-01",
+        modifiedAt: "2023-01-01",
+        createdBy: "John Doe",
+        modifiedBy: "John Doe"
+    }
+}
+
+export async function findForm(id: string) : Promise<CourseForm> {
+    return {
+        course: "Math",
+        courseLevel: "Beginner",
+        hours: 100,
+        description: "Math description",
+        contents: [
+            {
+                name: "Math Foundation",
+                description: "Basics of Math",
+            },
+            {
+                name: "OOP",
+                description: "Object-Oriented Programming concepts",
+            },
+            {
+                name: "Spring Boot",
+                description: "Build RESTful APIs with Spring Boot",
+            }
+        ],
+    }    
 }

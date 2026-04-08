@@ -1,14 +1,13 @@
 'use client'
 
 import OfficePageDecorator from "@/app/office/_widgets/office-page-decorate"
-import { EMPLOYEE_SEGMENTS } from "../../_widgets/commons"
 import { useParams, useRouter } from "next/navigation"
-import { EmployeeDetails } from "@/lib/model/dto/office"
 import { useEffect, useState } from "react"
 import { findEmployeeById, updateEmployee } from "@/lib/service/action/office-action"
 import { EmployeeForm } from "@/lib/model/schema/office"
 import StaffEditForm from "../../_widgets/staff-edit-form"
 import Loading from "@/components/app/loading"
+import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
 
 export default function StaffEditPage() {
 
