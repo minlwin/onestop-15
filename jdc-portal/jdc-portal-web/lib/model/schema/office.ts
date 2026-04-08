@@ -17,6 +17,7 @@ export const employeeSchema = z.object({
 export type EmployeeForm = z.infer<typeof employeeSchema>
 
 export type StudentSearch = {
+    classId? : string
     entryFrom? : string
     entryTo? : string
     keyword? : string
@@ -52,6 +53,9 @@ export const classSchema = z.object({
     course: z.string().nonempty("Please select a course"),
     startDate: z.string().nonempty("Please select a start date"),
     months: z.number().nonnegative("Please enter a valid number"),
+    days: z.array(z.string()).nonempty("Please select at least one day"),
+    timeFrom : z.string().nonempty("Please select a start time"),
+    timeTo : z.string().nonempty("Please select an end time"),
     registrationFee: z.number().nonnegative("Please enter a valid number"),
     monthlyFee: z.number().nonnegative("Please enter a valid number")
 })
@@ -66,6 +70,7 @@ export type RegistrationSearch = {
 } & PageSearch
 
 export type PaymentSearch = {
+    classId? : string
     classType? : string
     feeType? : string
     paymentType? : string

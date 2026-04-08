@@ -1,5 +1,5 @@
 import 'server-only'
-import { ClassItem } from "@/lib/model/dto/office";
+import { ClassDetails, ClassItem } from "@/lib/model/dto/office";
 import { ClassForm, ClassSearch } from "@/lib/model/schema/office";
 import { PageResult, PAGEINFO, DataModificationResult } from "@/lib/types";
 
@@ -38,5 +38,44 @@ export async function search(form:ClassSearch) : Promise<PageResult<ClassItem>> 
 export async function create(form: ClassForm) : Promise<DataModificationResult<string>> {
     return {
         id: "1234"
+    }
+}
+
+export async function update(id: string, form: ClassForm) : Promise<DataModificationResult<string>> {
+    return {
+        id: "1234"
+    }
+}
+
+export async function findForm(id: string) : Promise<ClassForm> {
+    return {
+        type: "Online",
+        course: "1",
+        startDate: "2023-01-01",
+        months: 3,
+        days: ["Monday", "Wednesday", "Friday"],
+        timeFrom: "07:00",
+        timeTo: "09:00",
+        registrationFee: 50000,
+        monthlyFee: 100000
+    }
+}
+
+export async function findDetails(id: string) : Promise<ClassDetails> {
+    return {
+        id: 1,
+        type: "Online",
+        course: "Math",
+        courseLevel: "Beginner",
+        startDate: "2023-01-01",
+        months: 3,
+        days: "Mon, Wed, Fri",
+        time: "7:00 PM - 9:00 PM",
+        registrationFee: 50000,
+        monthlyFee: 100000,
+        createdAt: "2023-01-01",
+        modifiedAt: "2023-01-01",
+        createdBy: "John Doe",
+        modifiedBy: "John Doe"
     }
 }

@@ -18,6 +18,7 @@ export async function search(form:PaymentSearch) : Promise<PageResult<PaymentIte
                 paymentDate: "2023-01-01",
                 paymentType: "Office",
                 status: "Paid",
+                amount: 50000,
                 particular: "Registration Fee"
             },
             {
@@ -28,9 +29,10 @@ export async function search(form:PaymentSearch) : Promise<PageResult<PaymentIte
                 studentName: "John Doe",
                 email: "john@example",
                 phone: "0123456789",
-                paymentDate: "2023-01-01",
+                paymentDate: "2023-02-01",
                 paymentType: "Office",
                 status: "Paid",
+                amount: 200000,
                 particular: "Monthly Fee"
             },
             {
@@ -41,10 +43,11 @@ export async function search(form:PaymentSearch) : Promise<PageResult<PaymentIte
                 studentName: "John Doe",
                 email: "john@example",
                 phone: "0123456789",
-                paymentDate: "2023-01-01",
+                paymentDate: "2023-03-01",
                 paymentType: "Office",
                 status: "Paid",
-                particular: "Registration Fee"
+                amount: 200000,
+                particular: "Monthly Fee"
             }
         ]
     }

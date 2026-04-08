@@ -37,11 +37,7 @@ export default function StaffEditForm({ employee, onSubmit }: { employee?: Emplo
 
     useEffect(() => {
         if(employee) {
-            form.setValue("position", employee.position)
-            form.setValue("name", employee.name)
-            form.setValue("email", employee.email)
-            form.setValue("phone", employee.phone)
-            form.setValue("entryAt", employee.entryAt)
+            form.reset(employee)
         }
     }, [employee])
 

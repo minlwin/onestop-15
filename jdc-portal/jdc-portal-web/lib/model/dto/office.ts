@@ -50,6 +50,19 @@ export type ClassItem = {
     months: number
 }
 
+export type ClassDetails = {
+    id: number
+    type: string
+    course: string
+    courseLevel: string
+    startDate: string
+    months: number
+    registrationFee: number
+    monthlyFee: number
+    days: string
+    time: string
+} & AuditInfo
+
 export type RegistrationItem = {
     id: number
     course: string
@@ -72,6 +85,7 @@ export type PaymentItem = {
     phone: string
     paymentDate: string
     paymentType: 'Office' | 'KBZ Pay' | 'Wave Pay' | 'AYA Pay'
+    amount: number
     status: 'Pending' | 'Paid' | 'Retry'
     particular: 'Registration Fee' | 'Monthly Fee'
 }

@@ -19,11 +19,11 @@ import SubTitle from "@/components/app/sub-title"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Pencil } from "lucide-react"
+import DetailsTabContents from "@/components/app/details-tab-contents"
 
 export default function CourseDetailsPage() {
 
     const { id } = useParams()
-
     const [course, setCourse] = useState<CourseDetails>()
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function CourseDetailsPage() {
                 <NameInfo name={course.name} subtitle={course.description} />
 
                 {/* Tabs */}
-                <Tabs defaultValue="contents" className="space-y-4">
+                <Tabs defaultValue="information" className="space-y-4">
                     <TabsList>
                         <TabsTrigger value="information">Information</TabsTrigger>
                         <TabsTrigger value="contents">Contents</TabsTrigger>
@@ -74,36 +74,30 @@ export default function CourseDetailsPage() {
 
 function CourseInformation({ course }: { course: CourseDetails }) {
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Course Information</CardTitle>
-                <CardDescription>Details about this course</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        <DetailsTabContents title="Course Information" subTitle="Details about this course">
+            <div className="grid md:grid-cols-4 gap-4">
+                <HighlightInfo label="Level" value={course.level || ''} />
+                <HighlightInfo label="Hours" value={`${course.hours} hrs`} />
+            </div>
+
+            <div className="space-y-3">
+                <SubTitle title="Audit Information" />
                 <div className="grid md:grid-cols-4 gap-4">
-                    <HighlightInfo label="Level" value={course.level || ''} />
-                    <HighlightInfo label="Hours" value={`${course.hours} hrs`} />
+                    <HighlightInfo label="Created At" value={course.createdAt} />
+                    <HighlightInfo label="Created By" value={course.createdBy} />
+                    <HighlightInfo label="Modified At" value={course.modifiedAt} />
+                    <HighlightInfo label="Modified By" value={course.modifiedBy} />
                 </div>
+            </div>
 
-                <div className="space-y-3">
-                    <SubTitle title="Audit Information" />
-                    <div className="grid md:grid-cols-4 gap-4">
-                        <HighlightInfo label="Created At" value={course.createdAt} />
-                        <HighlightInfo label="Created By" value={course.createdBy} />
-                        <HighlightInfo label="Modified At" value={course.modifiedAt} />
-                        <HighlightInfo label="Modified By" value={course.modifiedBy} />
-                    </div>
-                </div>
-
-                <div>
-                    <Button asChild>
-                        <Link href={`/office/courses/${course.id}/edit`}>
-                            <Pencil /> Edit Course
-                        </Link>
-                    </Button>
-                </div>
-            </CardContent>
-        </Card>
+            <div>
+                <Button asChild>
+                    <Link href={`/office/courses/${course.id}/edit`}>
+                        <Pencil /> Edit Course
+                    </Link>
+                </Button>
+            </div>
+        </DetailsTabContents>
     )
 }
 
@@ -111,33 +105,27 @@ function CourseInformation({ course }: { course: CourseDetails }) {
 
 function ContentsForCourse({ contents }: { contents: CourseContent[] }) {
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Course Contents</CardTitle>
-                <CardDescription>Modules and topics covered in this course</CardDescription>
-            </CardHeader>
-            <CardContent>
-                {contents.length > 0 ? (
-                    <div className="space-y-4">
-                        {contents.map((content, index) => (
-                            <div key={content.id} className="rounded-lg border p-4">
-                                <div className="flex items-start gap-3">
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium">
-                                        {index + 1}
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-medium">{content.name}</h4>
-                                        <p className="text-sm text-muted-foreground mt-1">{content.description}</p>
-                                    </div>
+        <DetailsTabContents title="Course Contents" subTitle="Details about this course">
+            {contents.length > 0 ? (
+                <div className="space-y-4">
+                    {contents.map((content, index) => (
+                        <div key={content.id} className="rounded-lg border p-4">
+                            <div className="flex items-start gap-3">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium">
+                                    {index + 1}
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="font-medium">{content.name}</h4>
+                                    <p className="text-sm text-muted-foreground mt-1">{content.description}</p>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-muted-foreground">No contents available for this course.</p>
-                )}
-            </CardContent>
-        </Card>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="text-muted-foreground">No contents available for this course.</p>
+            )}
+        </DetailsTabContents>
     )
 }
 
@@ -163,42 +151,36 @@ function ClassesForCourse({ courseId }: { courseId: string }) {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Classes</CardTitle>
-                <CardDescription>Available classes for this course</CardDescription>
-            </CardHeader>
-            <CardContent>
-                {classes.length > 0 ? (
-                    <>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Type</TableHead>
-                                    <TableHead>Start Date</TableHead>
-                                    <TableHead>Months</TableHead>
+        <DetailsTabContents title="Classes" subTitle="Classes for this course">
+            {classes.length > 0 ? (
+                <>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Type</TableHead>
+                                <TableHead>Start Date</TableHead>
+                                <TableHead>Months</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {classes.map((classItem) => (
+                                <TableRow key={classItem.id}>
+                                    <TableCell>{classItem.type}</TableCell>
+                                    <TableCell>{classItem.startDate}</TableCell>
+                                    <TableCell>{classItem.months}</TableCell>
                                 </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {classes.map((classItem) => (
-                                    <TableRow key={classItem.id}>
-                                        <TableCell>{classItem.type}</TableCell>
-                                        <TableCell>{classItem.startDate}</TableCell>
-                                        <TableCell>{classItem.months}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        {pageInfo && (
-                            <div className="mt-4">
-                                <PaginationComponent pager={pageInfo} onPageChange={onPageChange} />
-                            </div>
-                        )}
-                    </>
-                ) : (
-                    <p className="text-muted-foreground">No classes available for this course.</p>
-                )}
-            </CardContent>
-        </Card>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    {pageInfo && (
+                        <div className="mt-4">
+                            <PaginationComponent pager={pageInfo} onPageChange={onPageChange} />
+                        </div>
+                    )}
+                </>
+            ) : (
+                <p className="text-muted-foreground">No classes available for this course.</p>
+            )}
+        </DetailsTabContents>
     )
 }

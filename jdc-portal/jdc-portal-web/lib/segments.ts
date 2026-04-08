@@ -7,3 +7,8 @@ export const COURSE_SEGMENTS = [{
     name : "Course Management", 
     path : '/office/courses'
 }]
+
+export const CLASS_SEGMENTS = [{
+    name : "Class Management", 
+    path : '/office/classes'
+}]
