@@ -1,8 +1,8 @@
 package com.jdc.portal.dto.consts;
 
-import com.jdc.portal.OptionWrapper;
+import com.jdc.portal.dto.Option;
 
-public enum ClassType implements OptionWrapper{
+public enum ClassType implements Option{
 	Campus, Zoom, Video, Online;
 
 	@Override

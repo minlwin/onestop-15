@@ -2,8 +2,9 @@ package com.jdc.portal.dto.consts;
 
 import com.jdc.portal.dto.Option;
 
-public enum PaymentStatus implements Option{
-	Pendind, Paid, Retry;
+public enum RegistrationStatus implements Option {
+	
+	Applied, Approved, Cancel;
 
 	@Override
 	public String getLabel() {
@@ -14,4 +15,5 @@ public enum PaymentStatus implements Option{
 	public String getValue() {
 		return name();
 	}
+
 }

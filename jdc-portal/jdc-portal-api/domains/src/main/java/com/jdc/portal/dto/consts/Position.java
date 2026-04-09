@@ -1,8 +1,8 @@
 package com.jdc.portal.dto.consts;
 
-import com.jdc.portal.OptionWrapper;
+import com.jdc.portal.dto.Option;
 
-public enum Position implements OptionWrapper{
+public enum Position implements Option{
 	Staff, Teacher;
 
 	@Override

@@ -1,8 +1,9 @@
 package com.jdc.portal.dto.consts;
 
-import com.jdc.portal.OptionWrapper;
+import com.jdc.portal.dto.Option;
 
-public enum PaymentType implements OptionWrapper{
+public enum PaymentType implements Option{
+	
 	KPay("KBZ Pay"), AyaPay("AYA Pay"), WavePay("Wave Pay"), Office("Office");
 	
 	private String value;
