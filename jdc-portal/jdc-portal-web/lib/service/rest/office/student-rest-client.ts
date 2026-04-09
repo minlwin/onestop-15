@@ -12,6 +12,7 @@ export async function search(form: StudentSearch) : Promise<PageResult<StudentIt
                 email: "0qVhM@example.com",
                 phone: "0123456789",
                 entryAt: "2023-01-01",
+                activatedAt: "2023-01-01",
             },
             {
                 id: 2,
@@ -32,7 +33,8 @@ export async function search(form: StudentSearch) : Promise<PageResult<StudentIt
                 name: "Alice Brown",
                 email: "alice@example.com",
                 phone: "0123456789",
-                entryAt: "2023-01-01",            
+                entryAt: "2023-01-01", 
+                activatedAt: "2023-01-01",           
             },
             {
                 id: 5,

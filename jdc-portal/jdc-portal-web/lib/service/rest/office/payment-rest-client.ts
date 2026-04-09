@@ -1,7 +1,7 @@
 import 'server-only'
 import { PaymentSearch } from "@/lib/model/schema/office";
 import { PageResult, PAGEINFO } from "@/lib/types";
-import { PaymentItem } from '@/lib/model/dto/office';
+import { PaymentDetails, PaymentItem } from '@/lib/model/dto/office';
 
 export async function search(form:PaymentSearch) : Promise<PageResult<PaymentItem>> {
     return {
@@ -51,4 +51,31 @@ export async function search(form:PaymentSearch) : Promise<PageResult<PaymentIte
             }
         ]
     }
+}
+
+export async function findById(id: any) : Promise<PaymentDetails> {
+    return {
+        id: 1,
+        course: "Math",
+        startDate: "2023-01-01",
+        classType: "Online",
+        studentName: "John Doe",
+        email: "john@example",
+        phone: "0123456789",
+        paymentDate: "2023-01-01",
+        paymentType: "Office",
+        status: "Pending",
+        amount: 50000,
+        particular: "Registration Fee",
+        paySlip: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8_S0ubIv5ZgTBldLfnbcQ2RcxTI4mvFT9g&s",
+        createdAt: "2023-01-01",
+        modifiedAt: "2023-01-01",
+        createdBy: "John Doe",
+        modifiedBy: "John Doe"
+    }
+}
+
+export async function updateStatus(id: any, status: string) : Promise<void> {
+    // Mock update status
+    console.log(`Updating payment ${id} status to ${status}`)
 }

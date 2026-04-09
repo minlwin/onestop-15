@@ -1,6 +1,7 @@
 import 'server-only'
 
-import { AuthResult, MessageResult } from "@/lib/model/dto/anonymous";
+import { AuthResult } from "@/lib/model/dto/anonymous";
+import { MessageResult } from "@/lib/types";
 import { ActivationForm, SignInForm } from "@/lib/model/schema/anonymous";
 
 export async function activate(form: ActivationForm):Promise<MessageResult> {

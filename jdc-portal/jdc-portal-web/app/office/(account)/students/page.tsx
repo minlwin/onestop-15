@@ -10,7 +10,7 @@ import { searchStudent } from "@/lib/service/action/office-action";
 import { Pager } from "@/lib/types";
 import FormsInput from "@/components/forms/forms-input";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Check, Search, X } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 
@@ -87,6 +87,7 @@ export default function StudentManagementPage() {
                         <TableHead>Email</TableHead>
                         <TableHead>Phone</TableHead>
                         <TableHead>Entry At</TableHead>
+                        <TableHead className="text-center">Activated</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
                 </TableHeader>
@@ -98,6 +99,7 @@ export default function StudentManagementPage() {
                         <TableCell>{student.email}</TableCell>
                         <TableCell>{student.phone}</TableCell>
                         <TableCell>{student.entryAt}</TableCell>
+                        <TableCell className="flex justify-center">{student.activatedAt ? <Check className="size-4" /> : <X className="size-4" />}</TableCell>
                         <TableCell>
                             <Link href={`/office/students/${student.id}`}>
                                 <ArrowRight className="size-4" />

@@ -1,9 +1,9 @@
 import 'server-only'
-import { ClassDetails, ClassItem } from "@/lib/model/dto/office";
+import { ClassDetails, ClassForStudent, ClassItem } from "@/lib/model/dto/office";
 import { ClassForm, ClassSearch } from "@/lib/model/schema/office";
 import { PageResult, PAGEINFO, DataModificationResult } from "@/lib/types";
 
-export async function search(form:ClassSearch) : Promise<PageResult<ClassItem>> {
+export async function search(form: ClassSearch): Promise<PageResult<ClassItem>> {
     return {
         ...PAGEINFO,
         list: [
@@ -35,19 +35,19 @@ export async function search(form:ClassSearch) : Promise<PageResult<ClassItem>> 
     }
 }
 
-export async function create(form: ClassForm) : Promise<DataModificationResult<string>> {
+export async function create(form: ClassForm): Promise<DataModificationResult<string>> {
     return {
         id: "1234"
     }
 }
 
-export async function update(id: string, form: ClassForm) : Promise<DataModificationResult<string>> {
+export async function update(id: string, form: ClassForm): Promise<DataModificationResult<string>> {
     return {
         id: "1234"
     }
 }
 
-export async function findForm(id: string) : Promise<ClassForm> {
+export async function findForm(id: string): Promise<ClassForm> {
     return {
         type: "Online",
         course: "1",
@@ -61,7 +61,7 @@ export async function findForm(id: string) : Promise<ClassForm> {
     }
 }
 
-export async function findDetails(id: string) : Promise<ClassDetails> {
+export async function findDetails(id: string): Promise<ClassDetails> {
     return {
         id: 1,
         type: "Online",
@@ -77,5 +77,24 @@ export async function findDetails(id: string) : Promise<ClassDetails> {
         modifiedAt: "2023-01-01",
         createdBy: "John Doe",
         modifiedBy: "John Doe"
+    }
+}
+
+export async function findForStudent(studentId: any, classId: any): Promise<ClassForStudent> {
+    return {
+        classId: 1,
+        studentId: 1,
+        type: "Online",
+        course: "Math",
+        startDate: "2023-01-01",
+        registrationFee: 50000,
+        monthlyFee: 100000,
+        months: 3,
+        attended: 10,
+        late: 0,
+        absent: 2,
+        leave: 0,
+        lastPayment: 50000,
+        paidFees: 150000
     }
 }

@@ -41,6 +41,7 @@ export const courseSchema = z.object({
 export type CourseForm = z.infer<typeof courseSchema>
 
 export type ClassSearch = {
+    studentId? : string
     course? : string
     type? : string
     startFrom? : string
@@ -71,6 +72,7 @@ export type RegistrationSearch = {
 
 export type PaymentSearch = {
     classId? : string
+    studentId? : string
     classType? : string
     feeType? : string
     paymentType? : string

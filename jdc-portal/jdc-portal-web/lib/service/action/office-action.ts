@@ -1,7 +1,7 @@
 'use server'
 
 import {  CourseItem } from "@/lib/model/dto/anonymous";
-import { ClassDetails, ClassItem, CourseDetails, EmployeeDetails, EmployeeItem, PaymentItem,RegistrationItem,StudentItem } from "@/lib/model/dto/office";
+import { ClassDetails, ClassForStudent, ClassItem, CourseDetails, EmployeeDetails, EmployeeItem, PaymentDetails, PaymentItem,RegistrationDetails,RegistrationItem,StudentDetails,StudentItem } from "@/lib/model/dto/office";
 import { ClassForm, ClassSearch, CourseForm, CourseSearch, EmployeeForm, EmployeeSearch, PaymentSearch, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
 import { DataModificationResult, PageResult } from "@/lib/types";
 import * as employeeApi from "../rest/office/employee-rest-client"
@@ -29,6 +29,14 @@ export async function findEmployeeById(id: string): Promise<EmployeeDetails> {
 
 export async function searchStudent(form: StudentSearch) : Promise<PageResult<StudentItem>> {
     return await studentApi.search(form)
+}
+
+export async function findStudentById(id: string): Promise<StudentDetails> {
+    return await studentApi.findById(id)
+}
+
+export async function findClassForStudent(studentId: any, classId: any) : Promise<ClassForStudent> {
+    return await classApi.findForStudent(studentId, classId)
 }
 
 export async function searchCourse(form: CourseSearch): Promise<CourseItem[]> {
@@ -75,6 +83,31 @@ export async function searchPayments(form:PaymentSearch) : Promise<PageResult<Pa
     return await paymentApi.search(form)
 }
 
+export async function findPaymentDetails(id: any) : Promise<PaymentDetails> {
+    return await paymentApi.findById(id)
+}
+
+export async function approvePayment(id: any) : Promise<void> {
+    return await paymentApi.updateStatus(id, 'Approved')
+}
+
+export async function rejectPayment(id: any) : Promise<void> {
+    return await paymentApi.updateStatus(id, 'Rejected')
+}
+
 export async function searchRegistration(form:RegistrationSearch) : Promise<PageResult<RegistrationItem>> {
     return registrationApi.search(form)
+}
+
+export async function findRegistrationDetails(id: any) : Promise<RegistrationDetails> {
+    return registrationApi.findById(id)
+}
+
+
+export async function approveRegistration(id: any) : Promise<void> {
+    return await registrationApi.updateStatus(id, 'Approved')
+}
+
+export async function rejectRegistration(id: any) : Promise<void> {
+    return await registrationApi.updateStatus(id, 'Rejected')
 }

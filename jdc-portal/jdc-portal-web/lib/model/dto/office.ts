@@ -30,6 +30,7 @@ export type StudentItem = {
     email: string
     phone: string
     entryAt: string
+    activatedAt?: string
 }
 
 export type StudentDetails = StudentItem & AuditInfo
@@ -52,6 +53,23 @@ export type ClassItem = {
     months: number
 }
 
+export type ClassForStudent = {
+    classId: number
+    studentId: number
+    type: string
+    course: string
+    startDate: string
+    registrationFee: number
+    monthlyFee: number
+    months: number
+    attended: number
+    late: number
+    absent: number
+    leave: number
+    lastPayment: number
+    paidFees: number
+}
+
 export type ClassDetails = {
     id: number
     type: string
@@ -67,6 +85,8 @@ export type ClassDetails = {
 
 export type RegistrationItem = {
     id: number
+    studentId: number
+    classId: number
     course: string
     startDate: string
     classType: string
@@ -75,6 +95,13 @@ export type RegistrationItem = {
     phone: string
     status: 'Applied' | 'Approved' | 'Canceled'
     registerAt: string
+}
+
+export type RegistrationDetails = RegistrationItem & AuditInfo & {
+    paymentType: 'Office' | 'KBZ Pay' | 'Wave Pay' | 'AYA Pay'
+    paymentDate: string
+    amount: number
+    paySlip?: string
 }
 
 export type PaymentItem = {
@@ -90,4 +117,8 @@ export type PaymentItem = {
     amount: number
     status: 'Pending' | 'Paid' | 'Retry'
     particular: 'Registration Fee' | 'Monthly Fee'
+}
+
+export type PaymentDetails = PaymentItem & AuditInfo & {
+    paySlip?: string
 }

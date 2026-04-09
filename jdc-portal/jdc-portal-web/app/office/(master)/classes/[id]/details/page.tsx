@@ -42,7 +42,7 @@ export default function ClassDetailsPage() {
         <OfficePageDecorator name="Class Details" segments={CLASS_SEGMENTS}>
             <NameInfo name={details.course} subtitle={`${details.type} - ${details.startDate}`} />
 
-            <Tabs defaultValue="information" className="space-y-4">
+            <Tabs defaultValue="information" className="space-y-2">
                 <TabsList>
                     <TabsTrigger value="information">Information</TabsTrigger>
                     <TabsTrigger value="students">Students</TabsTrigger>

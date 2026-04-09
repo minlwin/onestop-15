@@ -36,4 +36,6 @@ public class Registration extends AbstractEntity{
 	
 	@Column(nullable = false)
 	private RegistrationStatus status;
+	
+	private int lastPaid;
 }
