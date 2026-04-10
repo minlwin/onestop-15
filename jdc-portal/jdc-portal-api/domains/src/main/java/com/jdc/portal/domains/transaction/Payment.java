@@ -41,4 +41,6 @@ public class Payment extends AbstractEntity {
 	
 	@Column(nullable = false)
 	private int amount;
+	
+	private String slip;
 }

@@ -87,6 +87,10 @@ export async function findPaymentDetails(id: any) : Promise<PaymentDetails> {
     return await paymentApi.findById(id)
 }
 
+export async function createPayment(form: any) : Promise<DataModificationResult<string>> {
+    return await paymentApi.create(form)
+}
+
 export async function approvePayment(id: any) : Promise<void> {
     return await paymentApi.updateStatus(id, 'Approved')
 }

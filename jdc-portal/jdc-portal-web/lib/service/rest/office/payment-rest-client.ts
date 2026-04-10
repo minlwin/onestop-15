@@ -1,6 +1,6 @@
 import 'server-only'
 import { PaymentSearch } from "@/lib/model/schema/office";
-import { PageResult, PAGEINFO } from "@/lib/types";
+import { PageResult, PAGEINFO, DataModificationResult } from "@/lib/types";
 import { PaymentDetails, PaymentItem } from '@/lib/model/dto/office';
 
 export async function search(form:PaymentSearch) : Promise<PageResult<PaymentItem>> {
@@ -72,6 +72,14 @@ export async function findById(id: any) : Promise<PaymentDetails> {
         modifiedAt: "2023-01-01",
         createdBy: "John Doe",
         modifiedBy: "John Doe"
+    }
+}
+
+export async function create(form: any) : Promise<DataModificationResult<string>> {
+    // Mock create payment
+    console.log(`Creating payment with form: ${JSON.stringify(form)}`)
+    return {
+        id: "1234"
     }
 }
 

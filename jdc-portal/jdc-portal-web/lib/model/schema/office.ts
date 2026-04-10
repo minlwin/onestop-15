@@ -92,3 +92,11 @@ export type PaymentSearch = {
     dateTo? : string
     keyword? : string
 } & PageSearch
+
+export const paymentSchema = z.object({
+    classId: z.string().nonempty("Please select a class"),
+    studentId: z.string().nonempty("Please select a student"),
+    amount: z.number().nonnegative("Please enter a valid number"),
+})
+
+export type PaymentForm = z.infer<typeof paymentSchema>
