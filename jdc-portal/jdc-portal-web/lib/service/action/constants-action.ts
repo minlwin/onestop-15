@@ -12,8 +12,10 @@ export async function getAttendanceStatus(): Promise<SelectOption[]> {
 
 export async function getClassTypes(): Promise<SelectOption[]> {
     return [
-        {value: "Private", label: "Private"},
-        {value: "Group", label: "Group"}
+        {value: "Campus", label: "Campus"},
+        {value: "Zoom", label: "Zoom"},
+        {value: "Video", label: "Video"},
+        {value: "Online", label: "Online"},
     ]
 }
 
@@ -28,14 +30,23 @@ export async function getCourseLevels(): Promise<SelectOption[]> {
 export async function getFeeTypes(): Promise<SelectOption[]> {
     return [
         {value: "Monthly", label: "Monthly"},
-        {value: "Yearly", label: "Yearly"}
+        {value: "Registration", label: "Registration"}
     ]
 }
 
 export async function getPaymentStatus(): Promise<SelectOption[]> {
     return [
+        {value: "Pending", label: "Pending"},
         {value: "Paid", label: "Paid"},
-        {value: "Unpaid", label: "Unpaid"}
+        {value: "Retry", label: "Retry"}
+    ]
+}
+
+export async function getRegistrationStatus(): Promise<SelectOption[]> {
+    return [
+        {value: "Pending", label: "Pending"},
+        {value: "Approved", label: "Approved"},
+        {value: "Rejected", label: "Rejected"}
     ]
 }
 
@@ -50,6 +61,6 @@ export async function getPaymentTypes(): Promise<SelectOption[]> {
 export async function getPositions(): Promise<SelectOption[]> {
     return [
         {value: "Office", label: "Office"},
-        {value: "Student", label: "Student"}
+        {value: "Teacher", label: "Teacher"}
     ]
 }

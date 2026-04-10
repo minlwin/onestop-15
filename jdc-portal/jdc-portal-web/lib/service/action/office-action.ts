@@ -91,8 +91,8 @@ export async function approvePayment(id: any) : Promise<void> {
     return await paymentApi.updateStatus(id, 'Approved')
 }
 
-export async function rejectPayment(id: any) : Promise<void> {
-    return await paymentApi.updateStatus(id, 'Rejected')
+export async function rejectPayment(id: any, reason: string) : Promise<void> {
+    return await paymentApi.updateStatus(id, 'Rejected', reason)
 }
 
 export async function searchRegistration(form:RegistrationSearch) : Promise<PageResult<RegistrationItem>> {
@@ -108,6 +108,6 @@ export async function approveRegistration(id: any) : Promise<void> {
     return await registrationApi.updateStatus(id, 'Approved')
 }
 
-export async function rejectRegistration(id: any) : Promise<void> {
-    return await registrationApi.updateStatus(id, 'Rejected')
+export async function rejectRegistration(id: any, reason: string) : Promise<void> {
+    return await registrationApi.updateStatus(id, 'Rejected', reason)
 }

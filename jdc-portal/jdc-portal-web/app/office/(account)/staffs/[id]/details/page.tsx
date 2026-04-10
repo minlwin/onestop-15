@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button"
 import SubTitle from "@/components/app/sub-title"
 import HighlightInfo from "@/components/app/highlight-info"
 import { Pencil } from "lucide-react"
-import NameInfo from "@/components/app/name-info"
 import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
+import DetailsHeader from "@/components/app/details-header"
 
 export default function StaffDetailsPage() {
 
@@ -35,7 +35,13 @@ export default function StaffDetailsPage() {
 
     return (
         <OfficePageDecorator name="Employee Details" segments={EMPLOYEE_SEGMENTS}>
-            <NameInfo name={employee.name} subtitle={employee.position} />
+            <DetailsHeader title={employee.name} subTitle={employee.position}>
+                <Button asChild>
+                    <Link href={`/office/staffs/${id}/edit`}>
+                        <Pencil /> Edit Employee
+                    </Link>
+                </Button>
+            </DetailsHeader>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <HighlightInfo label="Phone" value={employee.phone} />
@@ -55,14 +61,6 @@ export default function StaffDetailsPage() {
                     <HighlightInfo label="Modified At" value={employee.modifiedAt} />
                     <HighlightInfo label="Modified By" value={employee.modifiedBy} />
                 </div>
-            </div>
-
-            <div>
-                <Button asChild>
-                    <Link href={`/office/staffs/${id}/edit`}>
-                        <Pencil /> Edit Employee
-                    </Link>
-                </Button>
             </div>
         </OfficePageDecorator>
     )

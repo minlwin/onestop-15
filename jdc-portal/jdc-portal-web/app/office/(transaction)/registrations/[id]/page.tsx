@@ -1,10 +1,14 @@
 'use client'
 import OfficePageDecorator from "@/app/office/_widgets/office-page-decorate";
+import DetailsHeader from "@/components/app/details-header";
 import HighlightInfo from "@/components/app/highlight-info";
 import Loading from "@/components/app/loading";
 import NameInfo from "@/components/app/name-info";
 import SubTitle from "@/components/app/sub-title";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Textarea } from "@/components/ui/textarea";
 import { RegistrationDetails } from "@/lib/model/dto/office";
 import { REGISTRATION_SEGMENTS } from "@/lib/segments";
 import { approveRegistration, findRegistrationDetails, rejectRegistration } from "@/lib/service/action/office-action";
@@ -17,6 +21,8 @@ export default function RegistrationDetailsPage() {
     const {id} = useParams()
     const [details, setDetails] = useState<RegistrationDetails>()
     const [loading, setLoading] = useState(false)
+    const [rejectDialogOpen, setRejectDialogOpen] = useState(false)
+    const [rejectReason, setRejectReason] = useState("")
 
     useEffect(() => {
         const loadData = async () => {
@@ -44,15 +50,23 @@ export default function RegistrationDetailsPage() {
     }
 
     const handleReject = async () => {
-        if (!details) return
+        setRejectDialogOpen(true)
+    }
+
+    const handleConfirmReject = async () => {
+        if (!details || !rejectReason.trim()) return
+        
         setLoading(true)
+        setRejectDialogOpen(false)
         try {
-            await rejectRegistration(details.id)
+            await rejectRegistration(details.id, rejectReason.trim())
             // Refresh data
             const updated = await findRegistrationDetails(id)
             setDetails(updated)
+            setRejectReason("")
         } catch (error) {
             console.error(error)
+            setRejectDialogOpen(true) // Re-open dialog on error
         } finally {
             setLoading(false)
         }
@@ -64,7 +78,18 @@ export default function RegistrationDetailsPage() {
 
     return (
         <OfficePageDecorator name="Registration Details" segments={REGISTRATION_SEGMENTS}>
-            <NameInfo name={details.studentName} subtitle={details.email} />
+            <DetailsHeader title={details.studentName} subTitle={details.email} >
+            {details.status === 'Applied' && (
+                <div className="flex gap-2">
+                    <Button onClick={handleApprove} disabled={loading}>
+                        <Check /> Approve Payment
+                    </Button>
+                    <Button variant="destructive" onClick={handleReject} disabled={loading}>
+                        <X /> Reject Payment
+                    </Button>
+                </div>
+            )}  
+            </DetailsHeader>
 
             <div className="flex gap-4 flex-col md:flex-row">
                 <div className="md:w-3/4 space-y-4">
@@ -110,16 +135,47 @@ export default function RegistrationDetailsPage() {
                 </div>
             </div>
 
-            {details.status === 'Applied' && (
-                <div className="flex gap-2">
-                    <Button onClick={handleApprove} disabled={loading}>
-                        <Check /> Approve Payment
-                    </Button>
-                    <Button variant="destructive" onClick={handleReject} disabled={loading}>
-                        <X /> Reject Payment
-                    </Button>
-                </div>
-            )}            
+            <Dialog open={rejectDialogOpen} onOpenChange={(open) => {
+                setRejectDialogOpen(open)
+                if (!open) setRejectReason("")
+            }}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Reject Registration</DialogTitle>
+                        <DialogDescription>
+                            Please provide a reason for rejecting this Registration.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-2">
+                        <Field>
+                            <FieldLabel>Rejection Reason</FieldLabel>
+                            <Textarea
+                                id="reject-reason"
+                                placeholder="Enter the reason for rejection..."
+                                value={rejectReason}
+                                onChange={(e) => setRejectReason(e.target.value)}
+                                rows={4}
+                            />
+                        </Field>
+                    </div>
+                    <DialogFooter>
+                        <Button
+                            variant="outline"
+                            onClick={() => setRejectDialogOpen(false)}
+                            disabled={loading}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={handleConfirmReject}
+                            disabled={loading || !rejectReason.trim()}
+                        >
+                            Reject Payment
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>                      
         </OfficePageDecorator>
     )
 }

@@ -11,11 +11,24 @@ import { Button } from "@/components/ui/button";
 import SubTitle from "@/components/app/sub-title";
 import HighlightInfo from "@/components/app/highlight-info";
 import { Check, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Field, FieldLabel } from "@/components/ui/field";
+import DetailsHeader from "@/components/app/details-header";
 
 export default function PaymentDetailsPage() {
     const { id } = useParams()
     const [details, setDetails] = useState<PaymentDetails>()
     const [loading, setLoading] = useState(false)
+    const [rejectDialogOpen, setRejectDialogOpen] = useState(false)
+    const [rejectReason, setRejectReason] = useState("")
 
     useEffect(() => {
         const loadData = async () => {
@@ -43,15 +56,23 @@ export default function PaymentDetailsPage() {
     }
 
     const handleReject = async () => {
-        if (!details) return
+        setRejectDialogOpen(true)
+    }
+
+    const handleConfirmReject = async () => {
+        if (!details || !rejectReason.trim()) return
+        
         setLoading(true)
+        setRejectDialogOpen(false)
         try {
-            await rejectPayment(details.id)
+            await rejectPayment(details.id, rejectReason.trim())
             // Refresh data
             const updated = await findPaymentDetails(id)
             setDetails(updated)
+            setRejectReason("")
         } catch (error) {
             console.error(error)
+            setRejectDialogOpen(true) // Re-open dialog on error
         } finally {
             setLoading(false)
         }
@@ -63,7 +84,18 @@ export default function PaymentDetailsPage() {
 
     return (
         <OfficePageDecorator name="Payment Details" segments={PAYMENT_SEGMENTS}>
-            <NameInfo name={details.studentName} subtitle={details.email} />
+            <DetailsHeader title={details.studentName} subTitle={details.email} >
+            {details.status === 'Pending' && (
+                <div className="flex gap-2">
+                    <Button onClick={handleApprove} disabled={loading}>
+                        <Check /> Approve Payment
+                    </Button>
+                    <Button variant="destructive" onClick={handleReject} disabled={loading}>
+                        <X /> Reject Payment
+                    </Button>
+                </div>
+            )}
+            </DetailsHeader>
             
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="md:w-3/4 space-y-4">
@@ -110,16 +142,47 @@ export default function PaymentDetailsPage() {
                 </div>
             </div>
 
-            {details.status === 'Pending' && (
-                <div className="flex gap-2">
-                    <Button onClick={handleApprove} disabled={loading}>
-                        <Check /> Approve Payment
-                    </Button>
-                    <Button variant="destructive" onClick={handleReject} disabled={loading}>
-                        <X /> Reject Payment
-                    </Button>
-                </div>
-            )}
+            <Dialog open={rejectDialogOpen} onOpenChange={(open) => {
+                setRejectDialogOpen(open)
+                if (!open) setRejectReason("")
+            }}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Reject Payment</DialogTitle>
+                        <DialogDescription>
+                            Please provide a reason for rejecting this payment.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-2">
+                        <Field>
+                            <FieldLabel>Rejection Reason</FieldLabel>
+                            <Textarea
+                                id="reject-reason"
+                                placeholder="Enter the reason for rejection..."
+                                value={rejectReason}
+                                onChange={(e) => setRejectReason(e.target.value)}
+                                rows={4}
+                            />
+                        </Field>
+                    </div>
+                    <DialogFooter>
+                        <Button
+                            variant="outline"
+                            onClick={() => setRejectDialogOpen(false)}
+                            disabled={loading}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={handleConfirmReject}
+                            disabled={loading || !rejectReason.trim()}
+                        >
+                            Reject Payment
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
         </OfficePageDecorator>
     )

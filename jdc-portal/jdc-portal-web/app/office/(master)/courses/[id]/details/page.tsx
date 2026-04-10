@@ -2,7 +2,6 @@
 
 import OfficePageDecorator from "@/app/office/_widgets/office-page-decorate"
 import Loading from "@/components/app/loading"
-import NameInfo from "@/components/app/name-info"
 import { CourseDetails } from "@/lib/model/dto/office"
 import { COURSE_SEGMENTS } from "@/lib/segments"
 import { findCourseDetails } from "@/lib/service/action/office-action"
@@ -17,6 +16,7 @@ import { Pencil } from "lucide-react"
 import DetailsTabContents from "@/components/app/details-tab-contents"
 import ClassesForCourse from "./_widgets/classes-for-course"
 import ContentsForCourse from "./_widgets/contents-for-courses"
+import DetailsHeader from "@/components/app/details-header"
 
 export default function CourseDetailsPage() {
 
@@ -41,7 +41,13 @@ export default function CourseDetailsPage() {
     return (
         <OfficePageDecorator name="Course Details" segments={COURSE_SEGMENTS}>
             {/* Course Information */}
-            <NameInfo name={course.name} subtitle={course.description} />
+            <DetailsHeader title={course.name} subTitle={course.description}>
+                <Button asChild>
+                    <Link href={`/office/courses/${course.id}/edit`}>
+                        <Pencil /> Edit Course
+                    </Link>
+                </Button>
+            </DetailsHeader>
 
             {/* Tabs */}
             <Tabs defaultValue="information" className="space-y-2">
@@ -83,14 +89,6 @@ function CourseInformation({ course }: { course: CourseDetails }) {
                     <HighlightInfo label="Modified At" value={course.modifiedAt} />
                     <HighlightInfo label="Modified By" value={course.modifiedBy} />
                 </div>
-            </div>
-
-            <div>
-                <Button asChild>
-                    <Link href={`/office/courses/${course.id}/edit`}>
-                        <Pencil /> Edit Course
-                    </Link>
-                </Button>
             </div>
         </DetailsTabContents>
     )

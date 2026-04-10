@@ -65,6 +65,7 @@ export type ClassForm = z.infer<typeof classSchema>
 
 export type RegistrationSearch = {
     classType? : string
+    status?: string
     dateFrom? : string
     dateTo? : string
     keyword? : string

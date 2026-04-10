@@ -3,7 +3,7 @@ package com.jdc.portal.dto.consts;
 import com.jdc.portal.dto.Option;
 
 public enum PaymentStatus implements Option{
-	Pendind, Paid, Retry;
+	Pending, Paid, Retry;
 
 	@Override
 	public String getLabel() {

@@ -3,7 +3,6 @@ import OfficePageDecorator from "@/app/office/_widgets/office-page-decorate"
 import DetailsTabContents from "@/components/app/details-tab-contents"
 import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
-import NameInfo from "@/components/app/name-info"
 import SubTitle from "@/components/app/sub-title"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -18,6 +17,7 @@ import StudentsForClass from "./_widgets/students-for-class"
 import PaymentsForClass from "./_widgets/payments-for-class"
 import AttendanceForClass from "./_widgets/attendance-for-class"
 import QrCodes from "./_widgets/qr-for-class"
+import DetailsHeader from "@/components/app/details-header"
 
 export default function ClassDetailsPage() {
 
@@ -40,7 +40,13 @@ export default function ClassDetailsPage() {
     
     return (
         <OfficePageDecorator name="Class Details" segments={CLASS_SEGMENTS}>
-            <NameInfo name={details.course} subtitle={`${details.type} - ${details.startDate}`} />
+            <DetailsHeader title={details.course} subTitle={`${details.type} - ${details.startDate}`}>
+                <Button asChild>
+                    <Link href={`/office/classes/${details.id}/edit`}>
+                        <Pencil /> Edit Class
+                    </Link>
+                </Button>
+            </DetailsHeader>
 
             <Tabs defaultValue="information" className="space-y-2">
                 <TabsList>
@@ -97,14 +103,6 @@ function ClassInformation({details} : {details : ClassDetails}) {
                     <HighlightInfo label="Modified At" value={details.modifiedAt} />
                     <HighlightInfo label="Modified By" value={details.modifiedBy} />
                 </div>
-            </div>
-
-            <div>
-                <Button asChild>
-                    <Link href={`/office/classes/${details.id}/edit`}>
-                        <Pencil /> Edit Class
-                    </Link>
-                </Button>
             </div>
         </DetailsTabContents>
     )

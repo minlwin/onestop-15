@@ -61,7 +61,7 @@ export async function findById(id: any) : Promise<RegistrationDetails> {
         studentName: "John Doe",
         email: "john@example",
         phone: "0123456789",
-        status: "Approved",
+        status: "Applied",
         registerAt: "2023-01-01",
         paymentDate: "2023-01-01",
         paymentType: "Office",
@@ -75,7 +75,7 @@ export async function findById(id: any) : Promise<RegistrationDetails> {
 }
 
 
-export async function updateStatus(id: any, status: string) : Promise<void> {
+export async function updateStatus(id: any, status: string, reason?: string) : Promise<void> {
     // Mock update status
     console.log(`Updating payment ${id} status to ${status}`)
 }

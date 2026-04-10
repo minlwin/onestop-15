@@ -4,7 +4,7 @@ import OfficePageDecorator from "../../_widgets/office-page-decorate";
 import { RegistrationSearch } from "@/lib/model/schema/office";
 import { useEffect, useState } from "react";
 import { Pager, SelectOption } from "@/lib/types";
-import { getClassTypes } from "@/lib/service/action/constants-action";
+import { getClassTypes, getRegistrationStatus } from "@/lib/service/action/constants-action";
 import { RegistrationItem } from "@/lib/model/dto/office";
 import { searchRegistration } from "@/lib/service/action/office-action";
 import PaginationComponent from "@/components/app/pagination";
@@ -20,6 +20,7 @@ export default function RegistrationManagementPage() {
     const form = useForm<RegistrationSearch>({
         defaultValues: {
             classType: "",
+            status: "",
             dateFrom: "",
             dateTo: "",
             keyword: ""
@@ -28,6 +29,7 @@ export default function RegistrationManagementPage() {
 
     const [classTypes, setClassTypes] = useState<SelectOption[]>([])
     const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
+    const [statusList, setStatusList] = useState<SelectOption[]>([])
     const [pager, setPager] = useState<Pager>()
 
     useEffect(() => {
@@ -35,6 +37,10 @@ export default function RegistrationManagementPage() {
             const classTypes = await getClassTypes()
             classTypes.unshift({value: "", label: "Search All"})
             setClassTypes(classTypes)
+
+            const result = await getRegistrationStatus()
+            result.unshift({label: "Search All", value: ""})
+            setStatusList(result)
 
             const {list, ...pageInfo} = await searchRegistration({})
             setRegistrations(list)
@@ -60,8 +66,11 @@ export default function RegistrationManagementPage() {
     return (
         <OfficePageDecorator name="Registration Management">
             <form onSubmit={form.handleSubmit(onSearch)} className="flex gap-4 items-end">
-                <div className="w-1/6">
+                <div>
                     <FormsSelect control={form.control} name="classType" label="Class Type" options={classTypes} />
+                </div>
+                <div>
+                    <FormsSelect control={form.control} name="status" label="Status" options={statusList} />
                 </div>
                 <div>
                     <FormsInput control={form.control} name="dateFrom" label="From" type="date" />

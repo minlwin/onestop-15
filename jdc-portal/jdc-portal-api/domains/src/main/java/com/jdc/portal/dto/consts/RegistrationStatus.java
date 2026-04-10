@@ -4,7 +4,7 @@ import com.jdc.portal.dto.Option;
 
 public enum RegistrationStatus implements Option {
 	
-	Applied, Approved, Cancel;
+	Applied, Approved, Rejected;
 
 	@Override
 	public String getLabel() {
