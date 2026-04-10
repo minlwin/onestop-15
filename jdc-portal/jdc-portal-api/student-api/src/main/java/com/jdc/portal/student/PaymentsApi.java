@@ -16,7 +16,7 @@ import com.jdc.portal.student.input.PaymentForm;
 import com.jdc.portal.student.output.PaymentDetails;
 import com.jdc.portal.student.output.PaymentItem;
 
-@RestController
+@RestController("studentPaymentsApi")
 @RequestMapping("/student/payments")
 public class PaymentsApi {
 

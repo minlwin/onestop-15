@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.anonymous.output.ClassDetails;
 
-@RestController
+@RestController("publicClassesApi")
 @RequestMapping("/anonymous/classes")
 public class ClassesApi {
 

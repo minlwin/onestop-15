@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jdc.portal.student.output.AttendClassSummary;
 import com.jdc.portal.student.output.ClassItem;
 
-@RestController
+@RestController("studentClassesApi")
 @RequestMapping("/student/classes")
-public class ClassApi {
+public class ClassesApi {
 
 	@GetMapping
 	List<ClassItem> findMyClasses(Authentication auth) {

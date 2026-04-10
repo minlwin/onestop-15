@@ -10,9 +10,9 @@ import com.jdc.portal.anonymous.input.CheckRegistrationForm;
 import com.jdc.portal.anonymous.input.RegistrationForm;
 import com.jdc.portal.dto.MessageResult;
 
-@RestController
+@RestController("publicRegistrationsApi")
 @RequestMapping("/anonymous/registrations")
-public class RegistrationApi {
+public class RegistrationsApi {
 
 	@PostMapping("apply")
 	MessageResult apply(@Validated RegistrationForm form) {

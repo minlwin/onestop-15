@@ -88,10 +88,11 @@ export async function findDetails(id: string): Promise<ClassDetails> {
 
 export async function findForStudent(studentId: any, classId: any): Promise<ClassForStudent> {
     return {
-        classId: 1,
+        id: 1,
         studentId: 1,
         type: "Online",
         course: "Math",
+        courseLevel: "Beginner",
         startDate: "2023-01-01",
         registrationFee: 50000,
         monthlyFee: 100000,

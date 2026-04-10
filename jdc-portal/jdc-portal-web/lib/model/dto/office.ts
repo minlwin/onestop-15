@@ -55,15 +55,8 @@ export type ClassItem = {
     monthlyFee: number
 }
 
-export type ClassForStudent = {
-    classId: number
+export type ClassForStudent = ClassItem & {
     studentId: number
-    type: string
-    course: string
-    startDate: string
-    registrationFee: number
-    monthlyFee: number
-    months: number
     attended: number
     late: number
     absent: number
@@ -72,15 +65,7 @@ export type ClassForStudent = {
     paidFees: number
 }
 
-export type ClassDetails = {
-    id: number
-    type: string
-    course: string
-    courseLevel: string
-    startDate: string
-    months: number
-    registrationFee: number
-    monthlyFee: number
+export type ClassDetails = ClassItem & {
     days: string
     time: string
 } & AuditInfo

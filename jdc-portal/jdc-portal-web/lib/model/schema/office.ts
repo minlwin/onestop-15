@@ -29,7 +29,7 @@ export type CourseSearch = {
 
 export const courseSchema = z.object({
     course: z.string().nonempty("Please enter a course"),
-    courseLevel: z.string().nonempty("Please enter a course level"),
+    courseLevel: z.string().nonempty("Please select a course level"),
     hours: z.number().nonnegative("Please enter a valid number"),
     description: z.string().nonempty("Please enter a course description"),
     contents: z.array(z.object({

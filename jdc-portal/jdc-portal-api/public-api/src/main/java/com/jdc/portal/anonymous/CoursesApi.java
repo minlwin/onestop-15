@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jdc.portal.anonymous.output.CourseDetails;
 import com.jdc.portal.dto.CourseItem;
 
-@RestController
+@RestController("publicCoursesApi")
 @RequestMapping("/anonymous/courses")
 public class CoursesApi {
 
