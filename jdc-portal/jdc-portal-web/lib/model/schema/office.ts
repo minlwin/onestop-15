@@ -71,6 +71,16 @@ export type RegistrationSearch = {
     keyword? : string
 } & PageSearch
 
+export const registrationSchema = z.object({
+    classId: z.string().nonempty("Please select a class"),
+    name: z.string().nonempty("Please enter student name"),
+    email: z.email("Please enter a valid email address"),
+    phone: z.string().nonempty("Please enter student phone number"),
+    registrationFee: z.number().nonnegative("Please enter a valid number"),
+})
+
+export type RegistrationForm = z.infer<typeof registrationSchema>
+
 export type PaymentSearch = {
     classId? : string
     studentId? : string

@@ -22,6 +22,7 @@ export type PaymentItem = {
     paymentType: 'In Hand' | 'KPay' | 'Wave Pay' | 'AYA Pay'
     status: 'Pending' | 'Paid' | 'Retry'
     particular: 'Registration Fee' | 'Monthly Fee'
+    rejectReason?: string
 }
 
 export type PaymentDetails = PaymentItem & {

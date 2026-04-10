@@ -13,7 +13,9 @@ export async function search(form: ClassSearch): Promise<PageResult<ClassItem>> 
                 course: "Math",
                 courseLevel: "A",
                 startDate: "2023-01-01",
-                months: 3
+                months: 3,
+                registrationFee: 50000,
+                monthlyFee: 100000
             },
             {
                 id: 2,
@@ -21,7 +23,9 @@ export async function search(form: ClassSearch): Promise<PageResult<ClassItem>> 
                 course: "English",
                 courseLevel: "A",
                 startDate: "2023-01-01",
-                months: 3
+                months: 3,
+                registrationFee: 50000,
+                monthlyFee: 100000
             },
             {
                 id: 3,
@@ -29,7 +33,9 @@ export async function search(form: ClassSearch): Promise<PageResult<ClassItem>> 
                 course: "Science",
                 courseLevel: "A",
                 startDate: "2023-01-01",
-                months: 3
+                months: 3,
+                registrationFee: 50000,
+                monthlyFee: 100000
             }
         ]
     }

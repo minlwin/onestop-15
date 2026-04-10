@@ -51,6 +51,8 @@ export type ClassItem = {
     courseLevel: string
     startDate: string
     months: number
+    registrationFee: number
+    monthlyFee: number
 }
 
 export type ClassForStudent = {
@@ -95,6 +97,7 @@ export type RegistrationItem = {
     phone: string
     status: 'Applied' | 'Approved' | 'Canceled'
     registerAt: string
+    rejectReason?: string
 }
 
 export type RegistrationDetails = RegistrationItem & AuditInfo & {
@@ -117,6 +120,7 @@ export type PaymentItem = {
     amount: number
     status: 'Pending' | 'Paid' | 'Retry'
     particular: 'Registration Fee' | 'Monthly Fee'
+    rejectReason?: string
 }
 
 export type PaymentDetails = PaymentItem & AuditInfo & {

@@ -44,6 +44,6 @@ export async function findById(id : string) : Promise<PaymentDetails> {
         paymentType: "In Hand",
         status: "Paid",
         particular: "Monthly Fee",
-        slip: "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+        slip: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8_S0ubIv5ZgTBldLfnbcQ2RcxTI4mvFT9g&s",
     }
 }

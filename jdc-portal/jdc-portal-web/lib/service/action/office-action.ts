@@ -2,7 +2,7 @@
 
 import {  CourseItem } from "@/lib/model/dto/anonymous";
 import { ClassDetails, ClassForStudent, ClassItem, CourseDetails, EmployeeDetails, EmployeeItem, PaymentDetails, PaymentItem,RegistrationDetails,RegistrationItem,StudentDetails,StudentItem } from "@/lib/model/dto/office";
-import { ClassForm, ClassSearch, CourseForm, CourseSearch, EmployeeForm, EmployeeSearch, PaymentSearch, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
+import { ClassForm, ClassSearch, CourseForm, CourseSearch, EmployeeForm, EmployeeSearch, PaymentSearch, RegistrationForm, RegistrationSearch, StudentSearch } from "@/lib/model/schema/office";
 import { DataModificationResult, PageResult } from "@/lib/types";
 import * as employeeApi from "../rest/office/employee-rest-client"
 import * as studentApi from "../rest/office/student-rest-client"
@@ -103,6 +103,9 @@ export async function findRegistrationDetails(id: any) : Promise<RegistrationDet
     return registrationApi.findById(id)
 }
 
+export async function createRegistration(form: RegistrationForm) : Promise<DataModificationResult<string>> {
+    return await registrationApi.create(form)
+}
 
 export async function approveRegistration(id: any) : Promise<void> {
     return await registrationApi.updateStatus(id, 'Approved')

@@ -1,7 +1,7 @@
 import 'server-only'
 import { RegistrationDetails, RegistrationItem } from "@/lib/model/dto/office";
-import { RegistrationSearch } from "@/lib/model/schema/office";
-import { PageResult, PAGEINFO } from "@/lib/types";
+import { RegistrationForm, RegistrationSearch } from "@/lib/model/schema/office";
+import { PageResult, PAGEINFO, DataModificationResult } from "@/lib/types";
 
 export async function search(form:RegistrationSearch) : Promise<PageResult<RegistrationItem>> {
     return {
@@ -71,6 +71,12 @@ export async function findById(id: any) : Promise<RegistrationDetails> {
         modifiedAt: "2023-01-01",
         createdBy: "John Doe",
         modifiedBy: "John Doe"
+    }
+}
+
+export async function create(form: RegistrationForm) : Promise<DataModificationResult<string>> {
+    return {
+        id: "1234"
     }
 }
 
