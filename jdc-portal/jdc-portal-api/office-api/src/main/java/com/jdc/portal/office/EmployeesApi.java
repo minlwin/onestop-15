@@ -16,28 +16,34 @@ import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
 import com.jdc.portal.office.output.EmployeeDetails;
 import com.jdc.portal.office.output.EmployeeItem;
+import com.jdc.portal.office.service.EmployeeManagementService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("office/employees")
 public class EmployeesApi {
+	
+	private final EmployeeManagementService service;
 
 	@GetMapping
 	List<EmployeeItem> search(EmployeeSearch search) {
-		return null;
+		return service.search(search);
 	}
 	
 	@PostMapping
 	DataModificationResult<Integer> create(@Validated @RequestBody EmployeeForm form) {
-		return null;
+		return service.create(form);
 	}
 
 	@PutMapping("{id}")
 	DataModificationResult<Integer> update(@PathVariable int id, @Validated @RequestBody EmployeeForm form) {
-		return null;
+		return service.update(id, form);
 	}
 	
 	@GetMapping("{id}")
 	EmployeeDetails findById(@PathVariable int id) {
-		return null;
+		return service.findById(id);
 	}
 }

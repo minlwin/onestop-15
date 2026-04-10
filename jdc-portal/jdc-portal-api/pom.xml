@@ -16,15 +16,7 @@
 	<properties>
 		<java.version>25</java.version>
 	</properties>
-	
-	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-	
+		
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

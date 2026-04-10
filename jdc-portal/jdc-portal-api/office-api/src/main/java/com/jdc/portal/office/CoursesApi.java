@@ -16,33 +16,39 @@ import com.jdc.portal.dto.DataModificationResult;
 import com.jdc.portal.office.input.CourseForm;
 import com.jdc.portal.office.input.CourseSearch;
 import com.jdc.portal.office.output.CourseDetails;
+import com.jdc.portal.office.service.CourseManagementService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("office/courses")
 public class CoursesApi {
 
+	private final CourseManagementService service;
+	
 	@GetMapping
 	List<CourseItem> search(CourseSearch search) {
-		return null;
+		return service.search(search);
 	}
 	
 	@PostMapping
 	DataModificationResult<Integer> create(@Validated @RequestBody CourseForm form) {
-		return null;
+		return service.create(form);
 	}
 
 	@PutMapping("{id}")
 	DataModificationResult<Integer> update(@PathVariable int id, @Validated @RequestBody CourseForm form) {
-		return null;
+		return service.update(id, form);
 	}
 	
 	@GetMapping("{id}")
 	CourseDetails findById(@PathVariable int id) {
-		return null;
+		return service.findById(id);
 	}
 
 	@GetMapping("{id}/form")
 	CourseForm findForm(@PathVariable int id) {
-		return null;
+		return service.findForm(id);
 	}
 }
