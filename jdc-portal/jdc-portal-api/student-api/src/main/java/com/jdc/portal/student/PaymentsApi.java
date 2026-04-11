@@ -15,23 +15,30 @@ import com.jdc.portal.dto.DataModificationResult;
 import com.jdc.portal.student.input.PaymentForm;
 import com.jdc.portal.student.output.PaymentDetails;
 import com.jdc.portal.student.output.PaymentItem;
+import com.jdc.portal.student.service.StudentPaymentService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor	
 @RestController("studentPaymentsApi")
 @RequestMapping("/student/payments")
 public class PaymentsApi {
-
-	@PostMapping
-	DataModificationResult<Long> paid(@Validated PaymentForm form, Authentication auth) {
-		return null;
-	}
 	
+	private final StudentPaymentService service;
+
 	@GetMapping
 	List<PaymentItem> search(@RequestParam(required = false) Integer classId, Authentication auth) {
-		return null;
+		return service.search(classId, auth.getName());
 	}
 	
 	@GetMapping("{id}")
 	PaymentDetails findById(@PathVariable long id) {
-		return null;
+		return service.findById(id);
 	}
+
+	@PostMapping
+	DataModificationResult<Long> paid(@Validated PaymentForm form, Authentication auth) {
+		return service.paid(form, auth.getName());
+	}
+	
 }
