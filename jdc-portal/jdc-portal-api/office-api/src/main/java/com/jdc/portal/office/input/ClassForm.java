@@ -1,8 +1,8 @@
 package com.jdc.portal.office.input;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import com.jdc.portal.domains.master.Classes;
 import com.jdc.portal.dto.consts.ClassType;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,8 +14,8 @@ public record ClassForm(
 		@NotNull(message = "Please select a class type")
 	    ClassType type,
 
-	    @NotBlank(message = "Please select a course")
-	    String course,
+	    @NotNull(message = "Please select a course")
+	    Integer course,
 
 	    @NotNull(message = "Please select a start date")
 	    LocalDate startDate,
@@ -25,7 +25,7 @@ public record ClassForm(
 	    Integer months,
 
 	    @NotEmpty(message = "Please select at least one day")
-	    List<@NotBlank(message = "Day cannot be blank") String> days,
+	    String[] days,
 
 	    @NotBlank(message = "Please select a start time")
 	    String timeFrom,
@@ -35,10 +35,51 @@ public record ClassForm(
 
 	    @NotNull(message = "Please enter a valid number")
 	    @PositiveOrZero(message = "Please enter a valid number")
-	    Double registrationFee,
+	    Integer registrationFee,
 
 	    @NotNull(message = "Please enter a valid number")
 	    @PositiveOrZero(message = "Please enter a valid number")
-	    Double monthlyFee) {
+		Integer monthlyFee) {
+	
+	
+	public static ClassForm from(Classes entity) {
+		return new ClassForm(
+				entity.getType(),
+				entity.getCourse().getId(),
+				entity.getStartDate(),
+				entity.getMonths(),
+				entity.getDays(),
+				entity.getTimeFrom(),
+				entity.getTimeTo(),
+				entity.getRegistrationFee(),
+				entity.getMonthlyFee()
+		);
+	}
+
+	public Classes toEntity() {
+		
+		var entity = new Classes();
+		entity.setType(type);
+		entity.setStartDate(startDate);
+		entity.setMonths(months);
+		entity.setDays(days);
+		entity.setTimeFrom(timeFrom);
+		entity.setTimeTo(timeTo);
+		entity.setRegistrationFee(registrationFee);
+		entity.setMonthlyFee(monthlyFee);
+		
+		return entity;
+	}
+
+	public void updateEntity(Classes entity) {
+		entity.setType(type);
+		entity.setStartDate(startDate);
+		entity.setMonths(months);
+		entity.setDays(days);
+		entity.setTimeFrom(timeFrom);
+		entity.setTimeTo(timeTo);
+		entity.setRegistrationFee(registrationFee);
+		entity.setMonthlyFee(monthlyFee);
+	}
 
 }

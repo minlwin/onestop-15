@@ -1,8 +1,10 @@
 package com.jdc.portal.domains.master;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.jdc.portal.domains.AbstractEntity;
+import com.jdc.portal.domains.transaction.Registration;
 import com.jdc.portal.dto.consts.ClassType;
 import com.jdc.portal.utils.converter.ClassDaysConverter;
 
@@ -13,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -52,4 +55,7 @@ public class Classes extends AbstractEntity {
 	
 	@Column(nullable = false)
 	private String timeTo;
+	
+	@OneToMany(mappedBy = "classes")
+	private List<Registration> registrations;
 }

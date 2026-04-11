@@ -1,6 +1,7 @@
 package com.jdc.portal.domains.account;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.AbstractEntity;
 import com.jdc.portal.dto.consts.Position;
@@ -23,8 +24,11 @@ public class Employee extends AbstractEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	private Account account;
+	
+	@OneToOne(optional = true, mappedBy = "account")
+	private EmployeeActivation activation;
 	
 	@Column(nullable = false)
 	private Position position;
@@ -36,5 +40,7 @@ public class Employee extends AbstractEntity{
 	private LocalDate entryAt;
 	
 	private LocalDate resignAt;
+	
+	private LocalDateTime activatedAt;
 	
 }

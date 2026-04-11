@@ -2,6 +2,7 @@ package com.jdc.portal.office.input;
 
 import java.util.List;
 
+import com.jdc.portal.domains.master.Course;
 import com.jdc.portal.dto.consts.CourseLevel;
 
 import jakarta.validation.Valid;
@@ -22,4 +23,13 @@ public record CourseForm(
 		List<@Valid CourseContentInput> contents
 		) {
 
+	public static CourseForm from(Course entity) {
+		return new CourseForm(
+				entity.getName(),
+				entity.getLevel(),
+				entity.getHours(),
+				entity.getDescription(),
+				entity.getContents().stream().map(CourseContentInput::from).toList()
+		);
+	}
 }

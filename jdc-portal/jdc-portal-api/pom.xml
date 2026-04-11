@@ -16,7 +16,15 @@
 	<properties>
 		<java.version>25</java.version>
 	</properties>
-		
+	
+	<modules>
+		<module>application</module>
+		<module>domains</module>
+		<module>office-api</module>
+		<module>public-api</module>
+		<module>student-api</module>
+	</modules>
+			
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -46,12 +54,42 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-processor</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 
-	<modules>
-		<module>application</module>
-		<module>domains</module>
-		<module>office-api</module>
-		<module>public-api</module>
-		<module>student-api</module>
-	</modules>
+	<build>
+	    <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.hibernate.orm</groupId>
+                            <artifactId>hibernate-processor</artifactId>
+                            <version>${hibernate.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+	</build>	
 </project>

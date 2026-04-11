@@ -9,15 +9,21 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Activation {
+public class StudentActivation {
 
 	@Id
 	private int id;
 	
 	@MapsId
 	@OneToOne(optional = false)
-	private Student student;
+	private Student account;
 	
 	@Column(nullable = false)
 	private String code;
+	
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false, unique = true)
+	private String email;
 }

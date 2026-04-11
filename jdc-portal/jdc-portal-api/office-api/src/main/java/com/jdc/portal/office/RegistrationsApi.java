@@ -42,4 +42,5 @@ public class RegistrationsApi {
 	@PutMapping("{id}")
 	DataModificationResult<Long> update(@PathVariable long id, @Validated @RequestBody RegistrationStatusForm form) {
 		return null;
-	}}
+	}
+}

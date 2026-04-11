@@ -34,19 +34,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-processor</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-			<optional>true</optional>
-		</dependency>
-
 	</dependencies>
 
 

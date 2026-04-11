@@ -14,6 +14,7 @@ public record EmployeeDetails(
     String email,
     LocalDate entryAt,
     LocalDate resignAt,
+    LocalDateTime activatedAt,
     String createdBy,
     String modifiedBy,
     LocalDateTime createdAt,
@@ -23,12 +24,13 @@ public record EmployeeDetails(
 	public static EmployeeDetails from(Employee entity) {
 		return new EmployeeDetails(
 				entity.getId(),
-				entity.getAccount().getName(),
+				entity.getActivatedAt() != null ? entity.getAccount().getName() : entity.getActivation().getName(),
 				entity.getPosition(),
 				entity.getPhone(),
-				entity.getAccount().getEmail(),
+				entity.getActivatedAt() != null ? entity.getAccount().getEmail() : entity.getActivation().getEmail(),
 				entity.getEntryAt(),
 				entity.getResignAt(),
+				entity.getActivatedAt(),
 				entity.getCreatedBy(),
 				entity.getUpdatedBy(),
 				entity.getCreatedAt(),

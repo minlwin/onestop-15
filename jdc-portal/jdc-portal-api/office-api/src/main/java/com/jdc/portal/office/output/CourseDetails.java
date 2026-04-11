@@ -3,6 +3,7 @@ package com.jdc.portal.office.output;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.jdc.portal.domains.master.Course;
 import com.jdc.portal.dto.CourseContent;
 import com.jdc.portal.dto.consts.CourseLevel;
 
@@ -19,4 +20,18 @@ public record CourseDetails(
     LocalDateTime modifiedAt	    
 ) {
 
+	public static CourseDetails from(Course entity) {
+		return new CourseDetails(
+				entity.getId(),
+				entity.getName(),
+				entity.getLevel(),
+				entity.getHours(),
+				entity.getDescription(),
+				entity.getContents(),
+				entity.getCreatedBy(),
+				entity.getUpdatedBy(),
+				entity.getCreatedAt(),
+				entity.getUpdatedAt()
+		);
+	}
 }
