@@ -10,24 +10,32 @@ import com.jdc.portal.anonymous.input.ActivationForm;
 import com.jdc.portal.anonymous.input.SignInForm;
 import com.jdc.portal.anonymous.input.TokenForm;
 import com.jdc.portal.anonymous.output.AuthResult;
+import com.jdc.portal.anonymous.service.ActivationService;
+import com.jdc.portal.anonymous.service.AuthTokenService;
 import com.jdc.portal.dto.MessageResult;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/anonymous/auth")
 public class AuthApi {
+	
+	private final ActivationService activationService;
+	private final AuthTokenService tokenService;
 
 	@PostMapping("activate")
 	MessageResult activate(@Validated @RequestBody ActivationForm form) {
-		return null;
+		return activationService.activate(form);
 	}
 	
 	@PostMapping("signin")
 	AuthResult signIn(@Validated @RequestBody SignInForm form) {
-		return null;
+		return tokenService.signIn(form);
 	}
 	
 	@PostMapping("refresh")
 	AuthResult refreshToken(@Validated @RequestBody TokenForm form) {
-		return null;
+		return tokenService.refresh(form);
 	}
 }

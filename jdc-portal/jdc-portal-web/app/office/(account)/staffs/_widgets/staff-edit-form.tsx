@@ -64,7 +64,7 @@ export default function StaffEditForm({ employee, onSubmit }: { employee?: Emplo
 
             <div>
                 <Button type="submit">
-                    <Plus /> Create Employee
+                    <Plus /> {employee ? "Update" : "Create"} Employee
                 </Button>
             </div>
         </form>

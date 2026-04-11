@@ -17,7 +17,6 @@ export type CourseItem = {
 
 export type CourseDetails = CourseItem & {
     contents: CourseContent[]
-    classes: ClassInfo[]
 }
 
 export type CourseContent = {

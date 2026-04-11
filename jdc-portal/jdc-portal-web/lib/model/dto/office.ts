@@ -111,3 +111,14 @@ export type PaymentItem = {
 export type PaymentDetails = PaymentItem & AuditInfo & {
     paySlip?: string
 }
+
+export type PaymentAccountItem = {
+    id: number
+    type: string
+    provider: string
+    accountNo: string
+    accountName: string
+    deleted: boolean
+}
+
+export type PaymentAccountDetails = PaymentAccountItem & AuditInfo

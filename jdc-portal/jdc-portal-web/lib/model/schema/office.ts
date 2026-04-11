@@ -100,3 +100,12 @@ export const paymentSchema = z.object({
 })
 
 export type PaymentForm = z.infer<typeof paymentSchema>
+
+export const paymentAccountSchema = z.object({
+    type: z.string().nonempty("Please select a payment type"),
+    provider: z.string().nonempty("Please enter provider name"),
+    accountNo: z.string().nonempty("Please enter account number"),
+    accountName: z.string().nonempty("Please enter account name")
+})
+
+export type PaymentAccountForm = z.infer<typeof paymentAccountSchema>

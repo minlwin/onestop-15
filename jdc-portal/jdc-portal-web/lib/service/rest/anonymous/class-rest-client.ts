@@ -1,6 +1,32 @@
 import 'server-only'
 
-import { ClassDetails } from "@/lib/model/dto/anonymous";
+import { ClassDetails, ClassInfo } from "@/lib/model/dto/anonymous";
+
+export async function findForCourse(courseId: any) : Promise<ClassInfo[]> {
+    return [
+        {
+            id: 1,
+            type : "Online",
+            startDate : "2026-04-15",
+            days: "Mon, Wed, Fri",
+            time: "7:00 PM - 9:00 PM",
+            months: 3,
+            registrationFee: 50000,
+            monthlyFee: 100000,
+        },
+        {
+            id: 2,
+            type : "Offline",
+            startDate : "2026-04-15",
+            days: "Mon, Wed, Fri",
+            time: "7:00 PM - 9:00 PM",
+            months: 3,
+            registrationFee: 50000,
+            monthlyFee: 100000,
+        }
+    ]
+}
+
 
 export async function findById(id: any):Promise<ClassDetails> {
     return {

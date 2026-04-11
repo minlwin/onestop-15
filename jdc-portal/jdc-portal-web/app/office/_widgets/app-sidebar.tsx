@@ -9,7 +9,7 @@ const OFFICE_MENUS:MenuGroup[] = [
     {
         items : [
             {name : "Office Home", path : "", icon: 'Home'},
-            {name : "Payments", path : "payments", icon: 'CreditCard'},
+            {name : "Payments", path : "payments", icon: 'DollarSign'},
             {name : "Registrations", path : "registrations", icon : 'UserPlus'},
         ]
     },
@@ -25,6 +25,7 @@ const OFFICE_MENUS:MenuGroup[] = [
         items : [
             {name : "Courses", path : "courses", icon : 'BookOpenCheck'},
             {name : "Classes", path : "classes", icon : 'CalendarCheck'},
+            {name : "Payment Accounts", path : "payaccounts", icon : 'Wallet'},
         ]
     },
 ]

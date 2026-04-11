@@ -4,21 +4,11 @@ import com.jdc.portal.dto.Option;
 
 public enum PaymentType implements Option{
 	
-	KPay("KBZ Pay"), AyaPay("AYA Pay"), WavePay("Wave Pay"), Office("Office");
-	
-	private String value;
-
-	private PaymentType(String value) {
-		this.value = value;
-	}
-	
-	public String getDisplayName() {
-		return value;
-	}
+	Banking, eWallet, Office;
 
 	@Override
 	public String getLabel() {
-		return getDisplayName();
+		return name();
 	}
 
 	@Override

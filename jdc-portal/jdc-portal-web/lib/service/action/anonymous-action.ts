@@ -1,6 +1,6 @@
 'use server'
 
-import { ClassDetails, CourseDetails, PaymentInfo } from "@/lib/model/dto/anonymous"
+import { ClassDetails, ClassInfo, CourseDetails, PaymentInfo } from "@/lib/model/dto/anonymous"
 import { ActivationForm, CheckRegistrationForm, RegistrationForm, SignInForm } from "@/lib/model/schema/anonymous"
 import * as paymentInfoApi from "../rest/anonymous/payment-info-rest-client"
 import * as courseApi from "../rest/anonymous/courses-rest-client"
@@ -22,6 +22,10 @@ export async function signInAction(data: SignInForm): Promise<MessageResult> {
 
 export async function findCourseAction(id: any):Promise<CourseDetails> {
     return await courseApi.findById(id)
+}
+
+export async function findClassForCourseAction(classId: any):Promise<ClassInfo[]> {
+    return await classApi.findForCourse(classId)
 }
 
 export async function findClassAction(id: any):Promise<ClassDetails> {

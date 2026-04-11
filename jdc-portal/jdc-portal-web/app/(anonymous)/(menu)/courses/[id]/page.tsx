@@ -4,8 +4,8 @@ import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
 import { Button } from "@/components/ui/button"
 import { ClassInfo, CourseContent, CourseDetails } from "@/lib/model/dto/anonymous"
-import { findCourseAction } from "@/lib/service/action/anonymous-action"
-import { Edit, Pen, Pencil } from "lucide-react"
+import { findClassForCourseAction, findCourseAction } from "@/lib/service/action/anonymous-action"
+import { Edit } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -14,11 +14,15 @@ export default function CourseDetailsPage() {
 
     const { id } = useParams()
     const [course, setCourse] = useState<CourseDetails>()
+    const [classes, setClasses] = useState<ClassInfo[]>([])
 
     useEffect(() => {
         const fetchCourse = async () => {
             const response = await findCourseAction(id)
             setCourse(response)
+
+            const classes = await findClassForCourseAction(id)
+            setClasses(classes)
         }
         fetchCourse()
     }, [id])
@@ -48,7 +52,7 @@ export default function CourseDetailsPage() {
                 <h2 className="text-2xl font-semibold">Available Classes</h2>
 
                 <div className="grid gap-6">
-                    {course.classes.map((cls) => (
+                    {classes.map((cls) => (
                         <ClassInfoItem key={cls.id} cls={cls} />
                     ))}
                 </div>

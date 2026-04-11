@@ -35,27 +35,5 @@ export async function findById(id: number): Promise<CourseDetails> {
             description: "Build RESTful APIs with Spring Boot",
             },
         ],
-        classes: [
-        {
-            id: 1,
-            type: "Online",
-            startDate: "2026-04-15",
-            days: "Mon, Wed, Fri",
-            time: "7:00 PM - 9:00 PM",
-            months: 3,
-            registrationFee: 50000,
-            monthlyFee: 100000,
-            },
-            {
-            id: 2,
-            type: "On Campus",
-            startDate: "2026-04-20",
-            days: "Sat, Sun",
-            time: "10:00 AM - 2:00 PM",
-            months: 4,
-            registrationFee: 70000,
-            monthlyFee: 120000,
-            },            
-        ]
     }
 }

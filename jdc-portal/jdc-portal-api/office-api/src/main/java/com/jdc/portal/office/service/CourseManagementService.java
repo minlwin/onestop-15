@@ -29,16 +29,16 @@ public class CourseManagementService {
 
 	public List<CourseItem> search(CourseSearch search) {
 		
-		Function<CriteriaBuilder, CriteriaQuery<CourseItem>> queryFunc = cb -> {
-			var cq = cb.createQuery(CourseItem.class);
+		Function<CriteriaBuilder, CriteriaQuery<Course>> queryFunc = cb -> {
+			var cq = cb.createQuery(Course.class);
 			var root = cq.from(Course.class);
 			
 			cq.where(search.where(cb, root));
-			CourseItem.select(cb, cq, root);
+			cq.select(root);
 			return cq;
 		};
 		
-		return repo.search(queryFunc);
+		return repo.search(queryFunc).stream().map(CourseItem::new).toList();
 	}
 
 	public CourseDetails findById(int id) {
@@ -51,14 +51,16 @@ public class CourseManagementService {
 
 	@Transactional
 	public DataModificationResult<Integer> create(CourseForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		var entity = form.toEntity();
+		entity = repo.save(entity);
+		return new DataModificationResult<>(entity.getId());
 	}
 
 	@Transactional
 	public DataModificationResult<Integer> update(int id, CourseForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		var entity = safeCall(repo.findById(id), "Course", "id %s".formatted(id));
+		form.updateEntity(entity);
+		return new DataModificationResult<>(entity.getId());
 	}
 
 }

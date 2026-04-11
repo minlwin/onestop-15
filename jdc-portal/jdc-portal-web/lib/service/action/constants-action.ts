@@ -52,9 +52,9 @@ export async function getRegistrationStatus(): Promise<SelectOption[]> {
 
 export async function getPaymentTypes(): Promise<SelectOption[]> {
     return [
-        {value: "KBZ Pay", label: "KBZ Pay"},
-        {value: "AYA Pay", label: "AYA Pay"},
-        {value: "WAVE Pay", label: "WAVE Pay"}
+        {value: "Office", label: "Office"},
+        {value: "Banking", label: "Banking"},
+        {value: "eWallet", label: "eWallet"}
     ]
 }
 

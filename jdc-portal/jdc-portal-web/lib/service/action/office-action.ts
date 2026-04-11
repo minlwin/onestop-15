@@ -9,6 +9,7 @@ import * as studentApi from "../rest/office/student-rest-client"
 import * as courseApi from "../rest/office/course-rest-client"
 import * as classApi from "../rest/office/class-rest-client"
 import * as paymentApi from "../rest/office/payment-rest-client"
+import * as paymentAccountApi from "../rest/office/payment-account-rest-client"
 import * as registrationApi from "../rest/office/registration-rest-client"
 
 export async function searchEmployee(form: EmployeeSearch):Promise<EmployeeItem[]> {
@@ -117,4 +118,24 @@ export async function approveRegistration(id: any) : Promise<void> {
 
 export async function rejectRegistration(id: any, reason: string) : Promise<void> {
     return await registrationApi.updateStatus(id, 'Rejected', reason)
+}
+
+export async function getAllPaymentAccounts() : Promise<any[]> {
+    return await paymentAccountApi.getAll()
+}
+
+export async function createPaymentAccount(form: any) : Promise<DataModificationResult<string>> {
+    return await paymentAccountApi.create(form)
+}
+
+export async function updatePaymentAccount(id: any, form: any) : Promise<DataModificationResult<string>> {
+    return await paymentAccountApi.update(id, form)
+}
+
+export async function togglePaymentAccount(id: any) : Promise<any> {
+    return await paymentAccountApi.toggleState(id)
+}
+
+export async function findPaymentAccountDetails(id: any) : Promise<any> {
+    return await paymentAccountApi.getOne(id)
 }

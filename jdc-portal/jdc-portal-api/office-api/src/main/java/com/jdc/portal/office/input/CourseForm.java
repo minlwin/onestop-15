@@ -1,8 +1,10 @@
 package com.jdc.portal.office.input;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jdc.portal.domains.master.Course;
+import com.jdc.portal.dto.CourseContent;
 import com.jdc.portal.dto.consts.CourseLevel;
 
 import jakarta.validation.Valid;
@@ -31,5 +33,34 @@ public record CourseForm(
 				entity.getDescription(),
 				entity.getContents().stream().map(CourseContentInput::from).toList()
 		);
+	}
+
+	public Course toEntity() {
+		
+		var entity = new Course();
+		entity.setName(course);
+		entity.setLevel(courseLevel);
+		entity.setHours(hours);
+		entity.setDescription(description);
+		entity.setContents(toContents());
+		return entity;
+	}
+
+	public void updateEntity(Course entity) {
+		entity.setName(course);
+		entity.setLevel(courseLevel);
+		entity.setHours(hours);
+		entity.setDescription(description);
+		entity.setContents(toContents());
+	}
+	
+	private List<CourseContent> toContents() {
+		var list = new ArrayList<CourseContent>();
+		for(var i = 0; i < contents.size(); i++) {
+			var input = contents.get(i);
+			var content = new CourseContent(i + 1, input.name(), input.description());
+			list.add(content);
+		}
+		return list;
 	}
 }

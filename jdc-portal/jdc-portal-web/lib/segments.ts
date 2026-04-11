@@ -27,3 +27,8 @@ export const STUDENT_SEGMENTS = [{
     name : "Student Management", 
     path : '/office/students'
 }]
+
+export const PAYACCOUNTS_SEGMENTS = [{
+    name : "Payment Account Management", 
+    path : '/office/payaccounts'
+}]

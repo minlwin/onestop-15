@@ -3,6 +3,7 @@ package com.jdc.portal.domains.transaction;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.AbstractEntity;
+import com.jdc.portal.domains.master.PaymentAccount;
 import com.jdc.portal.dto.consts.FeeType;
 import com.jdc.portal.dto.consts.PaymentStatus;
 import com.jdc.portal.dto.consts.PaymentType;
@@ -28,8 +29,6 @@ public class Payment extends AbstractEntity {
 	@ManyToOne(optional = false)
 	private Registration registration;
 	
-	private PaymentType type;
-	
 	@Column(nullable = false)
 	private FeeType feeType;
 
@@ -42,5 +41,10 @@ public class Payment extends AbstractEntity {
 	@Column(nullable = false)
 	private int amount;
 	
+	@ManyToOne(optional = true)
+	private PaymentAccount account;
+	
 	private String slip;
+	
+	private PaymentType type;
 }
