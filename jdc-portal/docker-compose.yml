@@ -1,0 +1,28 @@
+volumes:
+  db_data:
+
+networks:
+  jdc_network:
+services:
+  db:
+    image: postgres:17.6-alpine
+    container_name: jdcdb
+    environment:
+      POSTGRES_USER: jdcdb
+      POSTGRES_PASSWORD: jdcpwd
+      POSTGRES_DB: jdcdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data  
+    networks:
+      - jdc_network
+
+  mailhog:
+    image: jcalonso/mailhog:latest
+    container_name: jdcmail
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - jdc_network
