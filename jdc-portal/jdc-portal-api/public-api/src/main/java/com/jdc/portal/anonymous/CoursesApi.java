@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.anonymous.output.CourseDetails;
 import com.jdc.portal.anonymous.service.CourseInfoService;
-import com.jdc.portal.dto.CourseItem;
+import com.jdc.portal.commons.dto.CourseItem;
 
 import lombok.RequiredArgsConstructor;
 

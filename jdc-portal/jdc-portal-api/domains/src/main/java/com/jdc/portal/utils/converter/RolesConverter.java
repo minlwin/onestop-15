@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.jdc.portal.dto.consts.Role;
+import com.jdc.portal.utils.consts.Role;
 
 import jakarta.persistence.AttributeConverter;
 

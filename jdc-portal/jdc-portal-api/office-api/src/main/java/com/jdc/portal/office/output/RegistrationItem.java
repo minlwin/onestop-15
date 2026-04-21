@@ -3,8 +3,8 @@ package com.jdc.portal.office.output;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.jdc.portal.dto.consts.ClassType;
-import com.jdc.portal.dto.consts.RegistrationStatus;
+import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.utils.consts.RegistrationStatus;
 
 public record RegistrationItem(
 		long id,

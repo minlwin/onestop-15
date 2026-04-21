@@ -12,6 +12,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.jdc</groupId>
+			<artifactId>commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jdc</groupId>
 			<artifactId>domains</artifactId>
 		</dependency>
 		<dependency>

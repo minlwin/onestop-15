@@ -1,6 +1,6 @@
 package com.jdc.portal.office.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +10,21 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jdc.portal.JdcBusinessException;
+import com.jdc.portal.commons.JdcBusinessException;
+import com.jdc.portal.commons.dto.ActivationEvent;
+import com.jdc.portal.commons.dto.DataModificationResult;
+import com.jdc.portal.commons.utils.ActivationCodeGenerator;
 import com.jdc.portal.domains.account.Employee;
 import com.jdc.portal.domains.account.EmployeeActivation;
 import com.jdc.portal.domains.account.Employee_;
 import com.jdc.portal.domains.account.repo.AccountRepo;
 import com.jdc.portal.domains.account.repo.EmployeeActivationRepo;
 import com.jdc.portal.domains.account.repo.EmployeeRepo;
-import com.jdc.portal.dto.ActivationEvent;
-import com.jdc.portal.dto.DataModificationResult;
-import com.jdc.portal.dto.consts.Role;
 import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
 import com.jdc.portal.office.output.EmployeeDetails;
 import com.jdc.portal.office.output.EmployeeItem;
-import com.jdc.portal.utils.ActivationCodeGenerator;
+import com.jdc.portal.utils.consts.Role;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

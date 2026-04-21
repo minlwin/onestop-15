@@ -1,6 +1,7 @@
 package com.jdc.portal.office.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.function.Function;
 
@@ -11,10 +12,10 @@ import com.jdc.portal.domains.account.Student;
 import com.jdc.portal.domains.account.Student_;
 import com.jdc.portal.domains.account.repo.StudentRepo;
 import com.jdc.portal.domains.transaction.Registration_;
-import com.jdc.portal.dto.PageResult;
 import com.jdc.portal.office.input.StudentSearch;
 import com.jdc.portal.office.output.StudentDetails;
 import com.jdc.portal.office.output.StudentItem;
+import com.jdc.portal.utils.dto.PageResult;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

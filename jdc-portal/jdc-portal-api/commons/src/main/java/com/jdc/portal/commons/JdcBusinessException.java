@@ -1,4 +1,4 @@
-package com.jdc.portal;
+package com.jdc.portal.commons;
 
 public class JdcBusinessException extends RuntimeException {
 

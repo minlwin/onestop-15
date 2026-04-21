@@ -1,4 +1,4 @@
-package com.jdc.portal.dto;
+package com.jdc.portal.commons.dto;
 
 public record CourseContent(
 		int id,

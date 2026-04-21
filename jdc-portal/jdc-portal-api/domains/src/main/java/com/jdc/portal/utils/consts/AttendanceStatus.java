@@ -1,6 +1,6 @@
-package com.jdc.portal.dto.consts;
+package com.jdc.portal.utils.consts;
 
-import com.jdc.portal.dto.Option;
+import com.jdc.portal.utils.dto.Option;
 
 public enum AttendanceStatus implements Option{
 	Attend, Absent, Leave, Late, EarlyOut {

@@ -1,6 +1,7 @@
 package com.jdc.portal.student.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.domains.account.Account_;
 import com.jdc.portal.domains.account.StudentActivation_;
 import com.jdc.portal.domains.account.Student_;
@@ -17,7 +19,6 @@ import com.jdc.portal.domains.transaction.Payment;
 import com.jdc.portal.domains.transaction.Payment_;
 import com.jdc.portal.domains.transaction.Registration_;
 import com.jdc.portal.domains.transaction.repo.PaymentRepo;
-import com.jdc.portal.dto.DataModificationResult;
 import com.jdc.portal.student.input.PaymentForm;
 import com.jdc.portal.student.output.PaymentDetails;
 import com.jdc.portal.student.output.PaymentItem;

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.portal.dto.CourseItem;
-import com.jdc.portal.dto.DataModificationResult;
+import com.jdc.portal.commons.dto.CourseItem;
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.office.input.CourseForm;
 import com.jdc.portal.office.input.CourseSearch;
 import com.jdc.portal.office.output.CourseDetails;

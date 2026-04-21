@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.master.Classes;
-import com.jdc.portal.dto.consts.ClassType;
-import com.jdc.portal.dto.consts.CourseLevel;
+import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.utils.consts.CourseLevel;
 
 public record ClassDetails(
 	int id,

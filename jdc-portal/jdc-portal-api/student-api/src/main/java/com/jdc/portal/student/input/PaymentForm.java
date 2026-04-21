@@ -2,7 +2,7 @@ package com.jdc.portal.student.input;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jdc.portal.dto.consts.FeeType;
+import com.jdc.portal.utils.consts.FeeType;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

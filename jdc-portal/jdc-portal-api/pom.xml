@@ -19,6 +19,7 @@
 	
 	<modules>
 		<module>application</module>
+		<module>commons</module>
 		<module>domains</module>
 		<module>office-api</module>
 		<module>public-api</module>
@@ -30,6 +31,11 @@
 			<dependency>
 				<groupId>com.jdc</groupId>
 				<artifactId>application</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jdc</groupId>
+				<artifactId>commons</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

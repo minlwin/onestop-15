@@ -1,14 +1,14 @@
 package com.jdc.portal.office.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.domains.master.repo.PaymentAccountRepo;
-import com.jdc.portal.dto.DataModificationResult;
 import com.jdc.portal.office.input.PaymentAccountForm;
 import com.jdc.portal.office.output.PaymentAccountDetails;
 import com.jdc.portal.office.output.PaymentAccountItem;

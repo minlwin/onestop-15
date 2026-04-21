@@ -1,8 +1,8 @@
-package com.jdc.portal.utils;
+package com.jdc.portal.commons.utils;
 
 import java.util.Optional;
 
-import com.jdc.portal.JdcBusinessException;
+import com.jdc.portal.commons.JdcBusinessException;
 
 public class NullSafetyUtils {
 

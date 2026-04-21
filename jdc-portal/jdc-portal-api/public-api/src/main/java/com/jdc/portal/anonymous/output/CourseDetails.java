@@ -3,8 +3,8 @@ package com.jdc.portal.anonymous.output;
 import java.util.List;
 
 import com.jdc.portal.domains.master.Course;
-import com.jdc.portal.dto.CourseContent;
-import com.jdc.portal.dto.consts.CourseLevel;
+import com.jdc.portal.utils.consts.CourseLevel;
+import com.jdc.portal.utils.dto.CourseContent;
 
 public record CourseDetails(		
 		int id,

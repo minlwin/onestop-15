@@ -1,4 +1,4 @@
-package com.jdc.portal.utils;
+package com.jdc.portal.commons.utils;
 
 public class ActivationCodeGenerator {
 

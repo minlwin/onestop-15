@@ -1,6 +1,6 @@
 package com.jdc.portal.office.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.List;
 import java.util.function.Function;
@@ -8,10 +8,10 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.portal.commons.dto.CourseItem;
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.domains.master.Course;
 import com.jdc.portal.domains.master.repo.CourseRepo;
-import com.jdc.portal.dto.CourseItem;
-import com.jdc.portal.dto.DataModificationResult;
 import com.jdc.portal.office.input.CourseForm;
 import com.jdc.portal.office.input.CourseSearch;
 import com.jdc.portal.office.output.CourseDetails;

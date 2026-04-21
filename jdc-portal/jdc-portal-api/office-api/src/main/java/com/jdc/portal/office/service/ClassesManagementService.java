@@ -1,23 +1,23 @@
 package com.jdc.portal.office.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.domains.master.Classes;
 import com.jdc.portal.domains.master.Classes_;
 import com.jdc.portal.domains.master.repo.ClassesRepo;
 import com.jdc.portal.domains.master.repo.CourseRepo;
 import com.jdc.portal.domains.transaction.Registration_;
-import com.jdc.portal.dto.DataModificationResult;
-import com.jdc.portal.dto.PageResult;
 import com.jdc.portal.office.input.ClassForm;
 import com.jdc.portal.office.input.ClassSearch;
 import com.jdc.portal.office.output.ClassDetails;
 import com.jdc.portal.office.output.ClassItem;
+import com.jdc.portal.utils.dto.PageResult;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

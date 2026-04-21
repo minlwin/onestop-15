@@ -2,10 +2,10 @@ package com.jdc.portal.office.output;
 
 import java.time.LocalDate;
 
-import com.jdc.portal.dto.consts.ClassType;
-import com.jdc.portal.dto.consts.FeeType;
-import com.jdc.portal.dto.consts.PaymentStatus;
-import com.jdc.portal.dto.consts.PaymentType;
+import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.utils.consts.FeeType;
+import com.jdc.portal.utils.consts.PaymentStatus;
+import com.jdc.portal.utils.consts.PaymentType;
 
 public record PaymentItem(
 		long id,

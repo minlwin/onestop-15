@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.anonymous.input.CheckRegistrationForm;
 import com.jdc.portal.anonymous.input.RegistrationForm;
-import com.jdc.portal.dto.MessageResult;
+import com.jdc.portal.commons.dto.MessageResult;
 
 @RestController("publicRegistrationsApi")
 @RequestMapping("/anonymous/registrations")

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.jdc.portal.domains.master.Classes;
 import com.jdc.portal.domains.master.Classes_;
 import com.jdc.portal.domains.master.Course_;
-import com.jdc.portal.dto.consts.ClassType;
+import com.jdc.portal.utils.consts.ClassType;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

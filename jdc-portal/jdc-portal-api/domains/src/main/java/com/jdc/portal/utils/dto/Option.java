@@ -1,4 +1,4 @@
-package com.jdc.portal.dto;
+package com.jdc.portal.utils.dto;
 
 public interface Option {
 	String getLabel();

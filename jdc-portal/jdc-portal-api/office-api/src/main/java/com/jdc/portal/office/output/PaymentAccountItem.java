@@ -1,7 +1,7 @@
 package com.jdc.portal.office.output;
 
 import com.jdc.portal.domains.master.PaymentAccount;
-import com.jdc.portal.dto.consts.PaymentType;
+import com.jdc.portal.utils.consts.PaymentType;
 
 public record PaymentAccountItem(
 		int id,

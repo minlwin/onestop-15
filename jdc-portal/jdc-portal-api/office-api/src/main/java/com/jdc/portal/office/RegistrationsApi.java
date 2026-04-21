@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.portal.dto.DataModificationResult;
-import com.jdc.portal.dto.PageResult;
+import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.office.input.RegistrationForm;
 import com.jdc.portal.office.input.RegistrationSearch;
 import com.jdc.portal.office.input.RegistrationStatusForm;
 import com.jdc.portal.office.output.RegistrationDetails;
 import com.jdc.portal.office.output.RegistrationItem;
+import com.jdc.portal.utils.dto.PageResult;
 
 @RestController
 @RequestMapping("office/registrations")

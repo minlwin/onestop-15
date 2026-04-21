@@ -1,6 +1,7 @@
 package com.jdc.portal.student.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

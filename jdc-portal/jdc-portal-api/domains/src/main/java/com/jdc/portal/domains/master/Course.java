@@ -3,9 +3,9 @@ package com.jdc.portal.domains.master;
 import java.util.List;
 
 import com.jdc.portal.domains.AbstractEntity;
-import com.jdc.portal.dto.CourseContent;
-import com.jdc.portal.dto.consts.CourseLevel;
+import com.jdc.portal.utils.consts.CourseLevel;
 import com.jdc.portal.utils.converter.CourseContentConverter;
+import com.jdc.portal.utils.dto.CourseContent;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

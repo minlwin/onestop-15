@@ -4,15 +4,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.portal.dto.Option;
-import com.jdc.portal.dto.consts.AttendanceStatus;
-import com.jdc.portal.dto.consts.ClassType;
-import com.jdc.portal.dto.consts.CourseLevel;
-import com.jdc.portal.dto.consts.FeeType;
-import com.jdc.portal.dto.consts.PaymentStatus;
-import com.jdc.portal.dto.consts.PaymentType;
-import com.jdc.portal.dto.consts.Position;
-import com.jdc.portal.dto.consts.RegistrationStatus;
+import com.jdc.portal.utils.consts.AttendanceStatus;
+import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.utils.consts.CourseLevel;
+import com.jdc.portal.utils.consts.FeeType;
+import com.jdc.portal.utils.consts.PaymentStatus;
+import com.jdc.portal.utils.consts.PaymentType;
+import com.jdc.portal.utils.consts.Position;
+import com.jdc.portal.utils.consts.RegistrationStatus;
+import com.jdc.portal.utils.dto.Option;
 
 @RestController
 @RequestMapping("/anonymous/options")

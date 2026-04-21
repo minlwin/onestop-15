@@ -2,9 +2,9 @@ package com.jdc.portal.anonymous.output;
 
 import java.time.LocalDate;
 
+import com.jdc.portal.commons.dto.CourseItem;
 import com.jdc.portal.domains.master.Classes;
-import com.jdc.portal.dto.CourseItem;
-import com.jdc.portal.dto.consts.ClassType;
+import com.jdc.portal.utils.consts.ClassType;
 
 public record ClassDetails(
 		int id,

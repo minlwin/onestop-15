@@ -12,7 +12,7 @@ import com.jdc.portal.anonymous.input.TokenForm;
 import com.jdc.portal.anonymous.output.AuthResult;
 import com.jdc.portal.anonymous.service.ActivationService;
 import com.jdc.portal.anonymous.service.AuthTokenService;
-import com.jdc.portal.dto.MessageResult;
+import com.jdc.portal.commons.dto.MessageResult;
 
 import lombok.RequiredArgsConstructor;
 

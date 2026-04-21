@@ -2,8 +2,8 @@ package com.jdc.portal.office.input;
 
 import java.time.LocalDate;
 
-import com.jdc.portal.dto.consts.ClassType;
-import com.jdc.portal.dto.consts.RegistrationStatus;
+import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.utils.consts.RegistrationStatus;
 
 public record RegistrationSearch(
 		ClassType classType,

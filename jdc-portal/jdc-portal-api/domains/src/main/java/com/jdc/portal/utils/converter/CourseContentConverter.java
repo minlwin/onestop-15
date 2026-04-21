@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jdc.portal.dto.CourseContent;
+import com.jdc.portal.utils.dto.CourseContent;
 
 import jakarta.persistence.AttributeConverter;
 

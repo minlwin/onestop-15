@@ -1,6 +1,6 @@
 package com.jdc.portal.office.input;
 
-import com.jdc.portal.dto.consts.RegistrationStatus;
+import com.jdc.portal.utils.consts.RegistrationStatus;
 
 import jakarta.validation.constraints.NotNull;
 

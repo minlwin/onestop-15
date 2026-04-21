@@ -6,7 +6,7 @@ import java.util.function.Function;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
-import com.jdc.portal.dto.PageResult;
+import com.jdc.portal.utils.dto.PageResult;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;

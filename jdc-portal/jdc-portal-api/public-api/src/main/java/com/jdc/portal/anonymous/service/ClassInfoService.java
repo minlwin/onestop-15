@@ -1,6 +1,6 @@
 package com.jdc.portal.anonymous.service;
 
-import static com.jdc.portal.utils.NullSafetyUtils.safeCall;
+import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.jdc.portal.domains.AbstractEntity;
 import com.jdc.portal.domains.account.Student;
 import com.jdc.portal.domains.master.Classes;
-import com.jdc.portal.dto.consts.RegistrationStatus;
+import com.jdc.portal.utils.consts.RegistrationStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

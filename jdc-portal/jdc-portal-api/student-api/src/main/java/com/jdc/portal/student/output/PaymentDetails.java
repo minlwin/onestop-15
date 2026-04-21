@@ -3,9 +3,9 @@ package com.jdc.portal.student.output;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.transaction.Payment;
-import com.jdc.portal.dto.consts.FeeType;
-import com.jdc.portal.dto.consts.PaymentStatus;
-import com.jdc.portal.dto.consts.PaymentType;
+import com.jdc.portal.utils.consts.FeeType;
+import com.jdc.portal.utils.consts.PaymentStatus;
+import com.jdc.portal.utils.consts.PaymentType;
 
 public record PaymentDetails(
 		long id,

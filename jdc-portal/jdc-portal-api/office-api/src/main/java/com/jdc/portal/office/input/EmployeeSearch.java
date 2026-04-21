@@ -10,7 +10,7 @@ import com.jdc.portal.domains.account.Employee;
 import com.jdc.portal.domains.account.EmployeeActivation;
 import com.jdc.portal.domains.account.EmployeeActivation_;
 import com.jdc.portal.domains.account.Employee_;
-import com.jdc.portal.dto.consts.Position;
+import com.jdc.portal.utils.consts.Position;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
