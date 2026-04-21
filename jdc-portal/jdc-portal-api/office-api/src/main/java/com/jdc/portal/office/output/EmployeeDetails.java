@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.account.Employee;
-import com.jdc.portal.utils.consts.Position;
+import com.jdc.portal.domains.utils.consts.Position;
 
 public record EmployeeDetails(
     Integer id,

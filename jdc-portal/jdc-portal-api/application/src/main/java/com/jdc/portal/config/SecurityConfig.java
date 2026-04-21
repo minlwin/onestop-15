@@ -9,8 +9,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 
+import com.jdc.portal.domains.utils.consts.Role;
 import com.jdc.portal.security.JwtTokenFilter;
-import com.jdc.portal.utils.consts.Role;
 
 @Configuration
 public class SecurityConfig {

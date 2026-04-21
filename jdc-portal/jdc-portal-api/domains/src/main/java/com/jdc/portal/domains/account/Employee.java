@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.AbstractEntity;
-import com.jdc.portal.utils.consts.Position;
+import com.jdc.portal.domains.utils.consts.Position;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

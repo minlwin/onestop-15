@@ -2,7 +2,7 @@ package com.jdc.portal.anonymous.output;
 
 import java.util.List;
 
-import com.jdc.portal.utils.consts.Role;
+import com.jdc.portal.domains.utils.consts.Role;
 
 public record AuthResult(
         String email,

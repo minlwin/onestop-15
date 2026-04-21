@@ -1,6 +1,6 @@
 package com.jdc.portal.office.input;
 
-import com.jdc.portal.utils.dto.CourseContent;
+import com.jdc.portal.domains.utils.dto.CourseContent;
 
 import jakarta.validation.constraints.NotBlank;
 

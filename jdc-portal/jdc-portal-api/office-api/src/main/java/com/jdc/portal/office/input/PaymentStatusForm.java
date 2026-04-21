@@ -1,6 +1,6 @@
 package com.jdc.portal.office.input;
 
-import com.jdc.portal.utils.consts.PaymentStatus;
+import com.jdc.portal.domains.utils.consts.PaymentStatus;
 
 import jakarta.validation.constraints.NotNull;
 

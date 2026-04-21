@@ -3,7 +3,7 @@ package com.jdc.portal.office.output;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.master.PaymentAccount;
-import com.jdc.portal.utils.consts.PaymentType;
+import com.jdc.portal.domains.utils.consts.PaymentType;
 
 public record PaymentAccountDetails(
 		int id,

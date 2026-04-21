@@ -3,7 +3,7 @@ package com.jdc.portal.office.input;
 import java.time.LocalDate;
 
 import com.jdc.portal.domains.master.Classes;
-import com.jdc.portal.utils.consts.ClassType;
+import com.jdc.portal.domains.utils.consts.ClassType;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

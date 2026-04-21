@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jdc.portal.domains.master.Course;
-import com.jdc.portal.utils.consts.CourseLevel;
-import com.jdc.portal.utils.dto.CourseContent;
+import com.jdc.portal.domains.utils.consts.CourseLevel;
+import com.jdc.portal.domains.utils.dto.CourseContent;
 
 public record CourseDetails(
     Integer id,

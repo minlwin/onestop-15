@@ -1,6 +1,6 @@
-package com.jdc.portal.utils.consts;
+package com.jdc.portal.domains.utils.consts;
 
-import com.jdc.portal.utils.dto.Option;
+import com.jdc.portal.domains.utils.dto.Option;
 
 public enum CourseLevel implements Option{
 	Beginner, Intermediate, Advance, All;

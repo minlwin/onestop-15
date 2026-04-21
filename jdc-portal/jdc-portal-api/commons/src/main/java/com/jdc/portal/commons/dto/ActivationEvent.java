@@ -1,6 +1,6 @@
 package com.jdc.portal.commons.dto;
 
-import com.jdc.portal.utils.consts.Role;
+import com.jdc.portal.domains.utils.consts.Role;
 
 public record ActivationEvent(
 		int id,

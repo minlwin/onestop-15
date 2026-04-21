@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.jdc.portal.domains.AbstractEntity;
 import com.jdc.portal.domains.transaction.Registration;
-import com.jdc.portal.utils.consts.ClassType;
-import com.jdc.portal.utils.converter.ClassDaysConverter;
+import com.jdc.portal.domains.utils.consts.ClassType;
+import com.jdc.portal.domains.utils.converter.ClassDaysConverter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

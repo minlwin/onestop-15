@@ -1,10 +1,10 @@
-package com.jdc.portal.utils.converter;
+package com.jdc.portal.domains.utils.converter;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.jdc.portal.utils.consts.Role;
+import com.jdc.portal.domains.utils.consts.Role;
 
 import jakarta.persistence.AttributeConverter;
 

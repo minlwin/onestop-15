@@ -1,7 +1,7 @@
 package com.jdc.portal.commons.dto;
 
 import com.jdc.portal.domains.master.Course;
-import com.jdc.portal.utils.consts.CourseLevel;
+import com.jdc.portal.domains.utils.consts.CourseLevel;
 
 public record CourseItem(
 		int id,

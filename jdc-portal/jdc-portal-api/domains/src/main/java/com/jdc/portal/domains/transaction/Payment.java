@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.AbstractEntity;
 import com.jdc.portal.domains.master.PaymentAccount;
-import com.jdc.portal.utils.consts.FeeType;
-import com.jdc.portal.utils.consts.PaymentStatus;
-import com.jdc.portal.utils.consts.PaymentType;
+import com.jdc.portal.domains.utils.consts.FeeType;
+import com.jdc.portal.domains.utils.consts.PaymentStatus;
+import com.jdc.portal.domains.utils.consts.PaymentType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

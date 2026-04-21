@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.StudentSearch;
 import com.jdc.portal.office.output.StudentDetails;
 import com.jdc.portal.office.output.StudentItem;
 import com.jdc.portal.office.service.StudentManagementService;
-import com.jdc.portal.utils.dto.PageResult;
 
 import lombok.RequiredArgsConstructor;
 

@@ -20,11 +20,11 @@ import com.jdc.portal.domains.account.Employee_;
 import com.jdc.portal.domains.account.repo.AccountRepo;
 import com.jdc.portal.domains.account.repo.EmployeeActivationRepo;
 import com.jdc.portal.domains.account.repo.EmployeeRepo;
+import com.jdc.portal.domains.utils.consts.Role;
 import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
 import com.jdc.portal.office.output.EmployeeDetails;
 import com.jdc.portal.office.output.EmployeeItem;
-import com.jdc.portal.utils.consts.Role;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

@@ -2,8 +2,8 @@ package com.jdc.portal.office.output;
 
 import java.time.LocalDate;
 
-import com.jdc.portal.utils.consts.ClassType;
-import com.jdc.portal.utils.consts.CourseLevel;
+import com.jdc.portal.domains.utils.consts.ClassType;
+import com.jdc.portal.domains.utils.consts.CourseLevel;
 
 public record ClassForStudent(
 	int id,

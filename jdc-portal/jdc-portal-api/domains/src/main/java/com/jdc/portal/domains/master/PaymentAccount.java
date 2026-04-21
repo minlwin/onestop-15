@@ -1,7 +1,7 @@
 package com.jdc.portal.domains.master;
 
 import com.jdc.portal.domains.AbstractEntity;
-import com.jdc.portal.utils.consts.PaymentType;
+import com.jdc.portal.domains.utils.consts.PaymentType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

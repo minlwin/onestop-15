@@ -1,4 +1,4 @@
-package com.jdc.portal.utils.audit;
+package com.jdc.portal.domains.utils.audit;
 
 import java.util.Optional;
 

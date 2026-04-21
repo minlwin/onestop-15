@@ -13,11 +13,11 @@ import com.jdc.portal.domains.master.Classes_;
 import com.jdc.portal.domains.master.repo.ClassesRepo;
 import com.jdc.portal.domains.master.repo.CourseRepo;
 import com.jdc.portal.domains.transaction.Registration_;
+import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.ClassForm;
 import com.jdc.portal.office.input.ClassSearch;
 import com.jdc.portal.office.output.ClassDetails;
 import com.jdc.portal.office.output.ClassItem;
-import com.jdc.portal.utils.dto.PageResult;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

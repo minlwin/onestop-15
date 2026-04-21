@@ -1,4 +1,4 @@
-package com.jdc.portal.utils.converter;
+package com.jdc.portal.domains.utils.converter;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jdc.portal.utils.dto.CourseContent;
+import com.jdc.portal.domains.utils.dto.CourseContent;
 
 import jakarta.persistence.AttributeConverter;
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jdc.portal.domains.AbstractEntity;
-import com.jdc.portal.utils.consts.Role;
-import com.jdc.portal.utils.converter.RolesConverter;
+import com.jdc.portal.domains.utils.consts.Role;
+import com.jdc.portal.domains.utils.converter.RolesConverter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

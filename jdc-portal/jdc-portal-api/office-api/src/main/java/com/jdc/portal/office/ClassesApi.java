@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.commons.dto.DataModificationResult;
+import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.ClassForm;
 import com.jdc.portal.office.input.ClassSearch;
 import com.jdc.portal.office.output.ClassDetails;
 import com.jdc.portal.office.output.ClassForStudent;
 import com.jdc.portal.office.output.ClassItem;
 import com.jdc.portal.office.service.ClassesManagementService;
-import com.jdc.portal.utils.dto.PageResult;
 
 import lombok.RequiredArgsConstructor;
 
