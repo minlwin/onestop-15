@@ -88,6 +88,7 @@ public class EmployeeManagementService {
 			activation.setName(form.name());
 			activation.setCode(ActivationCodeGenerator.generateCode());
 			activationRepo.save(activation);
+			
 			publisher.publishEvent(new ActivationEvent(employee.getId(), form.name(), Role.Office, form.email()));
 		}
 		
