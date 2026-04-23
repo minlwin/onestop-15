@@ -35,7 +35,7 @@ public class ClassInfoService {
 			
 			cq.where(
 				cb.equal(root.get(Classes_.course).get(Course_.id), courseId),
-				cb.lessThanOrEqualTo(root.get(Classes_.startDate), LocalDate.now())
+				cb.greaterThan(root.get(Classes_.startDate), LocalDate.now())
 			);
 			
 			cq.select(root);

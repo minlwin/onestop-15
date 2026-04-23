@@ -1,47 +1,17 @@
 import 'server-only'
 
 import { ClassDetails, ClassInfo } from "@/lib/model/dto/anonymous";
+import { POST_CONFIG, publicSearch } from '../client';
 
 export async function findForCourse(courseId: any) : Promise<ClassInfo[]> {
-    return [
-        {
-            id: 1,
-            type : "Online",
-            startDate : "2026-04-15",
-            days: "Mon, Wed, Fri",
-            time: "7:00 PM - 9:00 PM",
-            months: 3,
-            registrationFee: 50000,
-            monthlyFee: 100000,
-        },
-        {
-            id: 2,
-            type : "Offline",
-            startDate : "2026-04-15",
-            days: "Mon, Wed, Fri",
-            time: "7:00 PM - 9:00 PM",
-            months: 3,
-            registrationFee: 50000,
-            monthlyFee: 100000,
-        }
-    ]
+    const response = await publicSearch('anonymous/classes', {
+        "courseId": courseId
+    })
+    return await response.json()
 }
 
 
 export async function findById(id: any):Promise<ClassDetails> {
-    return {
-        id: 1,
-        type : "Online",
-        startDate : "2026-04-15",
-        days: "Mon, Wed, Fri",
-        time: "7:00 PM - 9:00 PM",
-        months: 3,
-        registrationFee: 50000,
-        monthlyFee: 100000,
-        course: {
-            id: 1,
-            name: "Java Foundation",
-            description: "Basics of Java programming language",
-        }
-    }
+    const response = await publicSearch(`anonymous/classes/${id}`)
+    return await response.json()
 }

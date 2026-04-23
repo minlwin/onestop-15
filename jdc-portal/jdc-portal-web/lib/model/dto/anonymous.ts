@@ -1,7 +1,8 @@
+export type Role = 'Student' | 'Office' | 'Admin'
 export type AuthResult = {
     email: string
     name : string
-    role : 'Student' | 'Office' | 'Admin'
+    role : Role[]
     accessToken: string
     refreshToken: string
 }

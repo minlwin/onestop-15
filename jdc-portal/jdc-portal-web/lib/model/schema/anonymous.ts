@@ -1,5 +1,5 @@
 import { IMAGES } from '@/lib/utils'
-import z from 'zod'
+import z, { email } from 'zod'
 
 export const signInSchema = z.object({
     email: z.email("Please enter a valid email address"),
@@ -15,6 +15,7 @@ export const checkRegistrationSchema = z.object({
 export type CheckRegistrationForm = z.infer<typeof checkRegistrationSchema>
 
 export const activationSchema = z.object({
+    email: z.email("Please enter a valid email address"),
     code: z.string().nonempty("Please enter the activation code"),
     password: z.string().nonempty("Please enter your password"),
     confirmPassword: z.string().nonempty("Please confirm your password")
@@ -24,7 +25,6 @@ export const activationSchema = z.object({
 })
 
 export type ActivationForm = z.infer<typeof activationSchema>
-
 
 export const registrationSchema = z.object({
     classId: z.string().nonempty("Please select a class"),

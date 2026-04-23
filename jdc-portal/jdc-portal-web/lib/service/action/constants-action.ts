@@ -1,66 +1,34 @@
 import { SelectOption } from "@/lib/types"
+import * as client from "../rest/anonymous/commons-options-client"
 
 export async function getAttendanceStatus(): Promise<SelectOption[]> {
-    return [
-        {value: "Present", label: "Present"},
-        {value: "Absent", label: "Absent"},
-        {value: "Late", label: "Late"},
-        {value: "Early Out", label: "Early Out"},
-        {value: "Leave", label: "Leave"}
-    ]
+    return await client.getOptions('attendance-status')
 }
 
 export async function getClassTypes(): Promise<SelectOption[]> {
-    return [
-        {value: "Campus", label: "Campus"},
-        {value: "Zoom", label: "Zoom"},
-        {value: "Video", label: "Video"},
-        {value: "Online", label: "Online"},
-    ]
+    return await client.getOptions('class-types')
 }
 
 export async function getCourseLevels(): Promise<SelectOption[]> {
-    return [
-        {value: "Beginner", label: "Beginner"},
-        {value: "Intermediate", label: "Intermediate"},
-        {value: "Advanced", label: "Advanced"}
-    ]
+    return await client.getOptions('course-levels')
 }
 
 export async function getFeeTypes(): Promise<SelectOption[]> {
-    return [
-        {value: "Monthly", label: "Monthly"},
-        {value: "Registration", label: "Registration"}
-    ]
+    return await client.getOptions('fee-types')
 }
 
 export async function getPaymentStatus(): Promise<SelectOption[]> {
-    return [
-        {value: "Pending", label: "Pending"},
-        {value: "Paid", label: "Paid"},
-        {value: "Retry", label: "Retry"}
-    ]
+    return await client.getOptions('payment-status')
 }
 
 export async function getRegistrationStatus(): Promise<SelectOption[]> {
-    return [
-        {value: "Pending", label: "Pending"},
-        {value: "Approved", label: "Approved"},
-        {value: "Rejected", label: "Rejected"}
-    ]
+    return await client.getOptions('registration-status')
 }
 
 export async function getPaymentTypes(): Promise<SelectOption[]> {
-    return [
-        {value: "Office", label: "Office"},
-        {value: "Banking", label: "Banking"},
-        {value: "eWallet", label: "eWallet"}
-    ]
+    return await client.getOptions('payment-types')
 }
 
 export async function getPositions(): Promise<SelectOption[]> {
-    return [
-        {value: "Office", label: "Office"},
-        {value: "Teacher", label: "Teacher"}
-    ]
+    return await client.getOptions('positions')
 }

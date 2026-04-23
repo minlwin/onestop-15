@@ -1,11 +1,8 @@
 import { ProfileInfo } from '@/lib/model/dto/students'
 import 'server-only'
+import { securedSearch } from '../client'
 
 export async function getProfile(): Promise<ProfileInfo> {
-    return {
-        id: 1,
-        name: "John Doe",
-        email: "0qVhM@example.com",
-        phone: "0123456789"
-    }
+    const result = await securedSearch(`student/profile`)
+    return await result.json()    
 }

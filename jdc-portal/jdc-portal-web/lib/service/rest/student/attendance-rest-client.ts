@@ -1,26 +1,9 @@
 import 'server-only'
 
 import { AttendanceItem } from '@/lib/model/dto/students'
+import { securedSearch } from '../client'
 
 export async function search(classId: any) : Promise<AttendanceItem[]> {
-    return [
-        {
-            date: "2026-04-15",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        },
-        {
-            date: "2026-04-16",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        },
-        {
-            date: "2026-04-17",
-            checkIn: "10:00",
-            checkOut: "12:00",
-            status: "Present"
-        }
-    ]
+    const result = await securedSearch(`student/attendances/${classId}`)
+    return await result.json()    
 }

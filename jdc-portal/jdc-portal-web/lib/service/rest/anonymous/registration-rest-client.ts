@@ -2,28 +2,21 @@ import 'server-only'
 
 import { CheckRegistrationForm, RegistrationForm } from "@/lib/model/schema/anonymous";
 import { MessageResult } from '@/lib/types';
+import { POST_CONFIG, publicRequest } from '../client';
+import { formData } from '@/lib/utils';
 
 export async function apply(form: RegistrationForm): Promise<MessageResult> {
-    return {
-        message: "Your registration is still reviewing. We will send you an email. Please wait."
-    }
+    const response = await publicRequest('anonymous/registration/check', {
+        ...POST_CONFIG,
+        body: formData(form)
+    })
+    return await response.json()
 }
 
 export async function check(data: CheckRegistrationForm): Promise<MessageResult> {
-    
-    if(data.email === "rejected@example.com") {
-        return {
-            message: "Your registration rejected. Please check your mail box."
-        }
-    }
-
-    if(data.email === "approved@example.com") {
-        return {
-            message: "Your registration is already approved. Please check your mail box."
-        }
-    }
-
-    return {
-            message: "Your registration is still reviewing. Please wait."
-    }    
-}
+    const response = await publicRequest('anonymous/registration/check', {
+        ...POST_CONFIG,
+        body: JSON.stringify(data)
+    })
+    return await response.json()
+}   
