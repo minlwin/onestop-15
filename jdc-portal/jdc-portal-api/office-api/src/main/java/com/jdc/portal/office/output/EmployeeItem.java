@@ -9,6 +9,7 @@ import com.jdc.portal.domains.account.Employee;
 import com.jdc.portal.domains.account.EmployeeActivation;
 import com.jdc.portal.domains.account.EmployeeActivation_;
 import com.jdc.portal.domains.account.Employee_;
+import com.jdc.portal.domains.utils.consts.Position;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -18,7 +19,7 @@ import jakarta.persistence.criteria.Root;
 public record EmployeeItem(
     Integer id,
     String name,
-    String position,
+    Position position,
     String phone,
     String email,
     LocalDateTime activatedAt,
@@ -48,10 +49,6 @@ public record EmployeeItem(
 			root.get(Employee_.activatedAt),
 			root.get(Employee_.entryAt),
 			root.get(Employee_.resignAt)
-		));
-		
-		cq.groupBy(
-			root.get(Employee_.id)
-		);
+		));		
 	}
 }

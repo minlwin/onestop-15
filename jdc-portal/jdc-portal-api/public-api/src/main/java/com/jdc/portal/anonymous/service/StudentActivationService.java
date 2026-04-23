@@ -6,7 +6,7 @@ import com.jdc.portal.anonymous.input.ActivationForm;
 import com.jdc.portal.commons.dto.MessageResult;
 
 @Service
-public class ActivationService {
+public class StudentActivationService {
 
 	public MessageResult activate(ActivationForm form) {
 		// TODO Auto-generated method stub

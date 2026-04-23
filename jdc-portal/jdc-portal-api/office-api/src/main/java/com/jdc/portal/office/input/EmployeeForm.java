@@ -19,7 +19,7 @@ public record EmployeeForm(
     String email,
     @NotBlank(message = "Please enter your phone number")
     String phone,
-    @NotBlank(message = "Please enter your entry date")
+    @NotNull(message = "Please enter your entry date")
     LocalDate entryAt,
     boolean wasAStudent
 ) {

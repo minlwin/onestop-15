@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.portal.commons.JdcBusinessException;
-import com.jdc.portal.commons.dto.ActivationEvent;
 import com.jdc.portal.commons.dto.DataModificationResult;
+import com.jdc.portal.commons.dto.EmployeeActivationEvent;
 import com.jdc.portal.commons.utils.ActivationCodeGenerator;
 import com.jdc.portal.domains.account.Employee;
 import com.jdc.portal.domains.account.EmployeeActivation;
@@ -20,6 +20,7 @@ import com.jdc.portal.domains.account.Employee_;
 import com.jdc.portal.domains.account.repo.AccountRepo;
 import com.jdc.portal.domains.account.repo.EmployeeActivationRepo;
 import com.jdc.portal.domains.account.repo.EmployeeRepo;
+import com.jdc.portal.domains.account.repo.StudentActivationRepo;
 import com.jdc.portal.domains.utils.consts.Role;
 import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
@@ -37,7 +38,8 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeManagementService {
 	
 	private final EmployeeRepo employeeRepo;
-	private final EmployeeActivationRepo activationRepo;
+	private final EmployeeActivationRepo employeeActivationRepo;
+	private final StudentActivationRepo studentActivationRepo;
 	private final AccountRepo accountRepo;
 	private final ApplicationEventPublisher publisher;
 
@@ -52,6 +54,7 @@ public class EmployeeManagementService {
 			
 			cq.where(search.where(cb, root, account, activation));
 			EmployeeItem.select(cb, cq, root, account, activation);
+			
 			return cq;
 		};
 		
@@ -66,8 +69,6 @@ public class EmployeeManagementService {
 	public DataModificationResult<Integer> create(EmployeeForm form) {
 		
 		var employee = employeeRepo.save(form.toEntity());
-		
-		employeeRepo.save(employee);
 
 		if(form.wasAStudent()) {
 			var account = safeCall(accountRepo.findOneByEmail(form.email()), "Account", "email %s".formatted(form.email()));
@@ -78,7 +79,7 @@ public class EmployeeManagementService {
 			account.setRoles(roles);
 		} else {
 			
-			if(accountRepo.countByEmail(form.email()) > 0 || activationRepo.countByEmail(form.email()) > 0) {
+			if(isAlreadyUsedEmail(form.email())) {
 				throw new JdcBusinessException("%s is already use in other account.".formatted(form.email()));
 			}
 			
@@ -87,9 +88,9 @@ public class EmployeeManagementService {
 			activation.setEmail(form.email());
 			activation.setName(form.name());
 			activation.setCode(ActivationCodeGenerator.generateCode());
-			activationRepo.save(activation);
+			employeeActivationRepo.save(activation);
 			
-			publisher.publishEvent(new ActivationEvent(employee.getId(), form.name(), Role.Office, form.email()));
+			publisher.publishEvent(new EmployeeActivationEvent(employee.getId()));
 		}
 		
 		return new DataModificationResult<>(employee.getId());
@@ -121,4 +122,12 @@ public class EmployeeManagementService {
 
 		return new DataModificationResult<>(employee.getId());
 	}
+	
+	private boolean isAlreadyUsedEmail(String email) {
+		return accountRepo.countByEmail(email) > 0 
+				|| employeeActivationRepo.countByEmail(email) > 0
+				|| studentActivationRepo.countByEmail(email) > 0;
+	}
+
+	
 }
