@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.portal.commons.JdcBusinessException;
 import com.jdc.portal.commons.dto.DataModificationResult;
-import com.jdc.portal.commons.dto.EmployeeActivationEvent;
 import com.jdc.portal.commons.utils.ActivationCodeGenerator;
 import com.jdc.portal.domains.account.Employee;
 import com.jdc.portal.domains.account.EmployeeActivation;
@@ -41,7 +39,6 @@ public class EmployeeManagementService {
 	private final EmployeeActivationRepo employeeActivationRepo;
 	private final StudentActivationRepo studentActivationRepo;
 	private final AccountRepo accountRepo;
-	private final ApplicationEventPublisher publisher;
 
 	public List<EmployeeItem> search(EmployeeSearch search) {
 		
@@ -66,7 +63,7 @@ public class EmployeeManagementService {
 	}
 
 	@Transactional
-	public DataModificationResult<Integer> create(EmployeeForm form) {
+	public Employee create(EmployeeForm form) {
 		
 		var employee = employeeRepo.save(form.toEntity());
 
@@ -89,11 +86,9 @@ public class EmployeeManagementService {
 			activation.setName(form.name());
 			activation.setCode(ActivationCodeGenerator.generateCode());
 			employeeActivationRepo.save(activation);
-			
-			publisher.publishEvent(new EmployeeActivationEvent(employee.getId()));
 		}
 		
-		return new DataModificationResult<>(employee.getId());
+		return employee;
 	}
 
 	@Transactional

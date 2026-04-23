@@ -2,6 +2,7 @@ package com.jdc.portal.office;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.commons.dto.DataModificationResult;
+import com.jdc.portal.commons.dto.EmployeeActivationEvent;
 import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
 import com.jdc.portal.office.output.EmployeeDetails;
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeesApi {
 	
 	private final EmployeeManagementService service;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@GetMapping
 	List<EmployeeItem> search(EmployeeSearch search) {
@@ -34,7 +37,14 @@ public class EmployeesApi {
 	
 	@PostMapping
 	DataModificationResult<Integer> create(@Validated @RequestBody EmployeeForm form) {
-		return service.create(form);
+		
+		var result = service.create(form);
+		
+		if(result.getActivatedAt() == null) {
+			eventPublisher.publishEvent(new EmployeeActivationEvent(result.getId()));
+		}
+		
+		return new DataModificationResult<Integer>(result.getId());
 	}
 
 	@PutMapping("{id}")

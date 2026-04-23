@@ -2,6 +2,7 @@ package com.jdc.portal.mail;
 
 import java.time.LocalDateTime;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -33,6 +34,7 @@ public class EmployeeActivationEventListener {
 			""";
 
 	@Async
+	@EventListener
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void handle(EmployeeActivationEvent event) throws MessagingException {
 		// Get Activation Info

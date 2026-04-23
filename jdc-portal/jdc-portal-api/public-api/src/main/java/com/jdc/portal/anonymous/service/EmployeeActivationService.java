@@ -39,7 +39,7 @@ public class EmployeeActivationService {
 		
 		// Create Account
 		var account = new Account();
-		account.setEmail(account.getEmail());
+		account.setEmail(activation.getEmail());
 		account.setRoles(List.of(Role.Office));
 		account.setPassword(passwordEncoder.encode(form.password()));
 		account.setName(activation.getName());
