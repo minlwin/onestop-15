@@ -47,4 +47,6 @@ public class Payment extends AbstractEntity {
 	private String slip;
 	
 	private PaymentType type;
+	
+	private String rejectReason;
 }

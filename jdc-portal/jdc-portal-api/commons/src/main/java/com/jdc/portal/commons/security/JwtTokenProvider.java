@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.jdc.portal.commons.AccessTokenExpirationException;
 import com.jdc.portal.commons.TokenInvalidException;
-import com.jdc.portal.commons.props.JwtTokenProperties;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -30,13 +30,18 @@ public class JwtTokenProvider {
 	private static final SecretKey SIGN_KEY = Jwts.SIG.HS512.key().build();
 	private static final String TYPE = "typ";
 	private static final String AUTH = "aut";
-	
-	private final JwtTokenProperties props;
-	
+		
 	public enum TokenType {
 		Access, Refresh
 	}
 
+	@Value("${app.jwt.issuer}")
+	private String issuer;
+	@Value("${app.jwt.access-life}")
+	private int accessLife;
+	@Value("${app.jwt.refresh-life}")
+	private int refreshLife;
+	
 	public String generateAccess(Authentication authentication) {
 		return generate(authentication, TokenType.Access);
 	}
@@ -75,7 +80,7 @@ public class JwtTokenProvider {
 			.subject(authentication.getName())
 			.claim(TYPE, type)
 			.claim(AUTH, authorities(authentication.getAuthorities()))
-			.issuer(props.getIssuer())
+			.issuer(issuer)
 			.issuedAt(issueAt)
 			.expiration(expireAt)
 			.compact();
@@ -85,7 +90,7 @@ public class JwtTokenProvider {
 		
 		var payload = Jwts.parser()
 			.verifyWith(SIGN_KEY)
-			.requireIssuer(props.getIssuer())
+			.requireIssuer(issuer)
 			.build()
 			.parseSignedClaims(token)
 			.getPayload();
@@ -109,8 +114,8 @@ public class JwtTokenProvider {
 		calendar.setTime(issueAt);
 		
 		var life = switch(type) {
-		case Access -> props.getAccessLife();
-		case Refresh -> props.getRefreshLife();
+		case Access -> accessLife;
+		case Refresh -> refreshLife;
 		};
 		
 		calendar.add(Calendar.MINUTE, life);

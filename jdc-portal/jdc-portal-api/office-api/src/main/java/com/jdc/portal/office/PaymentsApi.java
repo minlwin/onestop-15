@@ -17,31 +17,37 @@ import com.jdc.portal.office.input.PaymentSearch;
 import com.jdc.portal.office.input.PaymentStatusForm;
 import com.jdc.portal.office.output.PaymentDetails;
 import com.jdc.portal.office.output.PaymentItem;
+import com.jdc.portal.office.service.PaymentManagementService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("office/payments")
+@RequiredArgsConstructor
 public class PaymentsApi {
 
+	private final PaymentManagementService service;
+	
 	@GetMapping
 	PageResult<PaymentItem> search(PaymentSearch search,
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size) {
-		return null;
+		return service.search(search, page, size);
 	}
 	
 	@GetMapping("{id}")
 	PaymentDetails findById(@PathVariable long id) {
-		return null;
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	DataModificationResult<Long> create(@Validated @RequestBody PaymentForm form) {
-		return null;
+		return service.create(form);
 	}
 	
 	@PutMapping("{id}")
 	DataModificationResult<Long> update(@PathVariable long id, @Validated @RequestBody PaymentStatusForm form) {
-		return null;
+		return service.update(id, form);
 	}
 	
 }
