@@ -16,18 +16,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityExceptionsHandler implements AuthenticationEntryPoint, AccessDeniedHandler{
 
 	@Autowired
-	private HandlerExceptionResolver exceptionResolver;
+	private HandlerExceptionResolver handlerExceptionResolver;
 	
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		exceptionResolver.resolveException(request, response, null, accessDeniedException);
+		handlerExceptionResolver.resolveException(request, response, null, accessDeniedException);
 	}
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		exceptionResolver.resolveException(request, response, null, authException);
+		handlerExceptionResolver.resolveException(request, response, null, authException);
 	}
 
 }

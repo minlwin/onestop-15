@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.ott.InvalidOneTimeTokenException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -91,8 +90,9 @@ public class JwtTokenProvider {
 			.parseSignedClaims(token)
 			.getPayload();
 		
-		if(type.name().equals(payload.get(TYPE, String.class))) {
-			throw new InvalidOneTimeTokenException("Your token type is %s token. But we need %s token.".formatted(type.name(), type));
+		var tokenType = payload.get(TYPE, String.class);
+		if(!type.name().equals(tokenType)) {
+			throw new TokenInvalidException("Your token type is %s token. But we need %s token.".formatted(tokenType, type));
 		}
 		
 		var username = payload.getSubject();
