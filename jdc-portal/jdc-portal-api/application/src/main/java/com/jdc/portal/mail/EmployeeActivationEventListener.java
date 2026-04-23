@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class EmployeeActivationEventListener {
-	
+
 	private final EmployeeActivationRepo activationRepo;
 	private final JavaMailSender mailSender;
 	
