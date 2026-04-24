@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { SelectOption } from "@/lib/types"
 import { publicSearch } from "../client"
 

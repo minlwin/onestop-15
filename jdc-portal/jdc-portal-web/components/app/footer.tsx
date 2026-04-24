@@ -1,6 +1,22 @@
+'use client'
+
+import { getLoginSite, logoutAction } from "@/lib/service/action/security-action";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+
+    const [site, setSite] = useState<string>()
+
+    useEffect(() => {
+        async function load() {
+            const site = await getLoginSite()
+            setSite(site)
+        }
+        load()
+    }, [])
+
     return (
       <footer className="bg-gray-900 text-white py-8 mt-auto">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -13,14 +29,7 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-2">Quick Links</h4>
-            <ul className="text-sm text-gray-400 space-y-1">
-              <li>
-                <Link href="/confirm">Confirm Registration</Link>
-              </li>
-              <li>
-                <Link href="/signin">Sign In</Link>
-              </li>
-            </ul>
+            {site ? <MemberLinks site={site} /> : <AnonymousLinks />}
           </div>
 
           <div>
@@ -35,4 +44,43 @@ export default function Footer() {
         </div>
       </footer>
     )
+}
+
+function AnonymousLinks() {
+  return (
+    <ul className="text-sm text-gray-400 space-y-1">
+      <li>
+        <Link href="/confirm">Confirm Registration</Link>
+      </li>
+      <li>
+        <Link href="/signin">Sign In</Link>
+      </li>
+    </ul>
+  )
+}
+
+function MemberLinks({ site }: { site: string }) {
+
+  const router = useRouter()
+
+  const signOut = async () => {
+    await logoutAction()
+    if(site === '/student') {
+        router.replace('/signin')
+    } else if (site === '/office') {
+        router.replace('/signin/employee')
+    }
+  }
+
+  const siteName = site === '/student' ? 'Student Home' : 'Office Home'
+  return (
+    <ul className="text-sm text-gray-400 space-y-1">
+      <li>
+        <Link href={site}>{ siteName }</Link>
+      </li>
+      <li>
+        <a href="#" onClick={signOut}>Sign Out</a>
+      </li>
+    </ul>
+  )
 }

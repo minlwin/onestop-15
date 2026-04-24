@@ -4,10 +4,11 @@ import PageTitle from "@/components/app/page-title"
 import FormsInput from "@/components/forms/forms-input"
 import { Button } from "@/components/ui/button"
 import { SignInForm, signInSchema } from "@/lib/model/schema/anonymous"
-import { signInAction } from "@/lib/service/action/anonymous-action"
+import { employeeSignInAction, signInAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LogIn } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 export default function SignInPage() {
@@ -24,13 +25,13 @@ export default function SignInPage() {
     })
 
     const onSubmit = async (data: SignInForm) => {
-        const result = await signInAction(data);
+        const result = await employeeSignInAction(data);
         router.replace(result.message)
     }
 
     return (
         <section className="space-y-8">
-            <PageTitle title="Sign In" />
+            <PageTitle title="Employee Sign In" />
             {searchParams.get('message') && 
                 <p className="text-red-500">{searchParams.get('message')}</p> 
             }

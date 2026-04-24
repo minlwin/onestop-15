@@ -1,9 +1,12 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+import { getSite } from "@/lib/model/login-user";
+import { getLoginSite } from "@/lib/service/action/security-action";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import LogoutButton from "../office/_widgets/office-logout";
 
 const heroSlides = [
     {
@@ -26,6 +29,15 @@ const heroSlides = [
 export default function HeroSection() {
 
     const [current, setCurrent] = useState(0);
+    const [site, setSite] = useState<string>()
+
+    useEffect(() => {
+        async function load() {
+            const site = await getLoginSite()
+            setSite(site)
+        }
+        load()
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -60,9 +72,13 @@ export default function HeroSection() {
                             <Button asChild>
                                 <Link href="/confirm">Confirm Registration</Link>
                             </Button>
-                            <Button variant="secondary" asChild >
-                                <Link href="/signin">Sign In</Link>
-                            </Button>
+                            {site ? 
+                                <LogoutButton />
+                                :
+                                <Button asChild>
+                                    <Link href="/signin">Sign In</Link>
+                                </Button>
+                            }
                         </div>
                     </div>
                 </motion.div>

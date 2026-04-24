@@ -1,9 +1,10 @@
 import 'server-only'
+
 import { AuthResult } from './dto/anonymous';
 import { cookies } from 'next/headers';
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
-export async function setAuthResult(authResult: AuthResult) {
+export async function setAuthResult(authResult: AuthResult, site: '/student' | '/office') {
     const {accessToken, refreshToken, ...user} = authResult
     const cookieStore = await cookies()
 
@@ -18,6 +19,7 @@ export async function setAuthResult(authResult: AuthResult) {
     cookieStore.set('accessToken', accessToken, options)
     cookieStore.set('refreshToken', refreshToken, options)
     cookieStore.set('user', JSON.stringify(user), options)
+    cookieStore.set('site', site, options)
 }
 
 export async function clearAuthResult() {
@@ -25,6 +27,7 @@ export async function clearAuthResult() {
     cookieStore.delete('accessToken')
     cookieStore.delete('refreshToken')
     cookieStore.delete('user')
+    cookieStore.delete('site')
 }
 
 export async function getAccessToken() {
@@ -39,5 +42,14 @@ export async function getRefreshToken() {
 
 export async function getUser() {
     const cookieStore = await cookies()
-    return cookieStore.get('user')?.value
+    var userStr = cookieStore.get('user')?.value
+
+    if(userStr) {
+        return JSON.parse(userStr)
+    }
+}
+
+export async function getSite() {
+    const cookieStore = await cookies()
+    return cookieStore.get('site')?.value
 }

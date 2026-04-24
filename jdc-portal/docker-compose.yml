@@ -36,6 +36,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
       - 8080:8080
+    depends_on:
+      - db
+      - mailhog
     networks:
       - jdc_network
     

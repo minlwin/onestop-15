@@ -1,3 +1,5 @@
+'use server'
+
 import { SelectOption } from "@/lib/types"
 import * as client from "../rest/anonymous/commons-options-client"
 

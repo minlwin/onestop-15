@@ -1,9 +1,13 @@
 package com.jdc.portal.anonymous;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jdc.portal.anonymous.output.OptionValue;
 import com.jdc.portal.domains.utils.consts.AttendanceStatus;
 import com.jdc.portal.domains.utils.consts.ClassType;
 import com.jdc.portal.domains.utils.consts.CourseLevel;
@@ -19,44 +23,50 @@ import com.jdc.portal.domains.utils.dto.Option;
 public class CommonOptionsApi {
 	
 	@GetMapping("attendance-status")
-	Option[] getAttendanceStatus() {
-		return AttendanceStatus.values();
+	List<OptionValue> getAttendanceStatus() {
+		return from(AttendanceStatus.values());
 	}
 
 	@GetMapping("class-types")
-	Option[] getClassTypes() {
-		return ClassType.values();
+	List<OptionValue> getClassTypes() {
+		return from(ClassType.values());
 	}
 
 	@GetMapping("course-levels")
-	Option[] getCourseLevels() {
-		return CourseLevel.values();
+	List<OptionValue> getCourseLevels() {
+		return from(CourseLevel.values());
 	}
 
 	@GetMapping("fee-types")
-	Option[] getFeeTypes() {
-		return FeeType.values();
+	List<OptionValue> getFeeTypes() {
+		return from(FeeType.values());
 	}
 
 
 	@GetMapping("payment-status")
-	Option[] getPaymentStatus() {
-		return PaymentStatus.values();
+	List<OptionValue> getPaymentStatus() {
+		return from(PaymentStatus.values());
 	}
 
 	@GetMapping("payment-types")
-	Option[] getPaymentTypes() {
-		return PaymentType.values();
+	List<OptionValue> getPaymentTypes() {
+		return from(PaymentType.values());
 	}
 	
 	
 	@GetMapping("registration-status")
-	Option[] getRegistrationStatus() {
-		return RegistrationStatus.values();
+	List<OptionValue> getRegistrationStatus() {
+		return from(RegistrationStatus.values());
 	}
 	
 	@GetMapping("positions")
-	Option[] getPositions() {
-		return Position.values();
+	List<OptionValue> getPositions() {
+		return from(Position.values());
+	}
+	
+	private List<OptionValue> from(Option [] array) {
+		return Arrays.stream(array)
+				.map(OptionValue::from)
+				.toList();
 	}
 }

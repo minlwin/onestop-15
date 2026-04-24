@@ -8,16 +8,43 @@ import * as authApi from "../rest/anonymous/auth-rest-client"
 import * as registrationApi from "../rest/anonymous/registration-rest-client"
 import * as classApi from "../rest/anonymous/class-rest-client"
 import { MessageResult } from "@/lib/types"
+import { setAuthResult } from "@/lib/model/login-user"
 
 export async function activateAction(data: ActivationForm): Promise<MessageResult> {
     return await authApi.activate(data)
 }
 
+
+export async function activateEmployeeAction(data: ActivationForm): Promise<MessageResult> {
+    return await authApi.activateEmployee(data)
+}
+
 export async function signInAction(data: SignInForm): Promise<MessageResult> {
     const result = await authApi.signIn(data)
-    return {
-        message: result.role
+
+    if(result.role.some(r => r === 'Student')) {
+        // Set Auth Result
+        await setAuthResult(result, '/student')
+        return {
+            message: '/student'
+        }
     }
+
+    throw "Invalid Role"
+}
+
+export async function employeeSignInAction(data: SignInForm): Promise<MessageResult> {
+    const result = await authApi.signIn(data)
+
+    if(result.role.some(r => r === 'Office' || r === 'Admin')) {
+        // Set Auth Result
+        await setAuthResult(result, '/office')
+        return {
+            message: '/office'
+        }
+    }
+
+    throw "Invalid Role"
 }
 
 export async function findCourseAction(id: any):Promise<CourseDetails> {

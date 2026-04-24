@@ -3,7 +3,7 @@ import React from "react";
 import AnonymousMenu from "./_widget/anonymous-menu";
 import { getCourses } from "@/lib/service/rest/anonymous/courses-rest-client";
 
-export default async function WithoutMenuLayout({children} : {children : React.ReactNode}) {
+export default async function MenuLayout({children} : {children : React.ReactNode}) {
     
     const courses = await getCourses();
 
