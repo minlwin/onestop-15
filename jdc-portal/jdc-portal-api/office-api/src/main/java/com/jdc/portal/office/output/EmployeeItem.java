@@ -23,11 +23,17 @@ public record EmployeeItem(
     String phone,
     String email,
     LocalDateTime activatedAt,
+    boolean wasAStudent,
     LocalDate entryAt,
     LocalDate resignAt
 ) {
 
-	public static void select(CriteriaBuilder cb, CriteriaQuery<EmployeeItem> cq, Root<Employee> root, Join<Employee, Account> account, Join<Employee, EmployeeActivation> activation) {
+	public static void select(
+			CriteriaBuilder cb, 
+			CriteriaQuery<EmployeeItem> cq, 
+			Root<Employee> root, 
+			Join<Employee, Account> account, 
+			Join<Employee, EmployeeActivation> activation) {
 		
 		var name = cb.selectCase()
 				.when(cb.isNotNull(root.get(Employee_.account)), account.get(Account_.name))
@@ -47,6 +53,7 @@ public record EmployeeItem(
 			root.get(Employee_.phone),
 			email,
 			root.get(Employee_.activatedAt),
+			root.get(Employee_.wasAStudent),
 			root.get(Employee_.entryAt),
 			root.get(Employee_.resignAt)
 		));		

@@ -14,6 +14,7 @@ import { Search, Plus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getClassTypes } from "@/lib/service/action/constants-action";
+import { safeCall } from "@/lib/safe-call";
 
 export default function ClassManagementPage() {
 
@@ -32,26 +33,32 @@ export default function ClassManagementPage() {
 
     useEffect(() => {
         const loadData = async () => {
-            const types = await getClassTypes()
-            setTypes(types)
-            const {list, ...pageInfo} = await searchClasses({})
-            setClasses(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const types = await getClassTypes()
+                setTypes(types)
+                const {list, ...pageInfo} = await searchClasses({})
+                setClasses(list)
+                setPageInfo(pageInfo)                
+            })
         }
         loadData()
     }, [])
 
     const onSearch = async (form:ClassSearch) => {
-        const {list, ...pageInfo} = await searchClasses(form)
-        setClasses(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchClasses(form)
+            setClasses(list)
+            setPageInfo(pageInfo)            
+        })
     }
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchClasses(form.getValues())
-        setClasses(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchClasses(form.getValues())
+            setClasses(list)
+            setPageInfo(pageInfo)            
+        })
     }
 
     return (

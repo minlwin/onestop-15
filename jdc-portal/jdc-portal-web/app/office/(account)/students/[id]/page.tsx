@@ -14,6 +14,7 @@ import PaymentsForStudent from "./_widgets/payments-for-student";
 import AttendancesForStudent from "./_widgets/attendances-for-student";
 import SubTitle from "@/components/app/sub-title";
 import HighlightInfo from "@/components/app/highlight-info";
+import { safeCall } from "@/lib/safe-call";
 
 export default function StudentDetailsPage() {
     const {id} = useParams()
@@ -23,14 +24,16 @@ export default function StudentDetailsPage() {
     useEffect(() => {
         const loadData = async () => {
             if(id) {
-                const details = await findStudentById(id as string)
-                setDetails(details)
+                await safeCall(async () => {
+                    const details = await findStudentById(id as string)
+                    setDetails(details)
 
-                const {list} = await searchClasses({
-                    studentId: id as string,
-                    size: 100
+                    const {list} = await searchClasses({
+                        studentId: id as string,
+                        size: 100
+                    })
+                    setClasses(list)                    
                 })
-                setClasses(list)
             }
         }
         loadData()

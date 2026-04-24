@@ -17,6 +17,7 @@ import DetailsTabContents from "@/components/app/details-tab-contents"
 import ClassesForCourse from "./_widgets/classes-for-course"
 import ContentsForCourse from "./_widgets/contents-for-courses"
 import DetailsHeader from "@/components/app/details-header"
+import { safeCall } from "@/lib/safe-call"
 
 export default function CourseDetailsPage() {
 
@@ -26,8 +27,10 @@ export default function CourseDetailsPage() {
     useEffect(() => {
         const fetchCourse = async () => {
             if (id) {
-                const response = await findCourseDetails(id as string)
-                setCourse(response)
+                await safeCall(async () => {
+                    const response = await findCourseDetails(id as string)
+                    setCourse(response)
+                })
             }
         }
         fetchCourse()

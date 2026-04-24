@@ -4,8 +4,8 @@ import { ClassItem } from "@/lib/model/dto/students"
 import { loadClassesAction } from "@/lib/service/action/students-action"
 import { useEffect, useState } from "react"
 import ClassInfoWidget from "./class-info-widget"
-import { Subtitles } from "lucide-react"
 import SubTitle from "@/components/app/sub-title"
+import { safeCall } from "@/lib/safe-call"
 
 export default function AttendedClassesComponent() {
 
@@ -13,8 +13,10 @@ export default function AttendedClassesComponent() {
 
     useEffect(() => {
         const fetchClasses = async () => {
-            const response = await loadClassesAction()
-            setClasses(response)
+            await safeCall(async () => {
+                const response = await loadClassesAction()
+                setClasses(response)
+            })
         }
         fetchClasses()
     }, [])

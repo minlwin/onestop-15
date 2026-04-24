@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClassItem } from "@/lib/model/dto/office";
 import { RegistrationForm, registrationSchema } from "@/lib/model/schema/office";
+import { safeCall } from "@/lib/safe-call";
 import { REGISTRATION_SEGMENTS } from "@/lib/segments";
 import { createRegistration, searchClasses } from "@/lib/service/action/office-action";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,8 +34,10 @@ export default function RegistrationInOfficePage() {
     const router = useRouter()
 
     const onSave = async (data: RegistrationForm) => {
-        const result = await createRegistration(data)
-        router.replace(`/office/registrations/${result.id}`)
+        await safeCall(async () => {
+            const result = await createRegistration(data)
+            router.replace(`/office/registrations/${result.id}`)
+        })
     }
 
     const onClassChange = async (item?: ClassItem) => {
@@ -76,15 +79,16 @@ function SelectClassInformation({ onClassChange }: { onClassChange: (item?: Clas
 
     useEffect(() => {
         const loadData = async () => {
-            const { list } = await searchClasses({
-                startTo: new Date().toISOString(),
-                size: 100
-            })
-            setClasses(list)
-            if (list.length > 0) {
-                setSelectedClass(list[0])
-            }
-        }
+            await safeCall(async () => {
+                const { list } = await searchClasses({
+                    startTo: new Date().toISOString(),
+                    size: 100
+                })
+                setClasses(list)
+                if (list.length > 0) {
+                    setSelectedClass(list[0])
+                }
+            })}
         loadData()
     }, [])
 

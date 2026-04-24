@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ClassItem } from "@/lib/model/dto/office"
 import { ClassSearch } from "@/lib/model/schema/office"
+import { safeCall } from "@/lib/safe-call"
 import { getClassTypes } from "@/lib/service/action/constants-action"
 import { searchCourse, searchClasses } from "@/lib/service/action/office-action"
 import { SelectOption } from "@/lib/types"
@@ -32,22 +33,26 @@ export default function SelectClass({onSelectClass} : {onSelectClass: (data?: Cl
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await searchCourse({})
-            const courses = result.map(item => ({label: item.name, value: `${item.id}`}))
-            courses.unshift({label: "Select One", value: ""})
-            setCourses(courses)
-            const classTypes = await getClassTypes()
-            classTypes.unshift({label: "Select One", value: ""})
-            setClassTypes(classTypes)
+            await safeCall(async () => {
+                const result = await searchCourse({})
+                const courses = result.map(item => ({label: item.name, value: `${item.id}`}))
+                courses.unshift({label: "Select One", value: ""})
+                setCourses(courses)
+                const classTypes = await getClassTypes()
+                classTypes.unshift({label: "Select One", value: ""})
+                setClassTypes(classTypes)
+            })
         }
         loadData()
     }, [])
 
     const onSearch = async (data: ClassSearch) => {
-        const {list} = await searchClasses(data)
-        setClasses(list)
-        onSelectClass(undefined)
-        setSelectedClass(undefined)
+        await safeCall(async () => {
+            const {list} = await searchClasses(data)
+            setClasses(list)
+            onSelectClass(undefined)
+            setSelectedClass(undefined)
+        })
     }
 
     return (

@@ -9,3 +9,7 @@ export async function logoutAction() {
 export async function getLoginSite() {
     return await getSite()
 }
+
+export async function navigate(path: string) {
+
+}

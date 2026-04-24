@@ -6,13 +6,16 @@ import { useRouter } from "next/navigation"
 import ClassEditForm from "../_widgets/class-edit-form"
 import { CLASS_SEGMENTS } from "@/lib/segments"
 import { createClass } from "@/lib/service/action/office-action"
+import { safeCall } from "@/lib/safe-call"
 
 export default function ClassCreatePage() {
 
     const router = useRouter()
     const onSave = async (data: ClassForm) => {
-        const result = await createClass(data)
-        router.replace(`/office/classes/${result.id}/details`)
+        await safeCall(async () => {
+            const result = await createClass(data)
+            router.replace(`/office/classes/${result.id}/details`)            
+        })
     }
 
     return (

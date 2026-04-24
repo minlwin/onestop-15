@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Search } from "lucide-react";
 import { Table, TableHead, TableHeader, TableRow, TableBody, TableCell } from "@/components/ui/table";
 import Link from "next/link";
+import { safeCall } from "@/lib/safe-call";
 
 export default function PaymentManagementPage() {
 
@@ -35,33 +36,38 @@ export default function PaymentManagementPage() {
 
     useEffect(() => {
         const load = async () => {
+            await safeCall(async () => {
+                const paymentTypes = await getPaymentTypes()
+                paymentTypes.unshift({value: "", label: "Search All"})
+                setPaymentTypes(paymentTypes)
 
-            const paymentTypes = await getPaymentTypes()
-            paymentTypes.unshift({value: "", label: "Search All"})
-            setPaymentTypes(paymentTypes)
+                const statusList = await getPaymentStatus()
+                statusList.unshift({value: "", label: "Search All"})
+                setStatusList(statusList)
 
-            const statusList = await getPaymentStatus()
-            statusList.unshift({value: "", label: "Search All"})
-            setStatusList(statusList)
-
-            const {list, ...pageInfo} = await searchPayments({})
-            setPayments(list)
-            setPageInfo(pageInfo)
+                const {list, ...pageInfo} = await searchPayments({})
+                setPayments(list)
+                setPageInfo(pageInfo)
+            })
         }
         load()
     }, [])
 
     const onSearch = async (form:PaymentSearch) => {
-        const {list, ...pageInfo} = await searchPayments(form)
-        setPayments(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchPayments(form)
+            setPayments(list)
+            setPageInfo(pageInfo)
+        })
     }
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchPayments(form.getValues())
-        setPayments(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchPayments(form.getValues())
+            setPayments(list)
+            setPageInfo(pageInfo)
+        })
     }
 
     return (

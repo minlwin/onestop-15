@@ -43,4 +43,6 @@ public class Employee extends AbstractEntity{
 	
 	private LocalDateTime activatedAt;
 	
+	private boolean wasAStudent;
+	
 }

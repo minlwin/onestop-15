@@ -7,6 +7,7 @@ import { findCourseForEdit, updateCourse } from "@/lib/service/action/office-act
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import CourseEditForm from "../../_widgets/course-edit-form"
+import { safeCall } from "@/lib/safe-call"
 
 export default function CourseEditPage() {
 
@@ -17,8 +18,10 @@ export default function CourseEditPage() {
     useEffect(() => {
         const fetchCourse = async () => {
             if (id) {
-                const response = await findCourseForEdit(id as string)
-                setCourse(response)
+                await safeCall(async () => {
+                    const response = await findCourseForEdit(id as string)
+                    setCourse(response)
+                })
             }
         }
         fetchCourse()
@@ -27,8 +30,10 @@ export default function CourseEditPage() {
     const router = useRouter()
 
     const onSubmit = async (form: CourseForm) => {
-        const response = await updateCourse(id as string, form)
-        router.replace(`/office/courses/${response.id}/details`)
+        await safeCall(async () => {
+            const response = await updateCourse(id as string, form)
+            router.replace(`/office/courses/${response.id}/details`)            
+        })
     }
 
     if (!course) {

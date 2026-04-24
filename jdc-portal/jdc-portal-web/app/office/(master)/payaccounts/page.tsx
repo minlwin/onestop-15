@@ -9,14 +9,17 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { safeCall } from "@/lib/safe-call";
 
 export default function PaymentAccountsPage() {
     const [list, setList] = useState<PaymentAccountItem[]>([])
 
     useEffect(() => {
         const load = async () => {
-            const result = await getAllPaymentAccounts()
-            setList(result)
+            await safeCall(async () => {
+                const result = await getAllPaymentAccounts()
+                setList(result)
+            })
         }
         load()
     }, [])

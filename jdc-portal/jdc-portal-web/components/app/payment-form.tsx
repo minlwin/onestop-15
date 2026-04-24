@@ -13,6 +13,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui
 import PaySlip from "./pay-slip"
 import FormsInput from "../forms/forms-input"
 import { useRouter } from "next/navigation"
+import { safeCall } from "@/lib/safe-call"
 
 export default function PaymentFormComponent({classId, feeType} : {classId : string, feeType: 'monthly' | 'registration'}) {
     
@@ -22,8 +23,10 @@ export default function PaymentFormComponent({classId, feeType} : {classId : str
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await fetchPaymentInfoAction()
-            setPaymentInfos(result)
+            await safeCall(async () => {
+                const result = await fetchPaymentInfoAction()
+                setPaymentInfos(result)
+            })
         }
         loadData()
     }, [])    
@@ -50,8 +53,10 @@ export default function PaymentFormComponent({classId, feeType} : {classId : str
     }
 
     const onSave = async (data: PaymentForm) => {
-        await paidAction(data)
-        router.replace('/student')
+        await safeCall(async () => {
+            await paidAction(data)
+            router.replace('/student')
+        })
     }  
     
     return (

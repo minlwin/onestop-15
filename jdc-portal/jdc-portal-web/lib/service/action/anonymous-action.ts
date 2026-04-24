@@ -10,12 +10,11 @@ import * as classApi from "../rest/anonymous/class-rest-client"
 import { MessageResult } from "@/lib/types"
 import { setAuthResult } from "@/lib/model/login-user"
 
-export async function activateAction(data: ActivationForm): Promise<MessageResult> {
+export async function activateAction(data: Partial<ActivationForm>): Promise<MessageResult> {
     return await authApi.activate(data)
 }
 
-
-export async function activateEmployeeAction(data: ActivationForm): Promise<MessageResult> {
+export async function activateEmployeeAction(data: Partial<ActivationForm>): Promise<MessageResult> {
     return await authApi.activateEmployee(data)
 }
 

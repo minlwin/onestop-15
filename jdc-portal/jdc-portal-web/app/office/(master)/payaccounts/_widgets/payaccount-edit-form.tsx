@@ -4,6 +4,7 @@ import FormsInput from "@/components/forms/forms-input"
 import FormsSelect from "@/components/forms/forms-select"
 import { Button } from "@/components/ui/button"
 import { PaymentAccountForm, paymentAccountSchema } from "@/lib/model/schema/office"
+import { safeCall } from "@/lib/safe-call"
 import { getPaymentTypes } from "@/lib/service/action/constants-action"
 import { SelectOption } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -17,10 +18,12 @@ export default function PayAccountEditForm({account, onSubmit} : {account? : Pay
 
     useEffect(() => {
         const loadData = async () => {
-            let types = await getPaymentTypes()
-            types = types.filter(item => item.value != "Office")
-            types.unshift({ label: "Select One", value: "" })
-            setTypes(types)
+            await safeCall(async () => {
+                let types = await getPaymentTypes()
+                types = types.filter(item => item.value != "Office")
+                types.unshift({ label: "Select One", value: "" })
+                setTypes(types)
+            })
         }
         loadData()
     }, [])

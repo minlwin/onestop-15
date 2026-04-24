@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Search } from "lucide-react";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import Link from "next/link";
+import { safeCall } from "@/lib/safe-call";
 
 export default function RegistrationManagementPage() {
 
@@ -34,33 +35,39 @@ export default function RegistrationManagementPage() {
 
     useEffect(() => {
         async function load() {
-            const classTypes = await getClassTypes()
-            classTypes.unshift({value: "", label: "Search All"})
-            setClassTypes(classTypes)
+            await safeCall(async () => {
+                const classTypes = await getClassTypes()
+                classTypes.unshift({value: "", label: "Search All"})
+                setClassTypes(classTypes)
 
-            const result = await getRegistrationStatus()
-            result.unshift({label: "Search All", value: ""})
-            setStatusList(result)
+                const result = await getRegistrationStatus()
+                result.unshift({label: "Search All", value: ""})
+                setStatusList(result)
 
-            const {list, ...pageInfo} = await searchRegistration({})
-            setRegistrations(list)
-            setPager(pageInfo)
+                const {list, ...pageInfo} = await searchRegistration({})
+                setRegistrations(list)
+                setPager(pageInfo)
+            })
         }
 
         load()
     }, [])
 
     const onSearch = async (form: RegistrationSearch) => {
-        const {list, ...pageInfo} = await searchRegistration(form)
-        setRegistrations(list)
-        setPager(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchRegistration(form)
+            setRegistrations(list)
+            setPager(pageInfo)
+        })
     }
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchRegistration(form.getValues())
-        setRegistrations(list)
-        setPager(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchRegistration(form.getValues())
+            setRegistrations(list)
+            setPager(pageInfo)
+        })
     }
 
     return (

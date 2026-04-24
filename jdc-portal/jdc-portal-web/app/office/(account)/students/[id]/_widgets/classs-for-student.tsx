@@ -7,14 +7,17 @@ import { useState } from "react"
 import { findClassForStudent } from "@/lib/service/action/office-action"
 import SubTitle from "@/components/app/sub-title"
 import HighlightInfo from "@/components/app/highlight-info"
+import { safeCall } from "@/lib/safe-call"
 
 export default function ClasssForStudent({studentId, classes} : {studentId: any, classes: ClassItem[]}) {
 
     const [data, setData] = useState<ClassForStudent>()
 
     const onClassChange = async (classId: string) => {
-        const result = await findClassForStudent(studentId, classId)
-        setData(result)
+        await safeCall(async () => {
+            const result = await findClassForStudent(studentId, classId)
+            setData(result)
+        })
     }
 
     return (

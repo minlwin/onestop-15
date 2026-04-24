@@ -7,6 +7,7 @@ import SubTitle from "@/components/app/sub-title"
 import { Button } from "@/components/ui/button"
 import { ClassDetails } from "@/lib/model/dto/anonymous"
 import { AttendClassSummary } from "@/lib/model/dto/students"
+import { safeCall } from "@/lib/safe-call"
 import { findClassAction } from "@/lib/service/action/anonymous-action"
 import { fetchAttendClassSummary } from "@/lib/service/action/students-action"
 import { BadgeCheck, Calendar } from "lucide-react"
@@ -20,11 +21,13 @@ export default function StudentClassSummary({classId} : {classId: string | strin
 
     useEffect(() => {
         const fetchData = async () => {
-            const infoResponse = await findClassAction(classId)
-            setClassInfo(infoResponse)
+            await safeCall(async () => {
+                const infoResponse = await findClassAction(classId)
+                setClassInfo(infoResponse)
 
-            const summaryResponse = await fetchAttendClassSummary(classId)
-            setSummary(summaryResponse)
+                const summaryResponse = await fetchAttendClassSummary(classId)
+                setSummary(summaryResponse)
+            })
         }
         fetchData()
     }, [classId])

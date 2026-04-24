@@ -1,12 +1,15 @@
-import { clearAuthResult, getAccessToken, getRefreshToken, setAuthResult } from '@/lib/model/login-user'
+import { clearAuthResult, getAccessToken, getRefreshToken, getSite, setAuthResult } from '@/lib/model/login-user'
+import { redirect } from 'next/navigation'
 import 'server-only'
 
 export async function publicRequest(path: string, options: RequestInit = {}, params? : {[key:string] : any}) {
     const response = await fetch(url(path, params), options)
 
     if(!response.ok) {
-        const message = response.json()
-        throw JSON.stringify(message)
+        const message = await response.json()
+        throw JSON.stringify({
+            messages : message
+        })
     }
 
     return response
@@ -29,12 +32,13 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
         })
     }
 
+    const site = await getSite()
     const accessToken = await getAccessToken()
 
-    if(!accessToken) {
+    if(!accessToken || !site) {
         // LOGOUT and Login Again
         await clearAuthResult()
-        throw "Access Token Not Found"
+        redirect('/')
     }
 
     response = await fetchWithToken(accessToken)
@@ -43,10 +47,10 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
     if(response.status === 408) {
         const refreshToken = await getRefreshToken()
 
-        if(!refreshToken) {
+        if(!refreshToken || !site) {
             // LOGOUT and Login Again
             await clearAuthResult()
-            throw "Refresh Token Not Found"
+            redirect('/')
         }
 
         // Refresh Token
@@ -61,12 +65,16 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
             // LOGOUT and Login Again
             await clearAuthResult()
             const message = await response.json()
-            throw JSON.stringify(message)
+            if(site === '/student') {
+                redirect('/signin?message=' + JSON.stringify(message))
+            } else if (site === '/office') {
+                redirect('/signin/employee?message=' + JSON.stringify(message))
+            }
         }
 
         // Update Auth Result
         const authResult = await refreshResponse.json()
-        await setAuthResult(authResult)
+        await setAuthResult(authResult, site)
 
         // Try Original Request Again
         response = await fetchWithToken(authResult.accessToken)
@@ -74,7 +82,8 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
 
     // There is no response
     if(!response) {
-        throw "There is no response"
+        await clearAuthResult()
+        redirect('/')
     }
 
     // Authentication Error
@@ -82,19 +91,27 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
         // LOGOUT and Login Again
         await clearAuthResult()
         const message = await response.json()
-        throw JSON.stringify(message)
+        if(site === '/student') {
+            redirect('/signin?message=' + JSON.stringify(message))
+        } else if (site === '/office') {
+            redirect('/signin/employee?message=' + JSON.stringify(message))
+        }
     }
 
     // Validation Error
     if(response.status == 400) {
         const message = await response.json()
-        throw JSON.stringify(message)
+        throw {
+            messages : JSON.stringify(message),
+        }
     }
 
     // Internal Server Error
     if(response.status == 500) {
         const message = await response.json()
-        throw JSON.stringify(message)
+        throw {
+            messages : JSON.stringify(message),
+        }
     }
 
     return response

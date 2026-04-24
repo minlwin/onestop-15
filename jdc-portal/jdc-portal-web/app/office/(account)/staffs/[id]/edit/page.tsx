@@ -8,6 +8,7 @@ import { EmployeeForm } from "@/lib/model/schema/office"
 import StaffEditForm from "../../_widgets/staff-edit-form"
 import Loading from "@/components/app/loading"
 import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
+import { safeCall } from "@/lib/safe-call"
 
 export default function StaffEditPage() {
 
@@ -17,13 +18,16 @@ export default function StaffEditPage() {
     useEffect(() => {
         const loadData = async () => {
             if(id) {
-                const employee = await findEmployeeById(id as string)
-                setEmployee({
-                    email: employee.email,
-                    phone: employee.phone,
-                    name: employee.name,
-                    position: employee.position,
-                    entryAt: employee.entryAt
+                await safeCall(async () => {
+                    const employee = await findEmployeeById(id as string)
+                    setEmployee({
+                        email: employee.email,
+                        phone: employee.phone,
+                        name: employee.name,
+                        position: employee.position,
+                        entryAt: employee.entryAt,
+                        wasAStudent: employee.wasAStudent
+                    })
                 })
             }
         }
@@ -33,8 +37,10 @@ export default function StaffEditPage() {
     const router = useRouter()
 
     const onSubmit = async (form: EmployeeForm) => {
-        const response = await updateEmployee(id as string, form)
-        router.replace(`/office/staffs/${response.id}/details`)
+        await safeCall(async () => {
+            const response = await updateEmployee(id as string, form)
+            router.replace(`/office/staffs/${response.id}/details`)
+        })
     }
 
     if(!id) {

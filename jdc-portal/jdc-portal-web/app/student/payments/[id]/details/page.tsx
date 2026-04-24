@@ -3,9 +3,9 @@
 import ClassDecorateLayout from "@/components/app/class-decorate"
 import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { PaymentDetails } from "@/lib/model/dto/students"
+import { safeCall } from "@/lib/safe-call"
 import { getPaymentDetails } from "@/lib/service/action/students-action"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -18,8 +18,10 @@ export default function PaymentDetailsPage() {
     useEffect(() => {
         const loadData = async () => {
             if(id) {
-                const result = await getPaymentDetails(id as string)
-                setDetails(result)
+                await safeCall(async () => {
+                    const result = await getPaymentDetails(id as string)
+                    setDetails(result)
+                })
             }
         } 
         loadData()

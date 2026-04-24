@@ -13,6 +13,7 @@ import HighlightInfo from "@/components/app/highlight-info"
 import { Pencil } from "lucide-react"
 import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
 import DetailsHeader from "@/components/app/details-header"
+import { safeCall } from "@/lib/safe-call"
 
 export default function StaffDetailsPage() {
 
@@ -22,8 +23,10 @@ export default function StaffDetailsPage() {
     useEffect(() => {
         const loadData = async () => {
             if(id) {
-                const employee = await findEmployeeById(id as string)
-                setEmployee(employee)
+                await safeCall(async () => {
+                    const employee = await findEmployeeById(id as string)
+                    setEmployee(employee)                    
+                })
             }
         }
         loadData()

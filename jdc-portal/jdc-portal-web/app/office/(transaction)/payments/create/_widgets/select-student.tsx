@@ -3,6 +3,7 @@
 import SubTitle from "@/components/app/sub-title"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { StudentItem } from "@/lib/model/dto/office"
+import { safeCall } from "@/lib/safe-call"
 import { searchStudent } from "@/lib/service/action/office-action"
 import { useEffect, useState } from "react"
 
@@ -13,8 +14,10 @@ export default function SelectStudent({classId, onSelect} : {classId: string, on
 
     useEffect(() => {
         const loadData = async () => {
-            const {list} = await searchStudent({classId: classId, size: 100})
-            setStudents(list)
+            await safeCall(async () => {
+                const {list} = await searchStudent({classId: classId, size: 100})
+                setStudents(list)
+            })
         }
         loadData()
     }, [classId])

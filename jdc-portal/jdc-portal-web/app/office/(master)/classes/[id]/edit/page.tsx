@@ -8,6 +8,7 @@ import { findClassForEdit, updateClass } from "@/lib/service/action/office-actio
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import ClassEditForm from "../../_widgets/class-edit-form"
+import { safeCall } from "@/lib/safe-call"
 
 export default function ClassEditPage() {
 
@@ -17,8 +18,10 @@ export default function ClassEditPage() {
     useEffect(() => {
         async function load() {
             if(id) {
-                const form = await findClassForEdit(id as string)
-                setForm(form)
+                await safeCall(async () => {
+                    const form = await findClassForEdit(id as string)
+                    setForm(form)                    
+                })
             }
         }
         load()
@@ -26,9 +29,10 @@ export default function ClassEditPage() {
 
     const router = useRouter()
     const onSave = async (data: ClassForm) => {
-        console.log(data)
-        const result = await updateClass(id as string, data)
-        router.replace(`/office/classes/${result.id}/details`)
+        await safeCall(async () => {
+            const result = await updateClass(id as string, data)
+            router.replace(`/office/classes/${result.id}/details`)
+        })
     }
 
     if(!id) {

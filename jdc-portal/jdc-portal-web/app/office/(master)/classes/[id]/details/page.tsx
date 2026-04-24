@@ -18,6 +18,7 @@ import PaymentsForClass from "./_widgets/payments-for-class"
 import AttendanceForClass from "./_widgets/attendance-for-class"
 import QrCodes from "./_widgets/qr-for-class"
 import DetailsHeader from "@/components/app/details-header"
+import { safeCall } from "@/lib/safe-call"
 
 export default function ClassDetailsPage() {
 
@@ -27,8 +28,10 @@ export default function ClassDetailsPage() {
     useEffect(() => {
         async function load() {
             if(id) {
-                const result = await findClassDetails(id as string)
-                setDetails(result)
+                await safeCall(async () => {
+                    const result = await findClassDetails(id as string)
+                    setDetails(result)
+                })
             }
         }
         load()

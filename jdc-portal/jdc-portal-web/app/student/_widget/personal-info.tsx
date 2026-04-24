@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button,  } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ProfileInfo } from "@/lib/model/dto/students"
+import { safeCall } from "@/lib/safe-call"
 import { loadProfileAction } from "@/lib/service/action/students-action"
 import { Pencil } from "lucide-react"
 import Link from "next/link"
@@ -17,8 +18,10 @@ export default function PersonalInfoComponent() {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const response = await loadProfileAction()
-            setInfo(response)
+            await safeCall(async () => {
+                const response = await loadProfileAction()
+                setInfo(response)
+            })
         }
         fetchProfile()
     }, [])

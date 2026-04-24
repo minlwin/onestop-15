@@ -7,6 +7,7 @@ import PageTitle from "@/components/app/page-title";
 import SubTitle from "@/components/app/sub-title";
 import { Button } from "@/components/ui/button";
 import { PaymentAccountDetails } from "@/lib/model/dto/office";
+import { safeCall } from "@/lib/safe-call";
 import { PAYACCOUNTS_SEGMENTS } from "@/lib/segments";
 import { findPaymentAccountDetails, togglePaymentAccount } from "@/lib/service/action/office-action";
 import { Check, Pencil, X } from "lucide-react";
@@ -21,16 +22,24 @@ export default function PaymentAccountDetailsPage() {
 
     useEffect(() => {
         const load = async () => {
-            const result = await findPaymentAccountDetails(id)
-            setDetails(result)
+            if (id) {
+                await safeCall(async () => {
+                    const result = await findPaymentAccountDetails(id)
+                    setDetails(result)
+                })
+            }
         }
         load()
     }, [id])
 
     const toogleState = async () => {
-        await togglePaymentAccount(id)
-        const result = await findPaymentAccountDetails(id)
-        setDetails(result)
+        if (id) {
+            await safeCall(async () => {
+                await togglePaymentAccount(id)
+                const result = await findPaymentAccountDetails(id)
+                setDetails(result)
+            })
+        }
     }
 
     if (!details) {

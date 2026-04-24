@@ -18,6 +18,8 @@ export type EmployeeItem = {
     position: string 
     phone: string
     email: string
+    activatedAt?: string
+    wasAStudent: boolean
     entryAt: string
     resignAt?: string
 }

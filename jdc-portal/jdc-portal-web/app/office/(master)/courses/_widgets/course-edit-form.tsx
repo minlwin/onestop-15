@@ -11,6 +11,7 @@ import { Plus, Save, Trash2 } from "lucide-react"
 import { SelectOption } from "@/lib/types"
 import { getCourseLevels } from "@/lib/service/action/constants-action"
 import FormsSelect from "@/components/forms/forms-select"
+import { safeCall } from "@/lib/safe-call"
 
 export default function CourseEditForm({course, onSubmit} : {course?: CourseForm, onSubmit: (form: CourseForm) => void}) {
     
@@ -18,9 +19,11 @@ export default function CourseEditForm({course, onSubmit} : {course?: CourseForm
 
     useEffect(() => {
         const load = async () => {
-            const result = await getCourseLevels()
-            result.unshift({value: "", label: "Select One"})
-            setLevels(result)
+            await safeCall(async () => {
+                const result = await getCourseLevels()
+                result.unshift({value: "", label: "Select One"})
+                setLevels(result)
+            })
         }
         load()
     }, [])

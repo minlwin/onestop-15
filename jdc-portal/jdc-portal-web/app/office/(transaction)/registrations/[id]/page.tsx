@@ -3,13 +3,13 @@ import OfficePageDecorator from "@/app/office/_widgets/office-page-decorate";
 import DetailsHeader from "@/components/app/details-header";
 import HighlightInfo from "@/components/app/highlight-info";
 import Loading from "@/components/app/loading";
-import NameInfo from "@/components/app/name-info";
 import SubTitle from "@/components/app/sub-title";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { RegistrationDetails } from "@/lib/model/dto/office";
+import { safeCall } from "@/lib/safe-call";
 import { REGISTRATION_SEGMENTS } from "@/lib/segments";
 import { approveRegistration, findRegistrationDetails, rejectRegistration } from "@/lib/service/action/office-action";
 import { Check, X } from "lucide-react";
@@ -27,8 +27,10 @@ export default function RegistrationDetailsPage() {
     useEffect(() => {
         const loadData = async () => {
             if(id) {
-                const details = await findRegistrationDetails(id)
-                setDetails(details)
+                await safeCall(async () => {
+                    const details = await findRegistrationDetails(id)
+                    setDetails(details)
+                })
             }
         }
         loadData()
@@ -37,16 +39,13 @@ export default function RegistrationDetailsPage() {
     const handleApprove = async () => {
         if (!details) return
         setLoading(true)
-        try {
+        await safeCall(async () => {
             await approveRegistration(details.id)
             // Refresh data
             const updated = await findRegistrationDetails(id)
             setDetails(updated)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setLoading(false)
-        }
+        })
+        setLoading(false)
     }
 
     const handleReject = async () => {
@@ -58,18 +57,15 @@ export default function RegistrationDetailsPage() {
         
         setLoading(true)
         setRejectDialogOpen(false)
-        try {
+
+        await safeCall(async () => {
             await rejectRegistration(details.id, rejectReason.trim())
             // Refresh data
             const updated = await findRegistrationDetails(id)
             setDetails(updated)
             setRejectReason("")
-        } catch (error) {
-            console.error(error)
-            setRejectDialogOpen(true) // Re-open dialog on error
-        } finally {
-            setLoading(false)
-        }
+        })
+        setLoading(false)
     }
 
     if (!id || !details) {

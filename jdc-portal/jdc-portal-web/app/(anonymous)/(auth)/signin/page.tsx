@@ -4,6 +4,7 @@ import PageTitle from "@/components/app/page-title"
 import FormsInput from "@/components/forms/forms-input"
 import { Button } from "@/components/ui/button"
 import { SignInForm, signInSchema } from "@/lib/model/schema/anonymous"
+import { safeCall } from "@/lib/safe-call"
 import { signInAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LogIn } from "lucide-react"
@@ -24,8 +25,10 @@ export default function SignInPage() {
     })
 
     const onSubmit = async (data: SignInForm) => {
-        const result = await signInAction(data);
-        router.replace(result.message)
+        await safeCall(async () => {
+            const result = await signInAction(data);
+            router.replace(result.message)
+        })
     }
 
     return (

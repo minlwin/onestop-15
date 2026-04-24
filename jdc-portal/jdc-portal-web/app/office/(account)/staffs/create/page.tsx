@@ -6,14 +6,17 @@ import { createEmployee } from "@/lib/service/action/office-action"
 import { useRouter } from "next/navigation"
 import StaffEditForm from "../_widgets/staff-edit-form"
 import { EMPLOYEE_SEGMENTS } from "@/lib/segments"
+import { safeCall } from "@/lib/safe-call"
 
 export default function StaffCreatePage() {
 
     const router = useRouter()
 
     const onSubmit = async (form: EmployeeForm) => {
-        const response = await createEmployee(form)
-        router.replace(`/office/staffs/${response.id}/details`)
+        await safeCall(async () => {
+            const response = await createEmployee(form)
+            router.replace(`/office/staffs/${response.id}/details`)
+        })
     }
 
     return (

@@ -4,6 +4,7 @@ import HighlightInfo from "@/components/app/highlight-info"
 import Loading from "@/components/app/loading"
 import { Button } from "@/components/ui/button"
 import { ClassInfo, CourseContent, CourseDetails } from "@/lib/model/dto/anonymous"
+import { safeCall } from "@/lib/safe-call"
 import { findClassForCourseAction, findCourseAction } from "@/lib/service/action/anonymous-action"
 import { Edit } from "lucide-react"
 import Link from "next/link"
@@ -18,11 +19,13 @@ export default function CourseDetailsPage() {
 
     useEffect(() => {
         const fetchCourse = async () => {
-            const response = await findCourseAction(id)
-            setCourse(response)
+            await safeCall(async () => {
+                const response = await findCourseAction(id)
+                setCourse(response)
 
-            const classes = await findClassForCourseAction(id)
-            setClasses(classes)
+                const classes = await findClassForCourseAction(id)
+                setClasses(classes)
+            })
         }
         fetchCourse()
     }, [id])

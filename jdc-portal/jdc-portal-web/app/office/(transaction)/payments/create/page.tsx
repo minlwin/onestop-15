@@ -14,6 +14,7 @@ import { Check } from "lucide-react";
 import { ClassItem } from "@/lib/model/dto/office";
 import { useRouter } from "next/navigation";
 import { createPayment } from "@/lib/service/action/office-action";
+import { safeCall } from "@/lib/safe-call";
 
 export default function PaymentInOfficePage() {
 
@@ -36,8 +37,10 @@ export default function PaymentInOfficePage() {
     const router = useRouter()
 
     const onSubmit = async (data: PaymentForm) => {
-        const result = await createPayment(data)
-        router.replace(`/office/payments/${result.id}`)
+        await safeCall(async () => {
+            const result = await createPayment(data)
+            router.replace(`/office/payments/${result.id}`)
+        })
     }
 
     return (

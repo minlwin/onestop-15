@@ -4,6 +4,7 @@ import DetailsTabContents from "@/components/app/details-tab-contents"
 import PaginationComponent from "@/components/app/pagination"
 import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from "@/components/ui/table"
 import { ClassItem } from "@/lib/model/dto/office"
+import { safeCall } from "@/lib/safe-call"
 import { searchClasses } from "@/lib/service/action/office-action"
 import { Pager } from "@/lib/types"
 import { useState, useEffect } from "react"
@@ -14,18 +15,22 @@ export default function ClassesForCourse({ courseId }: { courseId: any }) {
 
     useEffect(() => {
         const fetchClasses = async () => {
-            const { list, ...pageInfo } = await searchClasses({ course: courseId })
-            setClasses(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const { list, ...pageInfo } = await searchClasses({ course: courseId })
+                setClasses(list)
+                setPageInfo(pageInfo)
+            })
         }
         fetchClasses()
     }, [courseId])
 
     const onPageChange = async (page: number) => {
         if (courseId) {
-            const { list, ...pageInfo } = await searchClasses({ course: courseId as string, page })
-            setClasses(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const { list, ...pageInfo } = await searchClasses({ course: courseId as string, page })
+                setClasses(list)
+                setPageInfo(pageInfo)
+            })
         }
     }
 

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { safeCall } from "@/lib/safe-call";
 
 export default function CourseManagementPage() {
 
@@ -20,15 +21,19 @@ export default function CourseManagementPage() {
 
     useEffect(() => {
         const loadData = async () => {
-            const courses = await searchCourse({})
-            setCourses(courses)
+            await safeCall(async () => {
+                const courses = await searchCourse({})
+                setCourses(courses)
+            })
         }
         loadData()
     }, [])
 
     const onSearch = async (form:CourseSearch) => {
-        const courses = await searchCourse(form)
-        setCourses(courses)
+        await safeCall(async () => {
+            const courses = await searchCourse(form)
+            setCourses(courses)
+        })
     }
 
     return (

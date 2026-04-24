@@ -14,6 +14,7 @@ import { EmployeeItem } from "@/lib/model/dto/office";
 import { searchEmployee } from "@/lib/service/action/office-action";
 import { SelectOption } from "@/lib/types";
 import { getPositions } from "@/lib/service/action/constants-action";
+import { safeCall } from "@/lib/safe-call";
 
 export default function StaffManagementPage() {
 
@@ -22,12 +23,14 @@ export default function StaffManagementPage() {
 
     useEffect(() => {
         const loadData = async () => {
-            const positions = await getPositions()
-            positions.unshift({label : "Search All", value : ""})
-            setPositions(positions)
+            await safeCall(async () => {
+                const positions = await getPositions()
+                positions.unshift({label : "Search All", value : ""})
+                setPositions(positions)
 
-            const employees = await searchEmployee({})
-            setEmployees(employees)
+                const employees = await searchEmployee({})
+                setEmployees(employees)                
+            })
         }
         loadData()
     }, [])
@@ -75,6 +78,7 @@ export default function StaffManagementPage() {
                         <TableHead>Phone</TableHead>
                         <TableHead>Email</TableHead>
                         <TableHead>Entry At</TableHead>
+                        <TableHead>Activated At</TableHead>
                         <TableHead>Resign At</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
@@ -88,6 +92,7 @@ export default function StaffManagementPage() {
                             <TableCell>{employee.phone}</TableCell>
                             <TableCell>{employee.email}</TableCell>
                             <TableCell>{employee.entryAt}</TableCell>
+                            <TableCell>{employee.activatedAt || "-"}</TableCell>
                             <TableCell>{employee.resignAt || "-"}</TableCell>
                             <TableCell>
                                 <Link href={`/office/staffs/${employee.id}/details`}>

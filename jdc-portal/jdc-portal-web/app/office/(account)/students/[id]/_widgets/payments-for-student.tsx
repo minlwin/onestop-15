@@ -8,16 +8,19 @@ import { searchPayments } from "@/lib/service/action/office-action"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { safeCall } from "@/lib/safe-call"
 
 export default function PaymentsForStudent({studentId, classes} : {studentId: any, classes: ClassItem[]}) {
 
     const [list, setList] = useState<PaymentItem[]>([])
     const onClassChange = async (id: string) => {
-        const {list} = await searchPayments({
-            classId: id,
-            studentId: studentId
+        await safeCall(async () => {
+            const {list} = await searchPayments({
+                classId: id,
+                studentId: studentId
+            })
+            setList(list)
         })
-        setList(list)
     }
 
     return (

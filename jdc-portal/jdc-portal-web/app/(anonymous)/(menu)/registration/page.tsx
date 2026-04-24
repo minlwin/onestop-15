@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { PaymentInfo } from "@/lib/model/dto/anonymous"
 import { RegistrationForm, registrationSchema } from "@/lib/model/schema/anonymous"
+import { safeCall } from "@/lib/safe-call"
 import { applyRegistrationAction, fetchPaymentInfoAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Upload, UserPlus } from "lucide-react"
@@ -42,8 +43,10 @@ function RegistrationFormComponent({ classId }: { classId: string }) {
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await fetchPaymentInfoAction()
-            setPaymentInfos(result)
+            await safeCall(async () => { 
+                const result = await fetchPaymentInfoAction()
+                setPaymentInfos(result)
+            })
         }
         loadData()
     }, [])

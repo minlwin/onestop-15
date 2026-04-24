@@ -5,14 +5,17 @@ import { COURSE_SEGMENTS } from "@/lib/segments"
 import CourseEditForm from "../_widgets/course-edit-form"
 import { useRouter } from "next/navigation"
 import { createCourse } from "@/lib/service/action/office-action"
+import { safeCall } from "@/lib/safe-call"
 
 export default function CourseCreatePage() {
 
     const router = useRouter()
 
     const onSubmit = async (form: CourseForm) => {
-        const response = await createCourse(form)
-        router.replace(`/office/courses/${response.id}/details`)
+        await safeCall(async () => {
+            const response = await createCourse(form)
+            router.replace(`/office/courses/${response.id}/details`)
+        })
     }
 
     return (

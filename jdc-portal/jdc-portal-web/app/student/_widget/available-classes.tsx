@@ -5,6 +5,7 @@ import { loadAvailableClassesAction } from "@/lib/service/action/students-action
 import { useEffect, useState } from "react"
 import ClassInfoWidget from "./class-info-widget"
 import SubTitle from "@/components/app/sub-title"
+import { safeCall } from "@/lib/safe-call"
 
 export default function AvailableClassesComponent() {
 
@@ -12,8 +13,10 @@ export default function AvailableClassesComponent() {
 
     useEffect(() => {
         const fetchClasses = async () => {
-            const response = await loadAvailableClassesAction()
-            setClasses(response)
+            await safeCall(async () => {
+                const response = await loadAvailableClassesAction()
+                setClasses(response)
+            })
         }
         fetchClasses()
     }, [])

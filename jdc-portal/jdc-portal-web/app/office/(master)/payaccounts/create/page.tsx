@@ -7,13 +7,16 @@ import { PAYACCOUNTS_SEGMENTS } from "@/lib/segments";
 import { createPaymentAccount } from "@/lib/service/action/office-action";
 import { useRouter } from "next/navigation";
 import PayAccountEditForm from "../_widgets/payaccount-edit-form";
+import { safeCall } from "@/lib/safe-call";
 
 export default function CreatePaymentAccountPage() {
 
     const router = useRouter()
     const onSave = async (data: PaymentAccountForm) => {
-        const result = await createPaymentAccount(data)
-        router.replace(`/office/payaccounts/${result.id}/details`)
+        await safeCall(async () => {
+            const result = await createPaymentAccount(data)
+            router.replace(`/office/payaccounts/${result.id}/details`)
+        })
     }
 
     return (

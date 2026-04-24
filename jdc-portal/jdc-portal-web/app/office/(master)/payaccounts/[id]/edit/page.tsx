@@ -8,6 +8,7 @@ import { findPaymentAccountDetails, updatePaymentAccount } from "@/lib/service/a
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import PayAccountEditForm from "../../_widgets/payaccount-edit-form";
+import { safeCall } from "@/lib/safe-call";
 
 export default function PaymentAccountEditPage() {
 
@@ -16,13 +17,17 @@ export default function PaymentAccountEditPage() {
 
     useEffect(() => {
         const load = async () => {
-            const result = await findPaymentAccountDetails(id)
-            setForm({
-                type: result.type,
-                provider: result.provider,
-                accountNo: result.accountNo,
-                accountName: result.accountName
-            })
+            if (id) {
+                await safeCall(async () => {
+                    const result = await findPaymentAccountDetails(id)
+                    setForm({
+                        type: result.type,
+                        provider: result.provider,
+                        accountNo: result.accountNo,
+                        accountName: result.accountName
+                    })
+                })             
+            }
         }
         load() 
     }, [id])

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from "@/components/ui/table"
 import { StudentItem } from "@/lib/model/dto/office"
 import { StudentSearch } from "@/lib/model/schema/office"
+import { safeCall } from "@/lib/safe-call"
 import { searchStudent } from "@/lib/service/action/office-action"
 import { Pager } from "@/lib/types"
 import { Search, ArrowRight } from "lucide-react"
@@ -28,24 +29,30 @@ export default function StudentsForClass({classId} : {classId : any}) {
 
     useEffect(() => {
         const load = async () => {
-            const {list, ...pageInfo} = await searchStudent(form.getValues())
-            setList(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const {list, ...pageInfo} = await searchStudent(form.getValues())
+                setList(list)
+                setPageInfo(pageInfo)                
+            })
         }
         load()
     }, [])
 
     const onSubmit = async (data: StudentSearch) => {
-        const {list, ...pageInfo} = await searchStudent(form.getValues())
-        setList(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchStudent(form.getValues())
+            setList(list)
+            setPageInfo(pageInfo)            
+        })
     }
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchStudent(form.getValues())
-        setList(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchStudent(form.getValues())
+            setList(list)
+            setPageInfo(pageInfo)
+        })
     }
 
     return (

@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Search, X } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
+import { safeCall } from "@/lib/safe-call";
 
 export default function StudentManagementPage() {
 
@@ -21,9 +22,11 @@ export default function StudentManagementPage() {
 
     useEffect(() => {
         const loadData = async () => {
-            const {list, ...pageInfo} = await searchStudent({})
-            setStudents(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const {list, ...pageInfo} = await searchStudent({})
+                setStudents(list)
+                setPageInfo(pageInfo)                
+            })
         }
         loadData()
     }, [])
@@ -45,16 +48,20 @@ export default function StudentManagementPage() {
     }, [entryFrom, entryTo, keyword])
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchStudent(form.getValues())
-        setStudents(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchStudent(form.getValues())
+            setStudents(list)
+            setPageInfo(pageInfo)            
+        })
     }
 
     const onSearch = async (form:StudentSearch) => {
-        const {list, ...pageInfo} = await searchStudent(form)
-        setStudents(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchStudent(form)
+            setStudents(list)
+            setPageInfo(pageInfo)
+        })
     }
 
     return (

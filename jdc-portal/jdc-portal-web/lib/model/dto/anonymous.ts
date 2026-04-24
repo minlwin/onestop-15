@@ -47,3 +47,7 @@ export type PaymentInfo = {
     accountNumber : string
     accountName : string
 }
+
+export type ApplicationError = {
+    messages: string[]
+}

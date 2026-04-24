@@ -4,6 +4,7 @@ import PageTitle from "@/components/app/page-title";
 import FormsInput from "@/components/forms/forms-input";
 import { Button } from "@/components/ui/button";
 import { ActivationForm, activationSchema } from "@/lib/model/schema/anonymous";
+import { safeCall } from "@/lib/safe-call";
 import { activateAction } from "@/lib/service/action/anonymous-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Key, Shield } from "lucide-react";
@@ -24,8 +25,10 @@ export default function ActivationPage() {
     })
 
     const onSubmit = async (data: ActivationForm) => {
-        const result = await activateAction(data);
-        router.replace(`/signin?message=${result.message}`)
+        await safeCall(async () => {
+            const result = await activateAction(data);
+            router.replace(`/signin?message=${result.message}`)
+        })
     }
 
     return (

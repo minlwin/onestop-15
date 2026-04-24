@@ -4,7 +4,7 @@ import { AuthResult } from './dto/anonymous';
 import { cookies } from 'next/headers';
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
-export async function setAuthResult(authResult: AuthResult, site: '/student' | '/office') {
+export async function setAuthResult(authResult: AuthResult, site: string) {
     const {accessToken, refreshToken, ...user} = authResult
     const cookieStore = await cookies()
 

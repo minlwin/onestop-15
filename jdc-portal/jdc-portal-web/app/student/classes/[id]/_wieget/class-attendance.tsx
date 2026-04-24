@@ -3,6 +3,7 @@
 import SubTitle from "@/components/app/sub-title"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { AttendanceItem } from "@/lib/model/dto/students"
+import { safeCall } from "@/lib/safe-call"
 import { featchAttendanceForClass, fetchAttendClassSummary, fetchPaymentsForClass } from "@/lib/service/action/students-action"
 import { useState, useEffect } from "react"
 
@@ -11,8 +12,10 @@ export default function ClassAttendanceWidget({classId} : {classId : string | st
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await featchAttendanceForClass(classId)
-            setList(result)
+            await safeCall(async () => {
+                const result = await featchAttendanceForClass(classId)
+                setList(result)
+            })
         }
         loadData()
     }, [classId])

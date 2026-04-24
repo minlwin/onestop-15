@@ -2,6 +2,7 @@
 
 import FormsInput from "@/components/forms/forms-input"
 import FormsSelect from "@/components/forms/forms-select"
+import FormsSwitch from "@/components/forms/forms-switch"
 import { Button } from "@/components/ui/button"
 import { EmployeeForm, employeeSchema } from "@/lib/model/schema/office"
 import { getPositions } from "@/lib/service/action/constants-action"
@@ -29,9 +30,10 @@ export default function StaffEditForm({ employee, onSubmit }: { employee?: Emplo
         defaultValues: {
             position: "",
             name: "",
-            email: "",
+            entryAt: "",
             phone: "",
-            entryAt: ""
+            email: "",
+            wasAStudent: false
         }
     })
 
@@ -59,6 +61,10 @@ export default function StaffEditForm({ employee, onSubmit }: { employee?: Emplo
                 </div>
                 <div>
                     <FormsInput control={form.control} name="email" label="Email" type="email" />
+                </div>
+
+                <div>
+                    <FormsSwitch control={form.control} name="wasAStudent" trueLabel="Was a Student" falseLabel="Not a Student" />
                 </div>
             </div>
 

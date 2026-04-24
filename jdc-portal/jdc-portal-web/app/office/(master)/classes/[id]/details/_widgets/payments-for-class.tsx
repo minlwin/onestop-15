@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { PaymentItem } from "@/lib/model/dto/office"
 import { PaymentSearch } from "@/lib/model/schema/office"
+import { safeCall } from "@/lib/safe-call"
 import { getPaymentStatus } from "@/lib/service/action/constants-action"
 import { searchPayments } from "@/lib/service/action/office-action"
 import { Pager, SelectOption } from "@/lib/types"
@@ -32,28 +33,34 @@ export default function PaymentsForClass({classId} : {classId : any}) {
 
     useEffect(() => {
         const load = async () => {
-            const {list, ...pageInfo} = await searchPayments(form.getValues())
-            setList(list)
-            setPageInfo(pageInfo)
+            await safeCall(async () => {
+                const {list, ...pageInfo} = await searchPayments(form.getValues())
+                setList(list)
+                setPageInfo(pageInfo)
 
-            const result = await getPaymentStatus()
-            result.unshift({label: "Search All", value: ""})
-            setStatusList(result)
+                const result = await getPaymentStatus()
+                result.unshift({label: "Search All", value: ""})
+                setStatusList(result)                
+            })
         }
         load()
     }, [])
 
     const onSubmit = async (data: PaymentSearch) => {
-        const {list, ...pageInfo} = await searchPayments(data)
-        setList(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            const {list, ...pageInfo} = await searchPayments(data)
+            setList(list)
+            setPageInfo(pageInfo)
+        })
     }
 
     const onPageChange = async (page : number) => {
-        form.setValue("page", page)
-        const {list, ...pageInfo} = await searchPayments(form.getValues())
-        setList(list)
-        setPageInfo(pageInfo)
+        await safeCall(async () => {
+            form.setValue("page", page)
+            const {list, ...pageInfo} = await searchPayments(form.getValues())
+            setList(list)
+            setPageInfo(pageInfo)            
+        })
     }
 
     return (

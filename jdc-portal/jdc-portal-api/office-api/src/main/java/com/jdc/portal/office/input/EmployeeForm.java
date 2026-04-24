@@ -30,6 +30,7 @@ public record EmployeeForm(
 		employee.setPosition(position);
 		employee.setPhone(phone);
 		employee.setEntryAt(entryAt);
+		employee.setWasAStudent(wasAStudent);
 		
 		return employee;
 	}

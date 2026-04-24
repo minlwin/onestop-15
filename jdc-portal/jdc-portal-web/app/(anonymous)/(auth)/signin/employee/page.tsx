@@ -4,11 +4,11 @@ import PageTitle from "@/components/app/page-title"
 import FormsInput from "@/components/forms/forms-input"
 import { Button } from "@/components/ui/button"
 import { SignInForm, signInSchema } from "@/lib/model/schema/anonymous"
-import { employeeSignInAction, signInAction } from "@/lib/service/action/anonymous-action"
+import { safeCall } from "@/lib/safe-call"
+import { employeeSignInAction } from "@/lib/service/action/anonymous-action"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LogIn } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 export default function SignInPage() {
@@ -25,8 +25,10 @@ export default function SignInPage() {
     })
 
     const onSubmit = async (data: SignInForm) => {
-        const result = await employeeSignInAction(data);
-        router.replace(result.message)
+        await safeCall(async () => {
+            const result = await employeeSignInAction(data);
+            router.replace(result.message)
+        })
     }
 
     return (

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { PaymentItem } from "@/lib/model/dto/students"
+import { safeCall } from "@/lib/safe-call"
 import { loadPaymentHistoryAction } from "@/lib/service/action/students-action"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -16,8 +17,10 @@ export default function PaymentHistoryComponent() {
 
     useEffect(() => {
         const fetchClasses = async () => {
-            const response = await loadPaymentHistoryAction()
-            setData(response)
+            await safeCall(async () => {
+                const response = await loadPaymentHistoryAction()
+                setData(response)
+            })
         }
         fetchClasses()
     }, [])

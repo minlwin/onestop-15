@@ -11,7 +11,8 @@ export const employeeSchema = z.object({
     name: z.string().nonempty("Please enter your name"),
     email: z.email("Please enter a valid email address"),
     phone: z.string().nonempty("Please enter your phone number"),
-    entryAt: z.string().nonempty("Please enter your entry date")
+    entryAt: z.string().nonempty("Please enter your entry date"),
+    wasAStudent: z.boolean(),
 })
 
 export type EmployeeForm = z.infer<typeof employeeSchema>
