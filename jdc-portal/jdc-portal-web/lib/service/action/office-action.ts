@@ -92,11 +92,11 @@ export async function createPayment(form: any) : Promise<DataModificationResult<
     return await paymentApi.create(form)
 }
 
-export async function approvePayment(id: any) : Promise<void> {
+export async function approvePayment(id: any) : Promise<DataModificationResult<string>> {
     return await paymentApi.updateStatus(id, 'Approved')
 }
 
-export async function rejectPayment(id: any, reason: string) : Promise<void> {
+export async function rejectPayment(id: any, reason: string) : Promise<DataModificationResult<string>> {
     return await paymentApi.updateStatus(id, 'Rejected', reason)
 }
 
@@ -112,11 +112,11 @@ export async function createRegistration(form: RegistrationForm) : Promise<DataM
     return await registrationApi.create(form)
 }
 
-export async function approveRegistration(id: any) : Promise<void> {
+export async function approveRegistration(id: any) : Promise<DataModificationResult<string>> {
     return await registrationApi.updateStatus(id, 'Approved')
 }
 
-export async function rejectRegistration(id: any, reason: string) : Promise<void> {
+export async function rejectRegistration(id: any, reason: string) : Promise<DataModificationResult<string>> {
     return await registrationApi.updateStatus(id, 'Rejected', reason)
 }
 

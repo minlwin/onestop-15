@@ -53,7 +53,16 @@ function AnonymousLinks() {
         <Link href="/confirm">Confirm Registration</Link>
       </li>
       <li>
-        <Link href="/signin">Sign In</Link>
+        <Link href="/signin">Student Sign In</Link>
+      </li>
+      <li>
+        <Link href="/activate">Student Activation</Link>
+      </li>
+      <li>
+        <Link href="/signin/employee">Employee Sign In</Link>
+      </li>
+      <li>
+        <Link href="/activate/employee">Employee Activation</Link>
       </li>
     </ul>
   )

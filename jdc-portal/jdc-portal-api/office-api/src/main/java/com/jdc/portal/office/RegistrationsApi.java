@@ -1,5 +1,7 @@
 package com.jdc.portal.office;
 
+import java.util.List;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,12 @@ public class RegistrationsApi {
 	PageResult<RegistrationItem> search(RegistrationSearch search,
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size) {
-		return null;
+		return new PageResult<>(
+			List.of(),
+			page,
+			size,
+			0L
+		);
 	}
 	
 	@GetMapping("{id}")

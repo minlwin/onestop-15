@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from "next/navigation"
 import { ApplicationError } from "./model/dto/anonymous"
 import { toast } from "sonner"
 
@@ -9,11 +8,7 @@ export async function safeCall(action: () => Promise<any>) {
     await action()
   } catch (error: any) {
 
-    if (error.message === "NEXT_REDIRECT") {
-      return
-    }
-
-    if (error.message) {
+    if (error.message && error.message.startsWith('{"messages":')) {
         const appError: ApplicationError = JSON.parse(error.message)
         toast("Message", {
             description: appError.messages

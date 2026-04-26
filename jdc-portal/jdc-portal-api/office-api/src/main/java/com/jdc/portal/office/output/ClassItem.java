@@ -34,8 +34,6 @@ public record ClassItem(
 				root.get(Classes_.registrationFee),
 				root.get(Classes_.monthlyFee)
 		));
-		
-		cq.groupBy(root.get(Classes_.id));
 	}
 
 }

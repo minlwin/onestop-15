@@ -1,6 +1,5 @@
 package com.jdc.portal.office.output;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.jdc.portal.domains.account.Account;
@@ -20,11 +19,16 @@ public record StudentItem(
 	    String name,
 	    String phone,
 	    String email,
-	    LocalDate entryAt,
+	    LocalDateTime entryAt,
 	    LocalDateTime activatedAt
 ) {
 	
-	public static void select(CriteriaBuilder cb, CriteriaQuery<StudentItem> cq, Root<Student> root, Join<Student, Account> account, Join<Student, StudentActivation> activation) {
+	public static void select(
+			CriteriaBuilder cb, 
+			CriteriaQuery<StudentItem> cq, 
+			Root<Student> root, 
+			Join<Student, Account> account, 
+			Join<Student, StudentActivation> activation) {
 		
 		var name = cb.selectCase()
 				.when(cb.isNotNull(root.get(Student_.account)), account.get(Account_.name))
@@ -43,12 +47,7 @@ public record StudentItem(
 				email,
 				root.get("entryAt"),
 				root.get("activatedAt")
-		));
-		
-		cq.groupBy(
-				root.get(Student_.id)
-		);
-		
+		));		
 	}
 
 }

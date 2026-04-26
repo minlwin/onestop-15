@@ -15,6 +15,9 @@ import com.jdc.portal.commons.AccessTokenExpirationException;
 import com.jdc.portal.commons.JdcBusinessException;
 import com.jdc.portal.commons.TokenInvalidException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestControllerAdvice
 public class JdcPortalExceptionHandler {
 
@@ -51,7 +54,7 @@ public class JdcPortalExceptionHandler {
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	List<String> handle(Throwable e) {
-		e.printStackTrace();
+		log.error("Unexpected Error", e);
 		return List.of(e.getMessage());
 	}
 	
