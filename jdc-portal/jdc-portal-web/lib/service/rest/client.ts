@@ -1,18 +1,16 @@
+import 'server-only'
+
 import { clearAuthResult, getAccessToken, getRefreshToken, getSite, setAuthResult } from '@/lib/model/login-user'
 import { redirect } from 'next/navigation'
-import 'server-only'
-import { es } from 'zod/locales'
 
 export async function publicRequest(path: string, options: RequestInit = {}, params? : {[key:string] : any}) {
     const response = await fetch(url(path, params), options)
-
     if(!response.ok) {
         const message = await response.json()
         throw JSON.stringify({
             messages : message
         })
     }
-
     return response
 }
 
@@ -48,56 +46,37 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
 
     // If Access Token Expired
     if(response.status === 408) {
-
-        const refreshUrl = url('anonymous/auth/refresh');
         // Refresh Token
-        const refreshResponse = await fetch(refreshUrl, {
+        response = await fetch(url('anonymous/auth/refresh'), {
             ...POST_CONFIG,
             body: JSON.stringify({
                 "token" : refreshToken
             })
         })
 
-        if(refreshResponse.ok) {
+        if(response.ok) {
             // Update Auth Result
-            const authResult = await refreshResponse.json()
+            const authResult = await response.json()
             await setAuthResult(authResult, site)
             // Try Original Request Again
             response = await fetchWithToken(authResult.accessToken)
-        } else {
-            // LOGOUT and Login Again
-            await clearAuthResult()
-            const message = await refreshResponse.json()
-            if(site === '/student') {
-                redirect('/signin?message=' + message[0])
-            } else if (site === '/office') {
-                redirect('/signin/employee?message=' + message[0])
-            }
-        }
-    }
-
-    // Validation Error or Internal Server Error
-    if(response.status == 400 
-        || response.status == 500) {
-        const message = await response.json()
-        throw {
-            messages : JSON.stringify(message),
         }
     }
 
     // Security Error
-    else if(response.status == 401 || response.status == 403) {
+    if(response.status == 401 || response.status == 403) {
         // LOGOUT and Login Again
         await clearAuthResult()
         const message = await response.json()
         if(site === '/student') {
-            redirect('/signin?message=' + JSON.stringify(message))
+            redirect('/signin?message=' + message[0])
         } else if (site === '/office') {
-            redirect('/signin/employee?message=' + JSON.stringify(message))
+            redirect('/signin/employee?message=' + message[0])
         }
     }
 
-    else if(!response.ok) {
+    // Other Server Side Errors
+    if(!response.ok) {
         const message = await response.json()
         throw JSON.stringify({
             messages : message
