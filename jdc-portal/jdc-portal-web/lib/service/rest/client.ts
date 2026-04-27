@@ -8,6 +8,7 @@ export async function publicRequest(path: string, options: RequestInit = {}, par
     if(!response.ok) {
         const message = await response.json()
         throw JSON.stringify({
+            type: response.status >= 500 ? 'Server' : 'Client',
             messages : message
         })
     }
@@ -34,13 +35,20 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
     const accessToken = await getAccessToken()
     const refreshToken = await getRefreshToken()
 
-    if(!accessToken 
-        || !refreshToken
-        || !site) {
-        // LOGOUT and Login Again
-        await clearAuthResult()
+    if(!site) {
         redirect('/')
     }
+
+    if(!accessToken 
+        || !refreshToken) {
+        // LOGOUT and Login Again
+        await clearAuthResult()
+
+        if (site === '/office') {
+            redirect('/signin/employee')
+        }
+        redirect('/signin')
+   }
 
     let response = await fetchWithToken(accessToken)
 
@@ -79,6 +87,7 @@ export async function securedRequest(path: string, options: RequestInit = {}, pa
     if(!response.ok) {
         const message = await response.json()
         throw JSON.stringify({
+            type: response.status == 400 ? 'Client' : 'Server',
             messages : message
         })
     }

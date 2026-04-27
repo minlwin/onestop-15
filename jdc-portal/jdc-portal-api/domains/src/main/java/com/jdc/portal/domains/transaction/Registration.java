@@ -1,6 +1,7 @@
 package com.jdc.portal.domains.transaction;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.jdc.portal.domains.AbstractEntity;
 import com.jdc.portal.domains.account.Student;
@@ -13,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,4 +40,7 @@ public class Registration extends AbstractEntity{
 	private RegistrationStatus status;
 	
 	private int lastPaid;
+	
+	@OneToMany(mappedBy = "registration")
+	private List<Payment> payment;
 }

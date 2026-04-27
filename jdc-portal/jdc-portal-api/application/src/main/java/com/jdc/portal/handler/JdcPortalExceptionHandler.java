@@ -55,7 +55,7 @@ public class JdcPortalExceptionHandler {
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	List<String> handle(Throwable e) {
 		log.error("Unexpected Error", e);
-		return List.of(e.getMessage());
+		return List.of("Fatal Error in Server");
 	}
 	
 }

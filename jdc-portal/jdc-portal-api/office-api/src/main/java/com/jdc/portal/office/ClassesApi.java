@@ -46,17 +46,17 @@ public class ClassesApi {
 	}
 	
 	@GetMapping("{id}")
-	ClassDetails findById(int id) {
+	ClassDetails findById(@PathVariable int id) {
 		return service.findById(id);
 	}
 
 	@GetMapping("{id}/form")
-	ClassForm findForm(int id) {
+	ClassForm findForm(@PathVariable int id) {
 		return service.findForm(id);
 	}
 	
 	@GetMapping("{classId}/student/{studentId}")
-	ClassForStudent findForStudent(int classId, int studentId) {
+	ClassForStudent findForStudent(@PathVariable int classId, @PathVariable int studentId) {
 		return null;
 	}
 }

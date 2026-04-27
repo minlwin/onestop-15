@@ -6,7 +6,7 @@ import { POST_CONFIG, publicRequest } from '../client';
 import { formData } from '@/lib/utils';
 
 export async function apply(form: RegistrationForm): Promise<MessageResult> {
-    const response = await publicRequest('anonymous/registration/check', {
+    const response = await publicRequest('anonymous/registrations/apply', {
         ...POST_CONFIG,
         body: formData(form)
     })
@@ -14,7 +14,7 @@ export async function apply(form: RegistrationForm): Promise<MessageResult> {
 }
 
 export async function check(data: CheckRegistrationForm): Promise<MessageResult> {
-    const response = await publicRequest('anonymous/registration/check', {
+    const response = await publicRequest('anonymous/registrations/check', {
         ...POST_CONFIG,
         body: JSON.stringify(data)
     })

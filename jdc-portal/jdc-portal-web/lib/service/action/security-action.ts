@@ -7,7 +7,11 @@ export async function logoutAction() {
 }
 
 export async function getLoginSite() {
-    return await getSite()
+    const site = await getSite()
+    const user = await getUser()
+    if (site && user) {
+        return site
+    }
 }
 
 export async function navigate(path: string) {

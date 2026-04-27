@@ -8,19 +8,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.anonymous.input.CheckRegistrationForm;
 import com.jdc.portal.anonymous.input.RegistrationForm;
+import com.jdc.portal.anonymous.service.RegistrationService;
 import com.jdc.portal.commons.dto.MessageResult;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController("publicRegistrationsApi")
 @RequestMapping("/anonymous/registrations")
 public class RegistrationsApi {
+	
+	private final RegistrationService service;
 
 	@PostMapping("apply")
 	MessageResult apply(@Validated RegistrationForm form) {
-		return null;
+		return service.apply(form);
 	}
 	
 	@PostMapping("check")
 	MessageResult check(@Validated @RequestBody CheckRegistrationForm form) {
-		return null;
+		return service.check(form);
 	}
 }

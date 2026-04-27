@@ -27,7 +27,6 @@ export async function clearAuthResult() {
     cookieStore.delete('accessToken')
     cookieStore.delete('refreshToken')
     cookieStore.delete('user')
-    cookieStore.delete('site')
 }
 
 export async function getAccessToken() {

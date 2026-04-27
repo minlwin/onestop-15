@@ -17,8 +17,10 @@ public record RegistrationForm(
 		String email,
 		@NotEmpty(message = "Please enter your phone number")
 		String phone,
-		@NotEmpty(message = "Please select a payment account")
-		String payment,
+		@NotNull(message = "Please select a payment account")
+		Integer payment,
+		@NotNull(message = "Please enter paid amount")
+		Integer amount,
 		@NotNull(message = "Please select payment slip image.")
 		MultipartFile paymentSlip) {
 

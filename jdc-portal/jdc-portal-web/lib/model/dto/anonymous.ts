@@ -49,5 +49,6 @@ export type PaymentInfo = {
 }
 
 export type ApplicationError = {
+    type: 'Client' | 'Server'
     messages: string[]
 }

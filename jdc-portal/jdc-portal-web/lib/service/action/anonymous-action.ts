@@ -30,6 +30,7 @@ export async function signInAction(data: SignInForm): Promise<MessageResult> {
     }
 
     throw JSON.stringify({
+        type: 'Client',
         messages : ["You have not been registered as a student"]
     })
 }
@@ -45,7 +46,10 @@ export async function employeeSignInAction(data: SignInForm): Promise<MessageRes
         }
     }
 
-    throw "Invalid Role"
+    throw JSON.stringify({
+        type: 'Client',
+        messages : ["You have not been registered as an employee"]
+    })
 }
 
 export async function findCourseAction(id: any):Promise<CourseDetails> {

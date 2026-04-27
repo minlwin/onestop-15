@@ -19,15 +19,22 @@ import com.jdc.portal.office.input.RegistrationSearch;
 import com.jdc.portal.office.input.RegistrationStatusForm;
 import com.jdc.portal.office.output.RegistrationDetails;
 import com.jdc.portal.office.output.RegistrationItem;
+import com.jdc.portal.office.service.RegistrationManagementService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("office/registrations")
 public class RegistrationsApi {
+	
+	private final RegistrationManagementService service;
 
 	@GetMapping
 	PageResult<RegistrationItem> search(RegistrationSearch search,
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size) {
+		
 		return new PageResult<>(
 			List.of(),
 			page,
@@ -38,16 +45,16 @@ public class RegistrationsApi {
 	
 	@GetMapping("{id}")
 	RegistrationDetails findById(@PathVariable long id) {
-		return null;
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	DataModificationResult<Long> create(@Validated @RequestBody RegistrationForm form) {
-		return null;
+		return service.create(form);
 	}
 	
 	@PutMapping("{id}")
 	DataModificationResult<Long> update(@PathVariable long id, @Validated @RequestBody RegistrationStatusForm form) {
-		return null;
+		return service.update(id, form);
 	}
 }
