@@ -1,4 +1,4 @@
-package com.jdc.portal.mail;
+package com.jdc.portal.events;
 
 import java.time.LocalDateTime;
 

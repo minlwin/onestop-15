@@ -2,6 +2,7 @@ package com.jdc.portal.office;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.commons.dto.DataModificationResult;
+import com.jdc.portal.commons.dto.RegistrationEvent;
+import com.jdc.portal.commons.dto.StudentActivationEvent;
 import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.RegistrationForm;
 import com.jdc.portal.office.input.RegistrationSearch;
@@ -29,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class RegistrationsApi {
 	
 	private final RegistrationManagementService service;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@GetMapping
 	PageResult<RegistrationItem> search(RegistrationSearch search,
@@ -50,11 +54,24 @@ public class RegistrationsApi {
 	
 	@PostMapping
 	DataModificationResult<Long> create(@Validated @RequestBody RegistrationForm form) {
-		return service.create(form);
+		var result =  service.create(form);
+		
+		if(result.getStudent().getAccount() == null) {
+			eventPublisher.publishEvent(new StudentActivationEvent(result.getStudent().getId()));
+		}
+		
+		return new DataModificationResult<Long>(result.getId());
 	}
 	
 	@PutMapping("{id}")
 	DataModificationResult<Long> update(@PathVariable long id, @Validated @RequestBody RegistrationStatusForm form) {
-		return service.update(id, form);
+		// Update Status
+		var result = service.update(id, form);
+		
+		// Publish Event
+		eventPublisher.publishEvent(new RegistrationEvent(id));
+		
+		// Return Result
+		return result;
 	}
 }
