@@ -1,5 +1,7 @@
 package com.jdc.portal.domains.account;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,4 +28,7 @@ public class StudentActivation {
 
 	@Column(nullable = false, unique = true)
 	private String email;
+	
+	private LocalDateTime sendAt;
+	
 }

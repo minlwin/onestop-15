@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.commons.dto.DataModificationResult;
-import com.jdc.portal.commons.dto.EmployeeActivationEvent;
+import com.jdc.portal.commons.events.EmployeeActivationEvent;
 import com.jdc.portal.office.input.EmployeeForm;
 import com.jdc.portal.office.input.EmployeeSearch;
 import com.jdc.portal.office.output.EmployeeDetails;

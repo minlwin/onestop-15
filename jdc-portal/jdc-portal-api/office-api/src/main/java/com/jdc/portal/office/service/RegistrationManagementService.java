@@ -109,6 +109,7 @@ public class RegistrationManagementService {
 				} else if (form.status() == RegistrationStatus.Rejected) {
 					payment.setStatus(PaymentStatus.Rejected);
 					payment.setRejectReason(form.rejectReason());
+					registration.setRejectedReason(form.rejectReason());
 				}
 			}
 		}

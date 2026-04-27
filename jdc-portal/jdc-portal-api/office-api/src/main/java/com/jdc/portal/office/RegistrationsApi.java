@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.portal.commons.dto.DataModificationResult;
-import com.jdc.portal.commons.dto.RegistrationEvent;
-import com.jdc.portal.commons.dto.StudentActivationEvent;
+import com.jdc.portal.commons.events.RegistrationEvent;
+import com.jdc.portal.commons.events.StudentActivationEvent;
 import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.RegistrationForm;
 import com.jdc.portal.office.input.RegistrationSearch;

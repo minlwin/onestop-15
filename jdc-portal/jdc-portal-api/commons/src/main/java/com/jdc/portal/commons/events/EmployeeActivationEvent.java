@@ -1,4 +1,4 @@
-package com.jdc.portal.commons.dto;
+package com.jdc.portal.commons.events;
 
 public record EmployeeActivationEvent(
 		int id) {

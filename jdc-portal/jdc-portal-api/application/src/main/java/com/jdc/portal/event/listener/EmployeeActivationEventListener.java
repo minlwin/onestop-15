@@ -1,16 +1,16 @@
-package com.jdc.portal.events;
+package com.jdc.portal.event.listener;
 
 import java.time.LocalDateTime;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jdc.portal.commons.dto.EmployeeActivationEvent;
+import com.jdc.portal.commons.events.EmployeeActivationEvent;
+import com.jdc.portal.commons.events.MailEvent;
 import com.jdc.portal.domains.account.repo.EmployeeActivationRepo;
 
 import jakarta.mail.MessagingException;
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeActivationEventListener {
 
 	private final EmployeeActivationRepo activationRepo;
-	private final JavaMailSender mailSender;
+	private final ApplicationEventPublisher eventPublisher;
 	
 	private static final String MESSAGE_FMT = """
 			<h1>Account Activation</h1>
@@ -40,15 +40,14 @@ public class EmployeeActivationEventListener {
 		// Get Activation Info
 		var activation = activationRepo.findById(event.id()).get();
 		
-		// Send Email
-		var message = mailSender.createMimeMessage();
-		var helper = new MimeMessageHelper(message);
-		helper.setTo(activation.getEmail());
-		helper.setSubject("Account Activation");
-		helper.setText(MESSAGE_FMT.formatted(
-				activation.getName(), activation.getEmail(), activation.getCode()), true);
+		var message = MESSAGE_FMT.formatted(
+				activation.getName(), activation.getEmail(), activation.getCode());
 		
-		mailSender.send(message);
+		eventPublisher.publishEvent(MailEvent.builder()
+				.sendTo(activation.getEmail())
+				.title("Account Activation")
+				.message(message)
+				.build());
 		
 		// Update Status
 		activation.setSendAt(LocalDateTime.now());
