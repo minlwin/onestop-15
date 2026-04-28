@@ -117,7 +117,7 @@ export const POST_CONFIG = {
 }
 
 export const PUT_CONFIG = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
         'Content-Type': 'application/json'
     }

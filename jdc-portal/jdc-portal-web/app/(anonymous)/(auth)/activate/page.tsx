@@ -18,6 +18,7 @@ export default function ActivationPage() {
     const form = useForm<ActivationForm>({
         resolver: zodResolver(activationSchema),
         defaultValues: {
+            email: '',
             code: '',
             password: '',
             confirmPassword: ''
@@ -26,7 +27,8 @@ export default function ActivationPage() {
 
     const onSubmit = async (data: ActivationForm) => {
         await safeCall(async () => {
-            const result = await activateAction(data);
+            const { confirmPassword, ...form } = data
+            const result = await activateAction(form);
             router.replace(`/signin?message=${result.message}`)
         })
     }
@@ -36,6 +38,7 @@ export default function ActivationPage() {
             <PageTitle title="Account Activation" />
 
             <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FormsInput control={form.control} name="email" type="email" label="Email Address" className="mb-3" />
                 <FormsInput control={form.control} name="code" type="text" label="Activation Code" className="mb-3" />  
                 <FormsInput control={form.control} name="password" type="password" label="Password" className="mb-3" />
                 <FormsInput control={form.control} name="confirmPassword" type="password" label="Confirm Password" className="mb-3" />

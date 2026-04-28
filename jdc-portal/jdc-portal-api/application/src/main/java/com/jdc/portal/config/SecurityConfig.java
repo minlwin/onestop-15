@@ -25,9 +25,10 @@ public class SecurityConfig {
 		http.cors(_ -> {});
 		
 		http.authorizeHttpRequests(req -> {
-			req.requestMatchers("/anonymous/**").permitAll();
+			req.requestMatchers("/anonymous/**", "/storage/**").permitAll();
 			req.requestMatchers("/office/**").hasAnyAuthority(Role.Office.name(), Role.Admin.name());
 			req.requestMatchers("/student/**").hasAuthority(Role.Student.name());
+			
 		});
 		
 		http.addFilterAfter(jwtTokenFilter(), ExceptionTranslationFilter.class);

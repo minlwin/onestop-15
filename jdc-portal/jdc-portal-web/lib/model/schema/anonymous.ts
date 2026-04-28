@@ -32,6 +32,7 @@ export const registrationSchema = z.object({
     email: z.email("Please enter a valid email address"),
     phone: z.string().nonempty("Please enter your phone number"),
     payment: z.string().nonempty("Please select a payment account"),
+    amount: z.number().nonnegative("Please enter a valid amount"),
     paymentSlip: z.any()
         .refine(files => files?.length > 0, {
             message: "Please upload your payment slip",

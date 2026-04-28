@@ -1,4 +1,4 @@
-package com.jdc.portal.config;
+package com.jdc.portal.config.props;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -59,13 +59,16 @@ function RegistrationFormComponent({ classId }: { classId: string }) {
             email: '',
             phone: '',
             payment: '',
+            amount: 0,
             paymentSlip: undefined
         }
     })
 
     const onSubmit = async (data: RegistrationForm) => {
-        const result = await applyRegistrationAction(data);
-        setResult(result.message)
+        await safeCall(async () => {
+            const result = await applyRegistrationAction(data);
+            setResult(result.message)
+        })
     }
 
     const { ref, ...slipPorps } = form.register('paymentSlip')
@@ -108,6 +111,7 @@ function RegistrationFormComponent({ classId }: { classId: string }) {
                     <FormsInput control={form.control} name="phone" type="text" label="Phone Number" />
                     <FormsInput control={form.control} name="email" type="email" label="Email Address" />
                     <FormsSelect control={form.control} name="payment" label="Payment Account" options={paymentOption} />
+                    <FormsInput control={form.control} name="amount" type="number" label="Amount" />
 
                     {files && files[0] &&
                         <PaySlip file={files[0]} />

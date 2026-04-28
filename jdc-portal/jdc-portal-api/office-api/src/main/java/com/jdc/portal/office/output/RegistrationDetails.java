@@ -18,6 +18,7 @@ import com.jdc.portal.domains.utils.consts.RegistrationStatus;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.ListJoin;
 import jakarta.persistence.criteria.Root;
 
@@ -35,7 +36,7 @@ public record RegistrationDetails(
 		LocalDateTime registerAt,
 		String rejectReason,
 		PaymentType paymentType,
-		LocalDate paymentDate,
+		LocalDateTime paymentDate,
 		int amount,
 		String paySlip
 ) {
@@ -46,10 +47,10 @@ public record RegistrationDetails(
 			Root<Registration> root,
 			ListJoin<Registration, Payment> payments) {
 		
-		var classes = root.get(Registration_.classes);
-		var student = root.get(Registration_.student);
-		var account = student.get(Student_.account);
-		var activation = student.get(Student_.activation);
+		var classes = root.join(Registration_.classes);
+		var student = root.join(Registration_.student);
+		var account = student.join(Student_.account, JoinType.LEFT);
+		var activation = student.join(Student_.activation, JoinType.LEFT);
 		
 		var name = cb.selectCase()
 				.when(cb.isNotNull(account), account.get(Account_.name))

@@ -3,6 +3,7 @@ package com.jdc.portal.office.service;
 import static com.jdc.portal.commons.utils.NullSafetyUtils.safeCall;
 
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import com.jdc.portal.commons.dto.DataModificationResult;
 import com.jdc.portal.commons.utils.ActivationCodeGenerator;
 import com.jdc.portal.domains.account.Student;
 import com.jdc.portal.domains.account.StudentActivation;
+import com.jdc.portal.domains.account.Student_;
 import com.jdc.portal.domains.account.repo.StudentActivationRepo;
 import com.jdc.portal.domains.account.repo.StudentRepo;
 import com.jdc.portal.domains.master.repo.ClassesRepo;
@@ -25,10 +27,16 @@ import com.jdc.portal.domains.utils.consts.FeeType;
 import com.jdc.portal.domains.utils.consts.PaymentStatus;
 import com.jdc.portal.domains.utils.consts.PaymentType;
 import com.jdc.portal.domains.utils.consts.RegistrationStatus;
+import com.jdc.portal.domains.utils.dto.PageResult;
 import com.jdc.portal.office.input.RegistrationForm;
+import com.jdc.portal.office.input.RegistrationSearch;
 import com.jdc.portal.office.input.RegistrationStatusForm;
 import com.jdc.portal.office.output.RegistrationDetails;
+import com.jdc.portal.office.output.RegistrationItem;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -135,6 +143,44 @@ public class RegistrationManagementService {
 		
 		return safeCall(result.stream().findAny(), 
 				"Registration", "id : %s".formatted(id));
+	}
+
+
+	public PageResult<RegistrationItem> search(RegistrationSearch search, int page, int size) {
+		
+		Function<CriteriaBuilder, CriteriaQuery<RegistrationItem>> queryFun = cb -> {
+			var cq = cb.createQuery(RegistrationItem.class);
+			var root = cq.from(Registration.class);
+			
+			var classes = root.join(Registration_.classes);
+			var student = root.join(Registration_.student);
+			var account = student.join(Student_.account, JoinType.LEFT);
+			var activation = student.join(Student_.activation, JoinType.LEFT);
+			
+			RegistrationItem.select(cb, cq, root, classes, student, account, activation);
+			cq.where(search.where(cb, root, classes, student, account, activation));
+			
+			cq.orderBy(cb.desc(root.get(Registration_.registerAt)));
+			
+			return cq;
+		};
+		
+		Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc = cb -> {
+			var cq = cb.createQuery(Long.class);
+			var root = cq.from(Registration.class);
+			
+			var classes = root.join(Registration_.classes);
+			var student = root.join(Registration_.student);
+			var account = student.join(Student_.account, JoinType.LEFT);
+			var activation = student.join(Student_.activation, JoinType.LEFT);
+			
+			cq.where(search.where(cb, root, classes, student, account, activation));
+			cq.select(cb.count(root.get(Registration_.id)));
+			
+			return cq;
+		};
+		
+		return registrationRepo.search(queryFun, countFunc, page, size);
 	}
 
 }

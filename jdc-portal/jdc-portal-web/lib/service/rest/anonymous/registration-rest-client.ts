@@ -7,7 +7,7 @@ import { formData } from '@/lib/utils';
 
 export async function apply(form: RegistrationForm): Promise<MessageResult> {
     const response = await publicRequest('anonymous/registrations/apply', {
-        ...POST_CONFIG,
+        method: 'POST',
         body: formData(form)
     })
     return await response.json()
